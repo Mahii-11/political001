@@ -20,39 +20,39 @@ import { Progress } from "../components/ui/progress";
 const policies = [
   {
     icon: Shield,
-    title: "National Security",
+    title: "জাতীয় নিরাপত্তা",
     description:
-      "Strengthening our defense and protecting our borders while maintaining diplomatic relations.",
+      "আমাদের সীমানা রক্ষা এবং প্রতিরক্ষা শক্তি বৃদ্ধির পাশাপাশি কূটনৈতিক সম্পর্ক বজায় রাখা।",
   },
   {
     icon: Heart,
-    title: "Healthcare Reform",
+    title: "স্বাস্থ্যসেবা সংস্কার",
     description:
-      "Ensuring affordable and accessible healthcare for all citizens regardless of their economic status.",
+      "অর্থনৈতিক অবস্থার পার্থক্য নির্বিশেষে সকল নাগরিকের জন্য সাশ্রয়ী ও সহজলভ্য স্বাস্থ্যসেবা নিশ্চিত করা।",
   },
   {
     icon: Lightbulb,
-    title: "Education",
+    title: "শিক্ষা",
     description:
-      "Investing in quality education from early childhood through higher education and vocational training.",
+      "শিশুকাল থেকে উচ্চশিক্ষা ও কারিগরি প্রশিক্ষণ পর্যন্ত মানসম্মত শিক্ষায় বিনিয়োগ।",
   },
   {
     icon: Globe,
-    title: "Climate Action",
+    title: "জলবায়ু পদক্ষেপ",
     description:
-      "Implementing sustainable policies to combat climate change and protect our environment.",
+      "টেকসই নীতি বাস্তবায়ন করে জলবায়ু পরিবর্তনের মোকাবিলা এবং পরিবেশ সংরক্ষণ।",
   },
   {
     icon: TrendingUp,
-    title: "Economic Growth",
+    title: "অর্থনৈতিক উন্নয়ন",
     description:
-      "Creating jobs, supporting small businesses, and building a stronger middle class economy.",
+      "চাকরি সৃষ্টি, ক্ষুদ্র ব্যবসায়ীদের সহায়তা এবং মধ্যবিত্ত অর্থনীতিকে শক্তিশালী করা।",
   },
   {
     icon: Users,
-    title: "Social Justice",
+    title: "সামাজিক ন্যায়",
     description:
-      "Promoting equality, civil rights, and justice for all members of our diverse society.",
+      "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
   },
 ];
 
@@ -62,13 +62,21 @@ const donationPercentage = (currentDonation / donationGoal) * 100;
 
 const upcomingEvents = [
   {
-    date: "Jan 25",
-    title: "Town Hall Meeting",
-    location: "Community Center, DC",
+    date: "জানুয়ারি ২৫",
+    title: "টাউন হল মিটিং",
+    location: "কমিউনিটি সেন্টার, ঢাকা",
   },
-  { date: "Jan 28", title: "Youth Rally", location: "University Campus" },
-  { date: "Feb 02", title: "Policy Discussion", location: "City Hall" },
-  { date: "Feb 05", title: "Volunteer Training", location: "Campaign HQ" },
+  {
+    date: "জানুয়ারি ২৮",
+    title: "যুব র‍্যালি",
+    location: "বিশ্ববিদ্যালয় ক্যাম্পাস",
+  },
+  { date: "ফেব্রুয়ারি ০২", title: "নীতিমালা আলোচনা", location: "সিটি হল" },
+  {
+    date: "ফেব্রুয়ারি ০৫",
+    title: "স্বেচ্ছাসেবক প্রশিক্ষণ",
+    location: "প্রচারণা সদর দফতর",
+  },
 ];
 
 export default function Campaign() {
@@ -80,7 +88,7 @@ export default function Campaign() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1920&q=80')`,
+              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
             }}
           />
           <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
@@ -90,16 +98,14 @@ export default function Campaign() {
               className="text-4xl md:text-5xl font-bold text-white mb-4"
               data-testid="text-campaign-title"
             >
-              Our Campaign
+              আমাদের প্রচেষ্টা
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-white/80 text-lg"
-            >
-              Home / Campaign
-            </motion.p>
+            ></motion.p>
           </div>
         </section>
 
@@ -112,11 +118,11 @@ export default function Campaign() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                Our Key Policies
+                আমাদের মূল নীতিমালা
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
-                We are committed to creating positive change through thoughtful
-                policies that benefit all citizens.
+                আমরা চিন্তাশীল নীতিমালার মাধ্যমে এমন পরিবর্তন আনার
+                প্রতিশ্রুতিবদ্ধ, যা সকল নাগরিকের কল্যাণে কাজ করবে।
               </p>
             </motion.div>
 
@@ -164,20 +170,21 @@ export default function Campaign() {
                   <CardContent className="p-8">
                     <div className="flex items-center gap-3 mb-6">
                       <Target className="w-8 h-8 text-political-yellow" />
-                      <h3 className="text-2xl font-bold">Campaign Fund</h3>
+                      <h3 className="text-2xl font-bold">প্রচারণার তহবিল</h3>
                     </div>
                     <p className="text-white/80 mb-6">
-                      Help us reach our fundraising goal to spread our message
-                      across the nation and bring positive change to every
-                      community.
+                      আমাদের তহবিল সংগ্রহের লক্ষ্যে সাহায্য করুন, যাতে আমরা
+                      আমাদের বার্তা সারাদেশে পৌঁছে দিতে পারি এবং প্রতিটি
+                      কমিউনিটিতে ইতিবাচক পরিবর্তন আনতে পারি।
                     </p>
                     <div className="mb-4">
                       <div className="flex justify-between text-sm mb-2">
                         <span>
-                          Raised: ${(currentDonation / 1000000).toFixed(2)}M
+                          উত্থাপিত অর্থ: $
+                          {(currentDonation / 1000000).toFixed(2)}M
                         </span>
                         <span>
-                          Goal: ${(donationGoal / 1000000).toFixed(0)}M
+                          লক্ষ্য: ${(donationGoal / 1000000).toFixed(0)}M
                         </span>
                       </div>
                       <Progress
@@ -186,14 +193,14 @@ export default function Campaign() {
                       />
                     </div>
                     <p className="text-political-yellow font-semibold text-lg mb-6">
-                      {donationPercentage.toFixed(0)}% of our goal reached!
+                      {donationPercentage.toFixed(0)}% লক্ষ্য অর্জিত!
                     </p>
                     <Link href="/contact">
                       <Button
                         className="w-full bg-political-red hover:bg-political-red/90 text-white"
                         data-testid="button-donate-now"
                       >
-                        Donate Now
+                        এখনই দান করুন
                       </Button>
                     </Link>
                   </CardContent>
@@ -207,7 +214,7 @@ export default function Campaign() {
                 transition={{ duration: 0.5 }}
               >
                 <h3 className="text-2xl font-bold text-political-blue mb-6">
-                  Upcoming Events
+                  আসন্ন কার্যক্রম
                 </h3>
                 <div className="space-y-4">
                   {upcomingEvents.map((event, index) => (
@@ -251,11 +258,11 @@ export default function Campaign() {
             >
               <Award className="w-16 h-16 text-political-yellow mx-auto mb-6" />
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
-                Join The Movement
+                আন্দোলনে যুক্ত হোন
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto mb-8">
-                Be part of the change. Your support matters in building a better
-                future for everyone.
+                পরিবর্তনের অংশ হোন। সকলের জন্য একটি উজ্জ্বল ভবিষ্যত গড়তে আপনার
+                সহায়তা গুরুত্বপূর্ণ।
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/volunteer">
@@ -264,7 +271,7 @@ export default function Campaign() {
                     className="bg-political-red hover:bg-political-red/90 text-white px-8"
                     data-testid="button-become-volunteer"
                   >
-                    Become a Volunteer
+                    স্বেচ্ছাসেবক হন
                   </Button>
                 </Link>
                 <Link href="/contact">
@@ -274,7 +281,7 @@ export default function Campaign() {
                     className="border-political-blue text-political-blue hover:bg-political-blue hover:text-white px-8"
                     data-testid="button-contact-us"
                   >
-                    Contact Us
+                    যোগাযোগ করুন
                   </Button>
                 </Link>
               </div>

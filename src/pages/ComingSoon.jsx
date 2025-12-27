@@ -90,7 +90,7 @@ export default function ComingSoon() {
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
               data-testid="text-coming-soon-title"
             >
-              Coming Soon
+              শীঘ্রই আসছে
             </motion.h1>
 
             <motion.p
@@ -99,8 +99,8 @@ export default function ComingSoon() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-white/80 text-lg md:text-xl mb-12 max-w-xl mx-auto"
             >
-              We're working hard to bring you something amazing. Stay tuned for
-              exciting updates!
+              আমরা আপনাদের জন্য বিশেষ কিছু নিয়ে আসতে নিরলসভাবে কাজ করছি। দারুণ
+              সব আপডেটের জন্য আমাদের সাথেই থাকুন!
             </motion.p>
 
             <motion.div

@@ -2,70 +2,68 @@
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
-import {
-  Award,
-  BookOpen,
-  Briefcase,
-  GraduationCap,
-  Heart,
-  Users,
-} from "lucide-react";
+import { Award, BookOpen, Heart, Users } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
+import BiographySection from "../components/BiographySection";
 
 const timeline = [
   {
-    year: "1965",
-    title: "Born in Washington D.C.",
-    description: "Born into a middle-class family with strong community values",
-  },
-  {
-    year: "1987",
-    title: "Graduated from Harvard Law",
-    description: "Completed law degree with honors, focused on civil rights",
-  },
-  {
-    year: "1990",
-    title: "Started Community Work",
+    year: "১৯৬৫",
+    title: "জন্ম ও শৈশব",
     description:
-      "Began working with local communities on social welfare programs",
+      "সমাজমনস্ক ও মূল্যবোধসম্পন্ন একটি মধ্যবিত্ত পরিবারে জন্মগ্রহণ করেন",
   },
   {
-    year: "2000",
-    title: "Elected to City Council",
-    description: "First step into public office serving the people",
+    year: "১৯৮৭",
+    title: "আইনশাস্ত্রে স্নাতক ডিগ্রি অর্জন",
+    description:
+      "সম্মানের সাথে আইনশাস্ত্রে স্নাতক সম্পন্ন করেন এবং নাগরিক অধিকার বিষয়ে বিশেষ মনোযোগ দেন",
   },
   {
-    year: "2010",
-    title: "State Senator",
-    description: "Elected to represent citizens at the state level",
+    year: "১৯৯০",
+    title: "সামাজিক কর্মকাণ্ডের সূচনা",
+    description:
+      "স্থানীয় জনগণের কল্যাণে বিভিন্ন সামাজিক উন্নয়নমূলক কার্যক্রমে যুক্ত হন",
   },
   {
-    year: "2020",
-    title: "Presidential Campaign",
-    description: "Announced candidacy to lead the nation forward",
+    year: "২০০০",
+    title: "জনপ্রতিনিধিত্বের সূচনা",
+    description: "জনগণের সেবায় প্রথমবারের মতো জনপ্রতিনিধি হিসেবে নির্বাচিত হন",
+  },
+  {
+    year: "২০১০",
+    title: "রাষ্ট্রীয় পর্যায়ের নেতৃত্ব",
+    description:
+      "রাষ্ট্রীয় পর্যায়ে নাগরিকদের প্রতিনিধিত্ব করার দায়িত্ব লাভ করেন",
+  },
+  {
+    year: "২০২০",
+    title: "জাতীয় নেতৃত্বের প্রত্যয়",
+    description:
+      "দেশকে সামনের দিকে এগিয়ে নেওয়ার লক্ষ্যে জাতীয় পর্যায়ের নেতৃত্বে এগিয়ে আসেন",
   },
 ];
 
 const achievements = [
   {
     icon: Award,
-    title: "Leadership Award",
-    description: "National Excellence in Public Service 2018",
+    title: "নেতৃত্বে সম্মাননা",
+    description: "জনসেবায় অসামান্য অবদানের জন্য জাতীয় স্বীকৃতি (২০১৮)",
   },
   {
     icon: Users,
-    title: "Community Hero",
-    description: "Recognition for social welfare initiatives",
+    title: "সমাজসেবায় অনন্য অবদান",
+    description: "সামাজিক কল্যাণমূলক উদ্যোগে বিশেষ স্বীকৃতি লাভ",
   },
   {
     icon: BookOpen,
-    title: "Published Author",
-    description: "Best-selling book on governance reform",
+    title: "প্রকাশিত লেখক",
+    description: "রাষ্ট্র পরিচালনা ও সংস্কার বিষয়ে জনপ্রিয় গ্রন্থের প্রণেতা",
   },
   {
     icon: Heart,
-    title: "Humanitarian",
-    description: "Founded 3 charitable organizations",
+    title: "মানবতার সেবক",
+    description: "তিনটি দাতব্য প্রতিষ্ঠানের প্রতিষ্ঠাতা ও সমর্থক",
   },
 ];
 
@@ -78,26 +76,24 @@ export default function Biography() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1920&q=80')`,
+              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
             }}
           />
           <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4"
+              className="text-2xl md:text-3xl font-bold text-white mb-4"
               data-testid="text-biography-title"
             >
-              Biography
+              জনাব হামিদুর রহমান হামিদ – জীবনবৃত্তান্ত
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-white/80 text-lg"
-            >
-              Home / Biography
-            </motion.p>
+            ></motion.p>
           </div>
         </section>
 
@@ -111,7 +107,7 @@ export default function Biography() {
                 transition={{ duration: 0.5 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop"
+                  src="images/hamid1.jpg"
                   alt="Candidate Portrait"
                   className="rounded-lg shadow-xl w-full max-w-md mx-auto"
                   data-testid="img-candidate-portrait"
@@ -124,35 +120,16 @@ export default function Biography() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
-                  About Our Leader
-                </h2>
-                <p className="text-political-dark/70 mb-6 leading-relaxed">
-                  A dedicated public servant with over 30 years of experience in
-                  community development and governance. Born and raised with
-                  strong values of integrity, service, and commitment to the
-                  people.
-                </p>
-                <p className="text-political-dark/70 mb-6 leading-relaxed">
-                  Throughout a distinguished career spanning local, state, and
-                  national politics, our candidate has consistently fought for
-                  the rights of ordinary citizens, championing causes that
-                  matter most to families and communities across the nation.
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3">
-                    <GraduationCap className="w-6 h-6 text-political-red" />
-                    <span className="text-political-dark font-medium">
-                      Harvard Law Graduate
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Briefcase className="w-6 h-6 text-political-red" />
-                    <span className="text-political-dark font-medium">
-                      30+ Years Experience
-                    </span>
+                <div className="items-center text-center">
+                  <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
+                    তাঁর সম্পর্কে জানুন
+                  </h2>
+                  <div className="flex justify-center mt-4">
+                    <span className="w-20 h-1 bg-political-red rounded-full"></span>
                   </div>
                 </div>
+
+                <BiographySection />
               </motion.div>
             </div>
           </div>
@@ -167,11 +144,10 @@ export default function Biography() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                Life Journey
+                জীবনের যাত্রা
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
-                A timeline of dedication to public service and community
-                leadership
+                জনসেবা ও সম্প্রদায় নেতৃত্বে নিবেদিত এক জীবনকাল
               </p>
             </motion.div>
 
@@ -229,7 +205,7 @@ export default function Biography() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                Awards & Recognition
+                অর্জন ও সম্মাননা
               </h2>
             </motion.div>
 

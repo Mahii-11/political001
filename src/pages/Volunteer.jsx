@@ -48,35 +48,39 @@ const volunteerSchema = z.object({
 const benefits = [
   {
     icon: Heart,
-    title: "Make a Difference",
-    description: "Be part of real change in your community and nation",
+    title: "পরিবর্তনের অংশ হোন",
+    description:
+      "আপনার ছোট একটি উদ্যোগও সমাজে বড় পরিবর্তন আনতে পারে। নিজের কমিউনিটি ও দেশের কল্যাণে বাস্তব ও ইতিবাচক পরিবর্তনের অংশ হয়ে উঠুন।",
   },
   {
     icon: Users,
-    title: "Join a Community",
-    description: "Connect with like-minded individuals who share your values",
+    title: "একটি শক্তিশালী কমিউনিটিতে যুক্ত হন",
+    description:
+      "আপনার মতো একই আদর্শ ও মূল্যবোধে বিশ্বাসী মানুষের সঙ্গে পরিচিত হন। একসাথে কাজ করুন, শিখুন এবং একটি ঐক্যবদ্ধ কমিউনিটি গড়ে তুলুন।",
   },
   {
     icon: Calendar,
-    title: "Flexible Schedule",
-    description: "Volunteer at times that work best for your lifestyle",
+    title: "নমনীয় সময়সূচি",
+    description:
+      "আপনার পড়াশোনা, চাকরি বা ব্যক্তিগত জীবনের সঙ্গে সামঞ্জস্য রেখে স্বেচ্ছাসেবী কার্যক্রমে অংশ নেওয়ার সুযোগ উপভোগ করুন।",
   },
   {
     icon: Award,
-    title: "Gain Experience",
-    description: "Develop leadership and organizational skills",
+    title: "মূল্যবান অভিজ্ঞতা অর্জন করুন",
+    description:
+      "নেতৃত্ব, সংগঠন এবং দলগত কাজের বাস্তব অভিজ্ঞতা অর্জন করুন, যা আপনার ব্যক্তিগত ও পেশাগত জীবনে দীর্ঘমেয়াদে উপকারে আসবে।",
   },
 ];
 
 const roles = [
-  "Door-to-Door Canvassing",
-  "Phone Banking",
-  "Event Organization",
-  "Social Media",
-  "Administrative Support",
-  "Graphic Design",
-  "Content Writing",
-  "Translation Services",
+  "ঘরে ঘরে প্রচারণা (ডোর-টু-ডোর ক্যাম্পেইন)",
+  "ফোন কলের মাধ্যমে জনসংযোগ",
+  "ইভেন্ট ও কর্মসূচি ব্যবস্থাপনা",
+  "সোশ্যাল মিডিয়া পরিচালনা",
+  "প্রশাসনিক সহায়তা",
+  "গ্রাফিক ডিজাইন",
+  "কনটেন্ট লেখা",
+  "অনুবাদ সেবা",
 ];
 
 export default function Volunteer() {
@@ -124,7 +128,7 @@ export default function Volunteer() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1559523182-a284c3fb7cff?w=1920&q=80')`,
+              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
             }}
           />
           <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
@@ -134,7 +138,8 @@ export default function Volunteer() {
               className="text-4xl md:text-5xl font-bold text-white mb-4"
               data-testid="text-volunteer-title"
             >
-              Become a Volunteer
+              উন্নত আগামী বিনির্মাণে, হামিদুর রহমান হামিদের নেতৃত্বে ঐক্যবদ্ধ
+              হোন!
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -142,7 +147,7 @@ export default function Volunteer() {
               transition={{ delay: 0.1 }}
               className="text-white/80 text-lg"
             >
-              Home / Volunteer
+              স্বেচ্ছাসেবক হোন
             </motion.p>
           </div>
         </section>
@@ -156,11 +161,11 @@ export default function Volunteer() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                Why Volunteer With Us?
+                আমাদের সঙ্গে স্বেচ্ছাসেবক হবেন কেন?
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
-                Join thousands of dedicated volunteers who are making a
-                difference in their communities.
+                হাজারো নিবেদিত স্বেচ্ছাসেবকের সঙ্গে যুক্ত হন, যারা নিজ নিজ
+                কমিউনিটিতে বাস্তব পরিবর্তন এনে দিচ্ছেন।
               </p>
             </motion.div>
 
@@ -202,17 +207,17 @@ export default function Volunteer() {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-3xl font-bold text-political-blue mb-6">
-                  Join Our Team
+                  আমাদের দলে যোগ দিন
                 </h2>
                 <p className="text-political-dark/70 mb-8">
-                  Fill out the form to register as a volunteer. We welcome
-                  people from all backgrounds and skill levels. Together, we can
-                  make a difference.
+                  স্বেচ্ছাসেবক হিসেবে নিবন্ধনের জন্য নিচের ফর্মটি পূরণ করুন।
+                  আমরা সব ধরনের পটভূমি ও দক্ষতার মানুষকে স্বাগত জানাই। একসাথে
+                  কাজ করে আমরা সমাজে বাস্তব পরিবর্তন আনতে পারি।
                 </p>
 
                 <div className="space-y-4">
                   <h3 className="font-semibold text-political-dark">
-                    Available Roles:
+                    উপলব্ধ দায়িত্বসমূহ:
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {roles.map((role) => (
@@ -237,7 +242,7 @@ export default function Volunteer() {
                 <Card className="bg-political-light border-0 shadow-lg">
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold text-political-blue mb-6">
-                      Volunteer Registration
+                      স্বেচ্ছাসেবক নিবন্ধন
                     </h3>
                     <Form {...form}>
                       <form
@@ -250,10 +255,10 @@ export default function Volunteer() {
                             name="name"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Full Name</FormLabel>
+                                <FormLabel>পূর্ণ নাম</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="John Doe"
+                                    placeholder=""
                                     {...field}
                                     data-testid="input-volunteer-name"
                                   />
@@ -267,10 +272,10 @@ export default function Volunteer() {
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>ইমেইল</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="john@example.com"
+                                    placeholder="people@example.com"
                                     {...field}
                                     data-testid="input-volunteer-email"
                                   />
@@ -287,10 +292,10 @@ export default function Volunteer() {
                             name="phone"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Phone Number</FormLabel>
+                                <FormLabel>ফোন নম্বর</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="+1 (555) 123-4567"
+                                    placeholder="+০১৭১ ২৩৪ ৫৬৭৮"
                                     {...field}
                                     data-testid="input-volunteer-phone"
                                   />
@@ -304,7 +309,7 @@ export default function Volunteer() {
                             name="skills"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Area of Interest</FormLabel>
+                                <FormLabel>আগ্রহের ক্ষেত্র</FormLabel>
                                 <Select
                                   onValueChange={field.onChange}
                                   defaultValue={field.value}
@@ -333,10 +338,10 @@ export default function Volunteer() {
                           name="address"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Address</FormLabel>
+                              <FormLabel>ঠিকানা</FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="Your address"
+                                  placeholder="আপনার ঠিকানা লিখুন"
                                   {...field}
                                   data-testid="input-volunteer-address"
                                 />
@@ -351,12 +356,10 @@ export default function Volunteer() {
                           name="message"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>
-                                Additional Message (Optional)
-                              </FormLabel>
+                              <FormLabel>অতিরিক্ত বার্তা (ঐচ্ছিক)</FormLabel>
                               <FormControl>
                                 <Textarea
-                                  placeholder="Tell us about yourself..."
+                                  placeholder="নিজের সম্পর্কে সংক্ষেপে লিখুন…"
                                   className="min-h-[100px] resize-none"
                                   {...field}
                                   data-testid="input-volunteer-message"
@@ -378,7 +381,7 @@ export default function Volunteer() {
                           )}
                           {volunteerMutation.isPending
                             ? "Submitting..."
-                            : "Submit Application"}
+                            : "আবেদন জমা দিন"}
                         </Button>
                       </form>
                     </Form>

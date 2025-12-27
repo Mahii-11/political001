@@ -5,12 +5,12 @@ import { Play } from "lucide-react";
 import { useState } from "react";
 
 const galleryImages = [
-  "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=300&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=300&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=300&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=300&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=300&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=300&h=200&fit=crop",
+  "images/image39.jpg",
+  "images/image35.jpg",
+  "images/image37.jpg",
+  "images/image36.jpg",
+  "images/image38.jpg",
+  "images/image40.jpg",
 ];
 
 export function GallerySection() {
@@ -30,7 +30,7 @@ export function GallerySection() {
               className="text-2xl md:text-3xl font-bold text-political-blue mb-6"
               data-testid="text-gallery-title"
             >
-              Campaign Gallery
+              প্রচারণার চিত্রশালা
             </h2>
             <div className="grid grid-cols-3 gap-3">
               {galleryImages.map((image, index) => (
@@ -57,7 +57,7 @@ export function GallerySection() {
               className="inline-block mt-6 text-political-blue font-medium hover:text-political-red transition-colors"
               data-testid="link-view-gallery"
             >
-              View Full Gallery
+              সম্পূর্ণ গ্যালারি দেখুন
             </Link>
           </motion.div>
 
@@ -72,18 +72,18 @@ export function GallerySection() {
                 className="text-2xl md:text-3xl font-bold text-political-blue"
                 data-testid="text-media-title"
               >
-                Media Release
+                মিডিয়া প্রকাশনা
               </h2>
               <Link
                 href="/gallery"
                 className="text-political-blue font-medium hover:text-political-red transition-colors text-sm"
               >
-                &gt; More Videos
+                &gt; আরও ভিডিও
               </Link>
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=450&fit=crop"
+                src="images/image13.jpg"
                 alt="Media release video thumbnail"
                 className="w-full h-full object-cover"
               />

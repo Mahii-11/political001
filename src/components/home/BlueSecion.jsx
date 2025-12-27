@@ -30,7 +30,7 @@ export default function BlueSection() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
         {items.map((item, index) => (
           <Link key={index} href={item.link}>
-            <div className="cursor-pointer bg-[#1A3C8E] text-white p-12 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-center items-center gap-6 hover:-translate-y-2 hover:bg-[#15306F] min-h-60">
+            <div className="cursor-pointer bg-white text-[#1A3C8E] p-12 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-center items-center gap-6 hover:-translate-y-2 hover:bg-gray-50  min-h-60">
               {item.icon}
               <h3 className="text-2xl font-semibold text-center">
                 {item.title}

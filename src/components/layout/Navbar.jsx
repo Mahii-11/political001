@@ -40,16 +40,13 @@ export function Navbar() {
           <Link href="/" data-testid="link-home-logo">
             <div className="flex items-center gap-2">
               <div className="text-political-blue font-bold text-3xl tracking-tight">
-                NE<span className="text-political-red">T</span>A
+                B<span className="text-political-red">N</span>P
               </div>
-              <div className="hidden sm:flex flex-col">
-                <div className="flex gap-0.5">
-                  <span className="w-2 h-2 bg-political-red rounded-full"></span>
-                  <span className="w-2 h-2 bg-political-blue rounded-full"></span>
-                  <span className="w-2 h-2 bg-political-red rounded-full"></span>
-                  <span className="w-2 h-2 bg-political-blue rounded-full"></span>
-                </div>
-              </div>
+              <img
+                src="/images/logo.png"
+                alt="Campaign Logo"
+                className="h-10 w-auto"
+              />
             </div>
           </Link>
 

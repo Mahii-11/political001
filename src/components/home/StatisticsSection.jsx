@@ -3,9 +3,9 @@ import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useEffect } from "react";
 
 const statistics = [
-  { value: 8200, label: "Members", suffix: "" },
-  { value: 5000000, label: "Donations", prefix: "$" },
-  { value: 5000, label: "Volunteers", suffix: "" },
+  { value: 8200, label: "সদস্যগণ", suffix: "" },
+  { value: 5000000, label: "অর্থদান", prefix: "$" },
+  { value: 5000, label: "স্বেচ্ছাসেবক", suffix: "" },
 ];
 
 function AnimatedNumber({ value, prefix = "", suffix = "" }) {
@@ -52,7 +52,7 @@ export function StatisticsSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1920&q=80')`,
+          backgroundImage: `linear-gradient(rgba(72, 80, 100, 0.9), rgba(52, 58, 74, 0.9)), url('images/bgimage.png')`,
         }}
       />
 

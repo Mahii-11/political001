@@ -3,42 +3,75 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "../ui/button";
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const lineVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
 export function HeroSection() {
   return (
-    <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(to right, rgba(26, 60, 142, 0.95) 0%, rgba(26, 60, 142, 0.7) 50%, rgba(26, 60, 142, 0.3) 100%), url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1920&q=80')`,
+          backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-20 w-full">
-        <div className="max-w-2xl">
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 w-full">
+        <div className="max-w-xl">
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            variants={containerVariants}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
-            data-testid="text-hero-title"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
           >
-            Let's Make <br />
-            <span className="text-political-yellow">Our Country</span> Great
-            Again
+            <motion.span variants={lineVariants} className="block">
+              একটি সুন্দর ও
+            </motion.span>
+
+            <motion.span
+              variants={lineVariants}
+              className="block text-political-yellow"
+            >
+              ঐক্যবদ্ধ আগামী
+            </motion.span>
+            <motion.span variants={lineVariants} className="block">
+              গড়ার প্রত্যয়ে
+            </motion.span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-white/90 text-lg md:text-xl mb-8"
-            data-testid="text-hero-subtitle"
+            className="text-white/85 text-base md:text-lg leading-relaxed mb-10"
           >
-            It's High Time to Change Our Country & Ourselves
+            গণতন্ত্রের পথেই মুক্তি—যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং
+            প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="flex flex-wrap gap-4"
@@ -46,39 +79,39 @@ export function HeroSection() {
             <Link href="/campaign">
               <Button
                 size="lg"
-                className="bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white hover:text-political-blue px-8 py-6 text-base"
-                data-testid="button-hero-start"
+                className="bg-political-yellow text-political-blue font-semibold px-8 py-6 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
               >
-                LET'S START
+                আজই যোগ দিন
               </Button>
             </Link>
+
             <Link href="/about">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-base bg-transparent"
-                data-testid="button-hero-learn"
+                className="border-white/40 text-white px-8 py-6 text-base hover:bg-white hover:text-political-blue transition"
               >
-                Learn More
+                আরও জানুন
               </Button>
             </Link>
           </motion.div>
         </div>
       </div>
 
+      {/* Candidate Image */}
       <motion.div
-        initial={{ opacity: 0, x: 100 }}
+        initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="hidden lg:block absolute right-0 bottom-0 h-full w-1/2"
+        className="hidden lg:block absolute right-0 bottom-0 h-full w-[45%]"
       >
         <div
           className="absolute inset-0 bg-contain bg-right-bottom bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80')`,
-            maskImage: "linear-gradient(to left, black 60%, transparent 100%)",
+            backgroundImage: 'url("/images/bnp neta.jpg")',
+            maskImage: "linear-gradient(to left, black 70%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(to left, black 60%, transparent 100%)",
+              "linear-gradient(to left, black 70%, transparent 100%)",
           }}
         />
       </motion.div>

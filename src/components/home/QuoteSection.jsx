@@ -7,7 +7,7 @@ export function QuoteSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.85), rgba(26, 60, 142, 0.85)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80')`,
+          backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.85), rgba(26, 60, 142, 0.85)), url('images/image8.jpg')`,
         }}
       />
 
@@ -23,13 +23,13 @@ export function QuoteSection() {
             className="text-xl md:text-2xl lg:text-3xl text-white italic font-light leading-relaxed"
             data-testid="text-quote"
           >
-            THE ONLY WAY TO REFORM A POLITICIAN IS TO HANG HIM.
+            সহিংসতা নয়—স্বচ্ছতা, আইন আর জনগণের জবাবদিহিই রাজনীতির সংস্কার আনে।
           </blockquote>
           <span className="text-political-red text-6xl font-serif">"</span>
 
           <div className="mt-8 flex items-center justify-center gap-4">
             <div className="w-12 h-0.5 bg-white/50" />
-            <p className="text-white/80 text-lg">Jacob Jera</p>
+            <p className="text-white/80 text-lg">হামিদুর রহমান হামিদ</p>
             <div className="w-12 h-0.5 bg-white/50" />
           </div>
         </motion.div>

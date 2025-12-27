@@ -11,7 +11,7 @@ export function MissionSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1920&q=80')`,
+          backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('images/image2.jpg')`,
         }}
       />
 
@@ -24,7 +24,7 @@ export function MissionSection() {
           className="text-3xl md:text-5xl font-bold text-white mb-4"
           data-testid="text-mission-title"
         >
-          Mission 2030
+          মিশন ২০৩০
         </motion.h2>
 
         <motion.p
@@ -34,7 +34,7 @@ export function MissionSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-white/80 text-lg italic mb-10"
         >
-          Change Yourself to Change the World
+          আপনার পরিবর্তনেই বদলাবে আগামীর বাংলাদেশ
         </motion.p>
 
         <motion.button

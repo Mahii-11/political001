@@ -8,64 +8,75 @@ import { Card, CardContent } from "../components/ui/card";
 const values = [
   {
     icon: Heart,
-    title: "Integrity",
+    title: "সততা  ",
     description:
-      "We uphold the highest standards of honesty and ethical conduct in all our actions.",
+      "আমরা আমাদের সমস্ত কর্মকাণ্ডে সর্বোচ্চ মানের সততা ও নৈতিক আচরণ বজায় রাখি।",
   },
   {
     icon: Shield,
-    title: "Accountability",
+    title: "জবাবদিহিতা ",
     description:
-      "We take responsibility for our decisions and are transparent with the public.",
+      "আমরা আমাদের সিদ্ধান্তের জন্য দায়িত্ব গ্রহণ করি এবং জনগণের কাছে স্বচ্ছ থাকি। ",
   },
   {
     icon: Users,
-    title: "Unity",
+    title: "ঐক্য ",
     description:
-      "We believe in bringing people together across all backgrounds and beliefs.",
+      "আমরা বিশ্বাস করি সকল পটভূমি ও বিশ্বাসের মানুষদের একত্রিত করা সম্ভব।  ",
   },
   {
     icon: Award,
-    title: "Excellence",
+    title: "অসাধারণতা ",
     description:
-      "We strive for excellence in serving our constituents and communities.",
+      "আমরা আমাদের জনগণ ও সম্প্রদায়কে সেবা দেওয়ার ক্ষেত্রে সর্বোচ্চ মান অর্জনের চেষ্টা করি।",
+  },
+];
+
+const accordionData = [
+  {
+    title: "ভূমিকা",
+    content:
+      "জনাব হামিদুর রহমান হামিদ বাংলাদেশ জাতীয়তাবাদী দল (বিএনপি)-এর একজন একনিষ্ঠ রাজনীতিবিদ, দূরদর্শী নেতা এবং ঢাকা-৭ আসনের সংসদ সদস্য পদপ্রার্থী। সততা, বিচক্ষণতা এবং কর্মীবোধ মনোভাবের জন্য তিনি রাজনৈতিক অঙ্গনে সুপরিচিত। শহীদ রাষ্ট্রপতি জিয়াউর রহমানের আদর্শকে বুকে ধারণ করে এবং দেশনায়ক তারেক রহমানের নেতৃত্বে তিনি দেশের গণতন্ত্র পুনঃরুদ্ধার এবং জনগণের অধিকার আদায়ের সংগ্রামে নিরলসভাবে কাজ করে যাচ্ছেন।",
+    color: "bg-red-600",
+  },
+  {
+    title: "জন্ম ও পারিবারিক পরিচিতি",
+    content:
+      "জনাব হামিদুর রহমান হামিদ ১৯৬৫ সালের ১ জানুয়ারি ঢাকায় জন্মগ্রহণ করেন। তাঁর পরিবার রাজনৈতিকভাবে সক্রিয় এবং সমাজসেবামূলক কাজে দীর্ঘদিন জড়িত রয়েছে।",
+    color: "bg-green-600",
   },
 ];
 
 const teamMembers = [
   {
-    name: "Sarah Johnson",
-    role: "Campaign Manager",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
+    name: "হামিদুর রহমান হামিদ",
+    role: "",
+    image: "images/hamidbhai.jpg",
   },
   {
-    name: "Michael Chen",
-    role: "Policy Director",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
+    name: "হামিদুর রহমান হামিদ",
+    role: "",
+    image: "images/hamidbhai.jpg",
   },
   {
-    name: "Emily Rodriguez",
-    role: "Communications Director",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop",
+    name: "হামিদুর রহমান হামিদ",
+    role: "",
+    image: "images/bnp neta.jpg",
   },
   {
-    name: "David Williams",
-    role: "Finance Director",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
+    name: "হামিদুর রহমান হামিদ",
+    role: "",
+    image: "images/bnp neta.jpg",
   },
 ];
 
 const milestones = [
-  { year: "2019", event: "Campaign Founded" },
-  { year: "2020", event: "First Major Rally" },
-  { year: "2021", event: "10,000 Volunteers" },
-  { year: "2022", event: "Policy Platform Released" },
-  { year: "2023", event: "50 States Reached" },
-  { year: "2024", event: "Election Year Campaign" },
+  { year: "২০১৯", event: "প্রচারণার সূচনা" },
+  { year: "২০২০", event: "প্রথম বড় র‍্যালি" },
+  { year: "২০২১", event: "১০,০০০ স্বেচ্ছাসেবক" },
+  { year: "২০২২", event: "নীতিমালা প্রকাশ" },
+  { year: "২০২৩", event: "৫০টি রাজ্যে পৌঁছানো" },
+  { year: "২০২৪", event: "নির্বাচন বছরের প্রচারণা" },
 ];
 
 export default function About() {
@@ -77,25 +88,26 @@ export default function About() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1920&q=80')`,
+              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
             }}
           />
           <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4"
+              className="text-4xl md:text-5xl  mb-4 font-extrabold text-white leading-tight"
               data-testid="text-about-title"
             >
-              About Us
+              আমাদের লক্ষ্য ও উদ্দেশ্য
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-white/80 text-lg"
+              className="text-white/85 text-base md:text-lg leading-relaxed"
             >
-              Home / About Us
+              আমরা একসাথে কাজ করি, পরিবর্তনের জন্য প্রতিশ্রুতিবদ্ধ এবং একটি
+              উজ্জ্বল ভবিষ্যত গড়ি।
             </motion.p>
           </div>
         </section>
@@ -110,7 +122,7 @@ export default function About() {
                 transition={{ duration: 0.5 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop"
+                  src="images/hamid.png"
                   alt="Team Meeting"
                   className="rounded-lg shadow-xl w-full"
                 />
@@ -123,21 +135,13 @@ export default function About() {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
-                  Our Story
+                  তাঁর সম্পর্কে জানুন
                 </h2>
-                <p className="text-political-dark/70 mb-6 leading-relaxed">
-                  Founded in 2019, our campaign began with a simple vision: to
-                  create a movement that truly represents the voice of the
-                  people. What started as a grassroots effort has grown into a
-                  nationwide movement of dedicated supporters.
-                </p>
-                <p className="text-political-dark/70 leading-relaxed">
-                  We believe in transparent governance, equal opportunity for
-                  all citizens, and building a future where every voice is
-                  heard. Our diverse team of volunteers and supporters work
-                  tirelessly to bring positive change to communities across the
-                  nation.
-                </p>
+                <h2 className="text-xl md:text-2xl font-bold text-political-red mb-6">
+                  জনাব হামিদুর রহমান হামিদ – জীবনবৃত্তান্ত
+                </h2>
+                <AccordionSection />
+                <div class="bg-white rounded-lg shadow overflow-hidden"></div>
               </motion.div>
             </div>
           </div>
@@ -155,13 +159,13 @@ export default function About() {
                 <Card className="h-full bg-political-blue text-white border-0">
                   <CardContent className="p-8">
                     <Target className="w-12 h-12 text-political-yellow mb-6" />
-                    <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+                    <h3 className="text-2xl font-bold mb-4">আমাদের লক্ষ্য</h3>
                     <p className="text-white/80 leading-relaxed">
-                      To empower citizens, strengthen communities, and build a
-                      nation where opportunity, justice, and prosperity are
-                      accessible to everyone. We are committed to honest
-                      leadership and meaningful action on the issues that matter
-                      most to families across America.
+                      নাগরিকদের ক্ষমতায়ন করা, সম্প্রদায়কে শক্তিশালী করা এবং
+                      এমন একটি দেশ গড়ে তোলা যেখানে সুযোগ, ন্যায় ও সমৃদ্ধি সবার
+                      জন্য উন্মুক্ত। আমরা সৎ নেতৃত্ব ও বাস্তব উদ্যোগের মাধ্যমে
+                      গুরুত্বপূর্ণ বিষয়গুলোতে কাজ করতে প্রতিশ্রুতিবদ্ধ, যা
+                      পরিবারের জন্য সবচেয়ে প্রয়োজনীয়।
                     </p>
                   </CardContent>
                 </Card>
@@ -176,13 +180,13 @@ export default function About() {
                 <Card className="h-full bg-political-red text-white border-0">
                   <CardContent className="p-8">
                     <Eye className="w-12 h-12 text-political-yellow mb-6" />
-                    <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+                    <h3 className="text-2xl font-bold mb-4">আমাদের দৃষ্টি</h3>
                     <p className="text-white/80 leading-relaxed">
-                      A united nation where every citizen has the opportunity to
-                      thrive, where our democracy is strengthened by
-                      participation, and where future generations inherit a
-                      cleaner environment and a more just society. Together, we
-                      can achieve greatness.
+                      একটি ঐক্যবদ্ধ দেশ যেখানে প্রতিটি নাগরিকের সমৃদ্ধির সুযোগ
+                      রয়েছে, যেখানে আমাদের গণতন্ত্র অংশগ্রহণের মাধ্যমে
+                      শক্তিশালী হয়, এবং যেখানে ভবিষ্যৎ প্রজন্মগুলি একটি
+                      পরিচ্ছন্ন পরিবেশ ও আরও ন্যায়সঙ্গত সমাজ গ্রহণ করবে।
+                      একসাথে, আমরা মহত্ত্ব অর্জন করতে পারি।
                     </p>
                   </CardContent>
                 </Card>
@@ -200,7 +204,7 @@ export default function About() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                Our Core Values
+                আমাদের মূল মূল্যবোধ
               </h2>
             </motion.div>
 
@@ -241,10 +245,11 @@ export default function About() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                Leadership Team
+                নেতৃত্বের সদস্যবৃন্দ
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
-                Meet the dedicated professionals leading our campaign forward.
+                পরিচিত হন সেই নিবেদিতপ্রাণ পেশাজীবীদের সঙ্গে, যারা আমাদের
+                প্রচারণাকে এগিয়ে নিয়ে যাচ্ছেন।
               </p>
             </motion.div>
 
@@ -261,7 +266,7 @@ export default function About() {
                     className="text-center bg-white border-0 shadow-sm hover-elevate overflow-hidden"
                     data-testid={`card-team-${index}`}
                   >
-                    <div className="aspect-square overflow-hidden">
+                    <div className=" aspect-square overflow-hidden">
                       <img
                         src={member.image}
                         alt={member.name}
@@ -292,7 +297,7 @@ export default function About() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Our Journey
+                আমাদের যাত্রা
               </h2>
             </motion.div>
 
@@ -324,3 +329,38 @@ export default function About() {
     </div>
   );
 }
+
+import { useState } from "react";
+
+const AccordionSection = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto space-y-4">
+      {accordionData.map((item, index) => (
+        <div key={index} className="bg-white rounded-lg shadow overflow-hidden">
+          <button
+            className={`w-full text-left px-6 py-4 ${item.color} text-white font-semibold flex justify-between items-center focus:outline-none`}
+            onClick={() => toggleAccordion(index)}
+          >
+            {item.title}
+            <span className="text-2xl transform transition-transform duration-300">
+              {openIndex === index ? "-" : "+"}
+            </span>
+          </button>
+          <div
+            className={`px-6 py-4 text-gray-700 leading-relaxed transition-all duration-300 ${
+              openIndex === index ? "block" : "hidden"
+            }`}
+          >
+            {item.content}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};

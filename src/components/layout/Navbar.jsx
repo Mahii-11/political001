@@ -6,21 +6,21 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
 
 const navItems = [
-  { label: "Home", href: "/" },
+  { label: "হোম", href: "/" },
   {
-    label: "Pages",
+    label: "পেজসমূহ",
     href: "#",
     children: [
-      { label: "About Us", href: "/about" },
-      { label: "Volunteer", href: "/volunteer" },
-      { label: "Coming Soon", href: "/coming-soon" },
+      { label: "আমাদের সম্পর্কে", href: "/about" },
+      { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer" },
+      { label: "শীঘ্রই আসছে", href: "/coming-soon" },
     ],
   },
-  { label: "Biography", href: "/biography" },
-  { label: "Blog", href: "/blog" },
-  { label: "Campaign", href: "/campaign" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
+  { label: "জীবনী", href: "/biography" },
+  { label: "ব্লগ", href: "/blog" },
+  { label: "প্রচারণা", href: "/campaign" },
+  { label: "গ্যালারি", href: "/gallery" },
+  { label: "যোগাযোগ", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -40,7 +40,7 @@ export function Navbar() {
           <Link href="/" data-testid="link-home-logo">
             <div className="flex items-center gap-2">
               <div className="text-political-blue font-bold text-3xl tracking-tight">
-                B<span className="text-political-red">N</span>P
+                বি<span className="text-political-red">এন</span>পি
               </div>
               <img
                 src="/images/logo.png"
@@ -123,7 +123,7 @@ export function Navbar() {
                 className="bg-political-red hover:bg-political-red/90 text-white border-political-red px-6"
                 data-testid="button-donate"
               >
-                DONATE NOW
+                এখনই দান করুন
               </Button>
             </Link>
           </div>

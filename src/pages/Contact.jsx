@@ -30,19 +30,26 @@ const contactSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
-// Contact info (JS friendly)
 const contactInfo = [
   {
     icon: MapPin,
-    title: "Address",
-    content: "123 Campaign Avenue, Washington DC, 20001",
+    title: "ঠিকানা",
+    content: "১২৩ প্রচারণা এভিনিউ, ঢাকা ১০০০, বাংলাদেশ",
   },
-  { icon: Phone, title: "Phone", content: "+1 (555) 123-4567" },
-  { icon: Mail, title: "Email", content: "contact@netacampaign.com" },
+  {
+    icon: Phone,
+    title: "ফোন",
+    content: "+৮৮ ০১৭১ ২৩৪ ৫৬৭৮",
+  },
+  {
+    icon: Mail,
+    title: "ইমেইল",
+    content: "contact@campaignbd.com",
+  },
   {
     icon: Clock,
-    title: "Working Hours",
-    content: "Mon - Sat: 9:00 AM - 6:00 PM",
+    title: "কার্যালয় সময়",
+    content: "সোম - শনি: সকাল ৯টা - সন্ধ্যা ৬টা",
   },
 ];
 
@@ -90,7 +97,7 @@ export default function Contact() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1920&q=80')`,
+              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
             }}
           />
           <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
@@ -100,16 +107,14 @@ export default function Contact() {
               className="text-4xl md:text-5xl font-bold text-white mb-4"
               data-testid="text-contact-title"
             >
-              Contact Us
+              যোগাযোগ করুন
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-white/80 text-lg"
-            >
-              Home / Contact
-            </motion.p>
+            ></motion.p>
           </div>
         </section>
 
@@ -123,12 +128,12 @@ export default function Contact() {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-3xl font-bold text-political-blue mb-6">
-                  Get In Touch
+                  যোগাযোগ করুন
                 </h2>
                 <p className="text-political-dark/70 mb-8">
-                  Have questions about our campaign or want to get involved?
-                  We'd love to hear from you. Fill out the form and our team
-                  will get back to you as soon as possible.
+                  আপনার কি আমাদের প্রচারণা সম্পর্কে প্রশ্ন আছে বা কি আপনি
+                  অংশগ্রহণ করতে চান? আমরা আপনার কথাগুলো শুনতে আগ্রহী। নিচের
+                  ফর্মটি পূরণ করুন, আমাদের দল দ্রুত আপনার সঙ্গে যোগাযোগ করবে।
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -169,7 +174,7 @@ export default function Contact() {
                 <Card className="bg-white border-0 shadow-lg">
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold text-political-blue mb-6">
-                      Send Message
+                      বার্তা পাঠান
                     </h3>
                     <Form {...form}>
                       <form
@@ -182,10 +187,10 @@ export default function Contact() {
                             name="name"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Your Name</FormLabel>
+                                <FormLabel>আপনার নাম</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="John Doe"
+                                    placeholder="জন ডো"
                                     {...field}
                                     data-testid="input-contact-name"
                                   />
@@ -199,7 +204,7 @@ export default function Contact() {
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Your Email</FormLabel>
+                                <FormLabel>ইমেইল</FormLabel>
                                 <FormControl>
                                   <Input
                                     placeholder="john@example.com"
@@ -217,10 +222,10 @@ export default function Contact() {
                           name="subject"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Subject</FormLabel>
+                              <FormLabel>বিষয়</FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="How can we help?"
+                                  placeholder="আপনার কীভাবে সাহায্য করতে পারি?"
                                   {...field}
                                   data-testid="input-contact-subject"
                                 />
@@ -234,10 +239,10 @@ export default function Contact() {
                           name="message"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Message</FormLabel>
+                              <FormLabel>বার্তা</FormLabel>
                               <FormControl>
                                 <Textarea
-                                  placeholder="Write your message here..."
+                                  placeholder="এখানে আপনার বার্তা লিখুন…"
                                   className="min-h-[150px] resize-none"
                                   {...field}
                                   data-testid="input-contact-message"
@@ -260,7 +265,7 @@ export default function Contact() {
                           )}
                           {contactMutation.isPending
                             ? "Sending..."
-                            : "Send Message"}
+                            : "বার্তা পাঠান"}
                         </Button>
                       </form>
                     </Form>

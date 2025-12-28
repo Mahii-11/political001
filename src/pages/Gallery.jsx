@@ -158,6 +158,27 @@ const galleryImages = [
   },
 ];
 
+const videos = [
+  {
+    title: "Introduction to React",
+    description: "A beginner-friendly React tutorial.",
+    src: "/videos/hamidvideo.mp4",
+    poster: "/images/image3.jpg",
+  },
+  {
+    title: "Advanced JavaScript",
+    description: "Deep dive into JS concepts.",
+    src: "/videos/js-advanced.mp4",
+    poster: "/images/image4.jpg",
+  },
+  {
+    title: "CSS Animations",
+    description: "Learn how to animate with CSS.",
+    src: "/videos/css-animations.mp4",
+    poster: "/images/image5.jpg",
+  },
+];
+
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -261,7 +282,7 @@ export default function Gallery() {
           </div>
         </section>
       </main>
-
+      <VideoGallery />
       <Footer />
 
       <AnimatePresence>
@@ -307,5 +328,45 @@ export default function Gallery() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function VideoGallery() {
+  return (
+    <section className="w-full bg-gray-50 py-16">
+      <div className="max-w-7xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">
+          Our Video Tutorials
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {videos.map((video, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+            >
+              <video
+                controls
+                poster={video.poster}
+                className="w-full h-52 object-cover"
+              >
+                <source src={video.src} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="p-5">
+                <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                  {video.title}
+                </h3>
+                <p className="text-gray-600 text-sm">{video.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

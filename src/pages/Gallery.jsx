@@ -5,19 +5,163 @@ import { Footer } from "../components/layout/Footer";
 import { Button } from "../components/ui/button";
 import { useState } from "react";
 import { X } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "../components/ui/skeleton";
 
 const categories = ["All", "Rally", "Meeting", "Community", "Event"];
+
+const galleryImages = [
+  {
+    id: 1,
+    image: "/images/image1.jpg",
+    title: "নির্বাচন প্রচারাভিযান",
+    category: "Rally",
+  },
+  {
+    id: 2,
+    image: "/images/image2.jpg",
+    title: "স্বেচ্ছাসেবক মিলন",
+    category: "Rally",
+  },
+  {
+    id: 3,
+    image: "/images/image3.jpg",
+    title: "সংবাদ সম্মেলন",
+    category: "Rally",
+  },
+  {
+    id: 4,
+    image: "/images/image4.jpg",
+    title: "জনসভা ও বক্তৃতা",
+    category: "Rally",
+  },
+  {
+    id: 5,
+    image: "/images/image5.jpg",
+    title: "দান সংগ্রহ কার্যক্রম",
+    category: "Rally",
+  },
+  {
+    id: 6,
+    image: "/images/image6.jpg",
+    title: "সচেতনতা র‍্যালি",
+    category: "Rally",
+  },
+
+  {
+    id: 7,
+    image: "/images/image7.jpg",
+    title: "কমিউনিটি মিলন",
+    category: "Meeting",
+  },
+  {
+    id: 8,
+    image: "/images/image8.jpg",
+    title: "দলের সমাবেশ",
+    category: "Meeting",
+  },
+  {
+    id: 9,
+    image: "/images/image9.jpg",
+    title: "প্রচারণার ফটোশুট",
+    category: "Meeting",
+  },
+  {
+    id: 10,
+    image: "/images/image10.jpg",
+    title: "ফান্ডরেইজার সভা",
+    category: "Meeting",
+  },
+  {
+    id: 11,
+    image: "/images/image11.jpg",
+    title: "স্থানীয় এলাকা পরিদর্শন",
+    category: "Meeting",
+  },
+  {
+    id: 12,
+    image: "/images/image12.jpg",
+    title: "পড়শি এলাকা হাঁটাহাঁটি",
+    category: "Meeting",
+  },
+
+  {
+    id: 13,
+    image: "/images/image13.jpg",
+    title: "সংবাদ সম্মেলন",
+    category: "Community",
+  },
+  {
+    id: 14,
+    image: "/images/image14.jpg",
+    title: "কমিউনিটি আলোচনা",
+    category: "Community",
+  },
+  {
+    id: 15,
+    image: "/images/image15.jpg",
+    title: "মিডিয়া সাক্ষাৎকার",
+    category: "Community",
+  },
+  {
+    id: 16,
+    image: "/images/image16.jpg",
+    title: "কৌশল আলোচনা",
+    category: "Community",
+  },
+  {
+    id: 17,
+    image: "/images/image17.jpg",
+    title: "দলের কর্মশালা",
+    category: "Community",
+  },
+  {
+    id: 18,
+    image: "/images/image18.jpg",
+    title: "নীতি ঘোষণা",
+    category: "Community",
+  },
+
+  {
+    id: 19,
+    image: "/images/image19.jpg",
+    title: "ফান্ডরেইজিং প্রোগ্রাম",
+    category: "Event",
+  },
+  {
+    id: 20,
+    image: "/images/image20.jpg",
+    title: "সমর্থক মিলন",
+    category: "Event",
+  },
+  {
+    id: 21,
+    image: "/images/image21.jpg",
+    title: "নেতৃত্বের সেশন",
+    category: "Event",
+  },
+  {
+    id: 22,
+    image: "/images/image22.jpg",
+    title: "জনসাধারণের মিলন",
+    category: "Event",
+  },
+  {
+    id: 23,
+    image: "/images/image23.jpg",
+    title: "যুব সম্বর্ধনা ও আলোচনাসভা",
+    category: "Event",
+  },
+  {
+    id: 24,
+    image: "/images/image24.jpg",
+    title: "সোশ্যাল মিডিয়া শুটিং",
+    category: "Event",
+  },
+];
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const [selectedImage, setSelectedImage] = useState(null);
-
-  const { data: galleryImages = [], isLoading } = useQuery({
-    queryKey: ["/api/gallery"],
-  });
 
   const filteredImages =
     activeCategory === "All"
@@ -32,7 +176,7 @@ export default function Gallery() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80')`,
+              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
             }}
           />
           <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
@@ -42,16 +186,14 @@ export default function Gallery() {
               className="text-4xl md:text-5xl font-bold text-white mb-4"
               data-testid="text-gallery-page-title"
             >
-              Photo Gallery
+              ছবিতে লেখা ইতিহাস
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-white/80 text-lg"
-            >
-              Home / Gallery
-            </motion.p>
+            ></motion.p>
           </div>
         </section>
 
@@ -83,47 +225,38 @@ export default function Gallery() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
               layout
             >
-              {isLoading ? (
-                [1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                  <Skeleton
-                    key={i}
-                    className="aspect-[4/3] w-full rounded-lg"
-                  />
-                ))
-              ) : (
-                <AnimatePresence>
-                  {filteredImages.map((image, index) => (
-                    <motion.div
-                      key={image.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      layout
-                      className="group cursor-pointer overflow-hidden rounded-lg"
-                      onClick={() => setSelectedImage(image)}
-                      data-testid={`img-gallery-item-${image.id}`}
-                    >
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <img
-                          src={image.src}
-                          alt={image.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-political-blue/0 group-hover:bg-political-blue/60 transition-colors duration-300 flex items-center justify-center">
-                          <motion.span
-                            initial={{ opacity: 0, y: 20 }}
-                            whileHover={{ opacity: 1, y: 0 }}
-                            className="text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                          >
-                            {image.title}
-                          </motion.span>
-                        </div>
+              <AnimatePresence>
+                {filteredImages.map((image, index) => (
+                  <motion.div
+                    key={image.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    layout
+                    className="group cursor-pointer overflow-hidden rounded-lg"
+                    onClick={() => setSelectedImage(image)}
+                    data-testid={`img-gallery-item-${image.id}`}
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <img
+                        src={image.image}
+                        alt={image.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-political-blue/0 group-hover:bg-political-blue/60 transition-colors duration-300 flex items-center justify-center">
+                        <motion.span
+                          initial={{ opacity: 0, y: 20 }}
+                          whileHover={{ opacity: 1, y: 0 }}
+                          className="text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          {image.title}
+                        </motion.span>
                       </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              )}
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </motion.div>
           </div>
         </section>
@@ -148,7 +281,7 @@ export default function Gallery() {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={selectedImage.src.replace("w=600&h=400", "w=1200&h=800")}
+                src={selectedImage.image.replace("w=600&h=400", "w=1200&h=800")}
                 alt={selectedImage.title}
                 className="w-full rounded-lg"
               />

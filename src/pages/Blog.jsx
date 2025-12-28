@@ -44,7 +44,7 @@ export default function Blog() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920&q=80')`,
+              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
             }}
           />
           <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
@@ -54,16 +54,14 @@ export default function Blog() {
               className="text-4xl md:text-5xl font-bold text-white mb-4"
               data-testid="text-blog-title"
             >
-              Blog & News
+              সংবাদ ও নিবন্ধ
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-white/80 text-lg"
-            >
-              Home / Blog
-            </motion.p>
+            ></motion.p>
           </div>
         </section>
 

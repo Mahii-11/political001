@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
+import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
+
 import {
   Heart,
   Users,
@@ -207,7 +209,7 @@ export default function Volunteer() {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-3xl font-bold text-political-blue mb-6">
-                  আমাদের দলে যোগ দিন
+                  ঢাকা–৭ এর মানুষের পাশে থাকতে আমাদের সাথে যুক্ত হন
                 </h2>
                 <p className="text-political-dark/70 mb-8">
                   স্বেচ্ছাসেবক হিসেবে নিবন্ধনের জন্য নিচের ফর্মটি পূরণ করুন।
@@ -258,7 +260,7 @@ export default function Volunteer() {
                                 <FormLabel>পূর্ণ নাম</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder=""
+                                    placeholder="আপনার পুরো নাম:"
                                     {...field}
                                     data-testid="input-volunteer-name"
                                   />
@@ -278,6 +280,24 @@ export default function Volunteer() {
                                     placeholder="people@example.com"
                                     {...field}
                                     data-testid="input-volunteer-email"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name="ward"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>এলাকা / ওয়ার্ড নম্বর</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="ওয়ার্ড–৩ / ধানমন্ডি / লালবাগ"
+                                    {...field}
+                                    data-testid="input-volunteer-ward"
                                   />
                                 </FormControl>
                                 <FormMessage />
@@ -316,7 +336,7 @@ export default function Volunteer() {
                                 >
                                   <FormControl>
                                     <SelectTrigger data-testid="select-volunteer-skills">
-                                      <SelectValue placeholder="Select a role" />
+                                      <SelectValue placeholder="আপনি কীভাবে যুক্ত হতে চান?" />
                                     </SelectTrigger>
                                   </FormControl>
                                   <SelectContent>
@@ -332,6 +352,42 @@ export default function Volunteer() {
                             )}
                           />
                         </div>
+
+                        <FormField
+                          control={form.control}
+                          name="availability"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>সময় দিতে পারবেন</FormLabel>
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                  className="space-y-2"
+                                >
+                                  {[
+                                    "নিয়মিত",
+                                    "আংশিক সময়",
+                                    "নির্বাচনের আগের সময়গুলোতে",
+                                  ].map((item) => (
+                                    <FormItem
+                                      key={item}
+                                      className="flex items-center space-x-3 space-y-0"
+                                    >
+                                      <FormControl>
+                                        <RadioGroupItem value={item} />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                        {item}
+                                      </FormLabel>
+                                    </FormItem>
+                                  ))}
+                                </RadioGroup>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
                         <FormField
                           control={form.control}

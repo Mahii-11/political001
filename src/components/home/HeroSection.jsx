@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "../ui/button";
+import { useEffect, useState } from "react";
+import { getTopSection } from "../../services/api";
 
 const containerVariants = {
   hidden: {},
@@ -25,6 +27,17 @@ const lineVariants = {
 };
 
 export function HeroSection() {
+  const [top, setTop] = useState([]);
+
+  useEffect(() => {
+    async function loadTopSection() {
+      const res = await getTopSection();
+      console.log("API response:", res);
+      setTop(Array.isArray(res.data) ? res.data : []);
+    }
+    loadTopSection();
+  }, []);
+
   return (
     <section className="relative min-h-[85vh] flex items-center overflow-hidden">
       {/* Background */}
@@ -38,37 +51,40 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 w-full">
         <div className="max-w-xl">
-          <motion.h1
-            variants={containerVariants}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
-          >
-            <motion.span variants={lineVariants} className="block">
-              একটি সুন্দর ও
-            </motion.span>
+          {top.map((topdata, i) => (
+            <div key={i}>
+              <motion.h1
+                variants={containerVariants}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
+              >
+                <motion.span variants={lineVariants} className="block">
+                  একটি সুন্দর ও
+                </motion.span>
 
-            <motion.span
-              variants={lineVariants}
-              className="block text-political-yellow"
-            >
-              ঐক্যবদ্ধ আগামী
-            </motion.span>
-            <motion.span variants={lineVariants} className="block">
-              গড়ার প্রত্যয়ে
-            </motion.span>
-          </motion.h1>
+                <motion.span
+                  variants={lineVariants}
+                  className="block text-political-yellow"
+                >
+                  ঐক্যবদ্ধ আগামী
+                </motion.span>
+                <motion.span variants={lineVariants} className="block">
+                  গড়ার প্রত্যয়ে
+                </motion.span>
+              </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-white/85 text-base md:text-lg leading-relaxed mb-10"
-          >
-            গণতন্ত্রের পথেই মুক্তি—যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং
-            প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।
-          </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-white/85 text-base md:text-lg leading-relaxed mb-10"
+              >
+                {topdata.description}
+              </motion.p>
+            </div>
+          ))}
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}

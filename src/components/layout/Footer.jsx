@@ -41,7 +41,7 @@ export function Footer() {
             transition={{ duration: 0.5 }}
           >
             <div className="mb-6">
-              <div className="text-3xl font-bold tracking-tight">
+              <div className="text-3xl font-bold tracking-tight text-green-700">
                 বি<span className="text-political-red">এন</span>পি
               </div>
               <div className="flex gap-0.5 mt-1"></div>

@@ -3,12 +3,11 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { Button } from "../ui/button";
 
 const navItems = [
   { label: "হোম", href: "/" },
   {
-    label: "পেজসমূহ",
+    label: "আমাদের অঙ্গীকার",
     href: "#",
     children: [
       { label: "আমাদের সম্পর্কে", href: "/about" },
@@ -21,11 +20,12 @@ const navItems = [
   { label: "প্রচারণা", href: "/campaign" },
   { label: "গ্যালারি", href: "/gallery" },
   { label: "যোগাযোগ", href: "/contact" },
+  { label: "অভিযোগ", href: "/complaint" },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null); // removed TypeScript type
+  const [openDropdown, setOpenDropdown] = useState(null);
   const [location] = useLocation();
 
   return (
@@ -39,7 +39,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           <Link href="/" data-testid="link-home-logo">
             <div className="flex items-center gap-2">
-              <div className="text-political-blue font-bold text-3xl tracking-tight">
+              <div className="text-green-700 font-bold text-3xl tracking-tight">
                 বি<span className="text-political-red">এন</span>পি
               </div>
               <img
@@ -116,18 +116,6 @@ export function Navbar() {
               </div>
             ))}
           </div>
-
-          <div className="hidden lg:block">
-            <Link href="/contact">
-              <Button
-                className="bg-political-red hover:bg-political-red/90 text-white border-political-red px-6"
-                data-testid="button-donate"
-              >
-                এখনই দান করুন
-              </Button>
-            </Link>
-          </div>
-
           <button
             className="lg:hidden p-2"
             onClick={() => setIsOpen(!isOpen)}
@@ -202,11 +190,6 @@ export function Navbar() {
                     )}
                   </div>
                 ))}
-                <Link href="/contact" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full bg-political-red hover:bg-political-red/90 text-white mt-4">
-                    DONATE NOW
-                  </Button>
-                </Link>
               </div>
             </motion.div>
           )}

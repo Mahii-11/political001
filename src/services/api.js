@@ -26,8 +26,13 @@ export async function getMissionData() {
 
 export async function getCampaignSchedule() {
   const res = await fetch(`${API_BASE_URL}/campaign-schedule-data`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch campaign schedule");
+  }
+
   const json = await res.json();
-  return json.data || [];
+  return json?.data?.data || [];
 }
 
 export async function getLeaderMessage() {

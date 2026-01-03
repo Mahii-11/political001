@@ -1,0 +1,99 @@
+import Header from "@/components/layout/Header";
+import { useState } from "react";
+
+export default function VoterLocator() {
+  const [formData, setFormData] = useState({
+    name: "",
+    birthDate: "",
+    voterId: "",
+  });
+  const [result, setResult] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // এখানে API call বা dynamic lookup logic হবে
+    // demo purpose:
+    setResult({
+      center: "কেন্দ্র-১২, ঢাকা জেলা",
+      address: "রাজধানী কেন্দ্র, ঢাকা",
+      booth: "বুথ ৫",
+    });
+  };
+
+  return (
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6 mt-8">
+        <div className="max-w-2xl w-full bg-white shadow-lg rounded-xl p-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+            আপনার ভোট কেন্দ্র খুঁজুন
+          </h1>
+          <p className="text-gray-600 mb-6">
+            নাম, জন্ম তারিখ বা ভোটার আইডি দিয়ে আপনার ভোট কেন্দ্র বের করুন
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-gray-700 mb-1">নাম</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-700 mb-1">জন্ম তারিখ</label>
+              <input
+                type="date"
+                name="birthDate"
+                value={formData.birthDate}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-700 mb-1">
+                ভোটার আইডি (ঐচ্ছিক)
+              </label>
+              <input
+                type="text"
+                name="voterId"
+                value={formData.voterId}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg mt-4 transition-colors"
+            >
+              কেন্দ্র খুঁজুন
+            </button>
+          </form>
+
+          {result && (
+            <div className="mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
+              <h2 className="text-green-800 font-semibold mb-2">
+                আপনার ভোট কেন্দ্র:
+              </h2>
+              <p>কেন্দ্র: {result.center}</p>
+              <p>ঠিকানা: {result.address}</p>
+              <p>বুথ: {result.booth}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}

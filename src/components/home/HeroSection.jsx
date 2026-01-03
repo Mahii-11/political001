@@ -9,7 +9,7 @@ const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.05,
     },
   },
 };
@@ -20,7 +20,7 @@ const lineVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: "easeOut",
     },
   },
@@ -58,21 +58,16 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 flex flex-col gap-2"
               >
-                <motion.span variants={lineVariants} className="block">
-                  একটি সুন্দর ও
-                </motion.span>
-
+                <motion.span variants={lineVariants}>একটি সুন্দর ও</motion.span>
                 <motion.span
                   variants={lineVariants}
-                  className="block text-political-yellow"
+                  className="text-political-yellow"
                 >
                   ঐক্যবদ্ধ আগামী
                 </motion.span>
-                <motion.span variants={lineVariants} className="block">
-                  গড়ার প্রত্যয়ে
-                </motion.span>
+                <motion.span variants={lineVariants}>গড়ার প্রত্যয়ে</motion.span>
               </motion.h1>
 
               <motion.p
@@ -92,22 +87,12 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="flex flex-wrap gap-4"
           >
-            <Link href="/campaign">
+            <Link href="/voter-locator">
               <Button
                 size="lg"
-                className="bg-political-yellow text-political-blue font-semibold px-8 py-6 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
+                className="bg-political-yellow text-political-blue font-semibold px-8 py-4 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
               >
-                আজই যোগ দিন
-              </Button>
-            </Link>
-
-            <Link href="/about">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/40 text-white px-8 py-6 text-base hover:bg-white hover:text-political-blue transition"
-              >
-                আরও জানুন
+                আপনার ভোট কেন্দ্র খুঁজুন
               </Button>
             </Link>
           </motion.div>

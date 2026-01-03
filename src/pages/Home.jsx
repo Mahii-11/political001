@@ -8,11 +8,13 @@ import { QuoteSection } from "../components/home/QuoteSection";
 import { GallerySection } from "../components/home/GallerySection";
 import { StatisticsSection } from "../components/home/StatisticsSection";
 import BlueSection from "../components/home/BlueSecion";
+import AnimatedHeader from "../components/home/AnimatedHeader";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
+      <AnimatedHeader />
       <main>
         <HeroSection />
         <BlueSection />

@@ -1,40 +1,23 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { FaUser, FaRegCalendarAlt, FaRegCommentDots } from "react-icons/fa";
+import { FaUser, FaRegCalendarAlt } from "react-icons/fa";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
-const manualNews = [
-  {
-    id: 1,
-    image: "/images/image1.jpg",
-    title: "গণতান্ত্রিক সমাবেশ",
-    description: "গণতন্ত্র ও অধিকার রক্ষায় আয়োজিত সাম্প্রতিক সমাবেশ।",
-    author: "Admin",
-    date: "26 March, 2024",
-    comments: 6,
-  },
-  {
-    id: 2,
-    image: "/images/image2.jpg",
-    title: "প্রচারণা কার্যক্রম",
-    description: "দেশজুড়ে চলমান প্রচারণার গুরুত্বপূর্ণ মুহূর্ত।",
-    author: "Admin",
-    date: "25 March, 2024",
-    comments: 8,
-  },
-  {
-    id: 3,
-    image: "/images/image3.jpg",
-    title: "জনগণের সঙ্গে সংলাপ",
-    description: "নাগরিকদের মতামত ও অংশগ্রহণে অনুষ্ঠিত প্রচারণা কর্মসূচি।",
-    author: "Admin",
-    date: "24 March, 2024",
-    comments: 12,
-  },
-];
+import { useEffect, useState } from "react";
+import { getLatestCampaign } from "@/services/api";
 
 export function CampaignNews() {
+  const [campaign, setCampaign] = useState([]);
+
+  useEffect(() => {
+    async function loadCampaign() {
+      const data = await getLatestCampaign();
+      setCampaign(data.data);
+    }
+    loadCampaign();
+  }, []);
+
   const isLoading = false;
 
   return (
@@ -72,7 +55,7 @@ export function CampaignNews() {
                   </CardContent>
                 </Card>
               ))
-            : manualNews.map((item, index) => (
+            : campaign.map((item, index) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -82,7 +65,6 @@ export function CampaignNews() {
                 >
                   <Link href={`/blog/${item.id}`}>
                     <Card className="overflow-hidden hover-elevate cursor-pointer h-full bg-white border-0 shadow-sm">
-                      {/* Image */}
                       <div className="relative h-48 overflow-hidden">
                         <img
                           src={item.image}
@@ -97,23 +79,18 @@ export function CampaignNews() {
                         </h3>
 
                         <p className="text-sm text-political-dark/70 mb-4 line-clamp-2">
-                          {item.description}
+                          {item.long_description}
                         </p>
 
                         <div className="flex items-center gap-4 text-sm text-political-dark/60">
                           <span className="flex items-center gap-1">
                             <FaUser className="w-4 h-4" />
-                            By: {item.author}
+                            By: {item.created_by}
                           </span>
 
                           <span className="flex items-center gap-1">
                             <FaRegCalendarAlt className="w-4 h-4" />
                             {item.date}
-                          </span>
-
-                          <span className="flex items-center gap-1">
-                            <FaRegCommentDots className="w-4 h-4" />
-                            {item.comments}
                           </span>
                         </div>
                       </CardContent>

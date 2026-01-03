@@ -18,6 +18,13 @@ export default function BlueSection() {
     loadVission();
   }, []);
 
+  const linkMap = {
+    1: "/promise",
+    3: "/my-31-points",
+    4: "/volunteer",
+    5: "/our-dhaka",
+  };
+
   return (
     <div className="w-full bg-white py-14">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
@@ -31,16 +38,18 @@ export default function BlueSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-political-blue" />
-                  </div>
-                  <h3 className="font-semibold text-political-dark mb-2">
-                    {item.title}
-                  </h3>
-                </CardContent>
-              </Card>
+              <a key={item.id} href={linkMap[item.id]}>
+                <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
+                  <CardContent className="p-6">
+                    <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-8 h-8 text-political-blue" />
+                    </div>
+                    <h3 className="font-semibold text-political-dark mb-2">
+                      {item.title}
+                    </h3>
+                  </CardContent>
+                </Card>
+              </a>
             </motion.div>
           );
         })}
@@ -48,4 +57,3 @@ export default function BlueSection() {
     </div>
   );
 }
-//<item.icon className="w-8 h-8 text-political-blue" />

@@ -13,25 +13,31 @@ import Campaign from "./pages/Campaign";
 import Volunteer from "./pages/Volunteer";
 import About from "./pages/About";
 import ComingSoon from "./pages/ComingSoon";
+import ComplaintPage from "./pages/ComplaintPage";
+import VoterLocator from "./pages/VoterLocator";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-
-        <Router>
-          <Route path="/" component={Home} />
-          <Route path="/biography" component={Biography} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/blog/:id" component={Blog} />
-          <Route path="/gallery" component={Gallery} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/campaign" component={Campaign} />
-          <Route path="/volunteer" component={Volunteer} />
-          <Route path="/about" component={About} />
-          <Route path="/coming-soon" component={ComingSoon} />
-        </Router>
+        <Layout>
+          <Router>
+            <Route path="/" component={Home} />
+            <Route path="/biography" component={Biography} />
+            <Route path="/blog" component={Blog} />
+            <Route path="/blog/:id" component={Blog} />
+            <Route path="/gallery" component={Gallery} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/complaint" component={ComplaintPage} />
+            <Route path="/campaign" component={Campaign} />
+            <Route path="/volunteer" component={Volunteer} />
+            <Route path="/about" component={About} />
+            <Route path="/voter-locator" component={VoterLocator} />
+            <Route path="/coming-soon" component={ComingSoon} />
+          </Router>
+        </Layout>
       </TooltipProvider>
     </QueryClientProvider>
   );

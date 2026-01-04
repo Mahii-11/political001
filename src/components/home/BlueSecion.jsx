@@ -39,7 +39,7 @@ export default function BlueSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link key={item.id} to={linkMap[item.id]}>
+              <Link key={item.id} href={linkMap[item.id]}>
                 <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
                   <CardContent className="p-6">
                     <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">

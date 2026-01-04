@@ -20,7 +20,7 @@ export default function BlueSection() {
 
   const linkMap = {
     1: "/promise",
-    3: "/my-31-points",
+    3: "/31-points",
     4: "/volunteer",
     5: "/our-dhaka",
   };

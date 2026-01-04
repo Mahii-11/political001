@@ -16,7 +16,7 @@ const navItems = [
     ],
   },
   { label: "জীবনী", href: "/biography" },
-  { label: "প্রচারণা", href: "/campaign" },
+  { label: "নির্বাচনী প্রতিশ্রুতি", href: "/promise" },
   { label: "গ্যালারি", href: "/gallery" },
   { label: "যোগাযোগ", href: "/contact" },
   { label: "অভিযোগ", href: "/complaint" },

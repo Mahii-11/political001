@@ -29,12 +29,11 @@ function App() {
             <Route path="/gallery" component={Gallery} />
             <Route path="/contact" component={Contact} />
             <Route path="/complaint" component={ComplaintPage} />
-            <Route path="/campaign" component={Campaign} />
+            <Route path="/promise" component={Campaign} />
             <Route path="/volunteer" component={Volunteer} />
             <Route path="/about" component={About} />
             <Route path="/voter-locator" component={VoterLocator} />
             <Route path="/coming-soon" component={ComingSoon} />
-            <Route path="/promise" component={PromisePage} />
           </Router>
         </Layout>
       </TooltipProvider>

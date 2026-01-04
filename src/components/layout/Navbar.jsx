@@ -7,7 +7,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 const navItems = [
   { label: "হোম", href: "/" },
   {
-    label: "আমাদের অঙ্গীকার",
+    label: "পরিচিতি ও অংশগ্রহণ",
     href: "#",
     children: [
       { label: "আমাদের সম্পর্কে", href: "/about" },
@@ -16,7 +16,6 @@ const navItems = [
     ],
   },
   { label: "জীবনী", href: "/biography" },
-  { label: "ব্লগ", href: "/blog" },
   { label: "প্রচারণা", href: "/campaign" },
   { label: "গ্যালারি", href: "/gallery" },
   { label: "যোগাযোগ", href: "/contact" },

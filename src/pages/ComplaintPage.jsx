@@ -1,5 +1,7 @@
-import Header from "../components/layout/Header";
+/* eslint-disable no-unused-vars */
+import { Navbar } from "../components/layout/Navbar";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function ComplaintPage() {
   const [formData, setFormData] = useState({
@@ -59,20 +61,35 @@ export default function ComplaintPage() {
   };
 
   return (
-    <>
-      <Header />
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6 lg:px-8 mt-12">
-        {/* Header Section */}
-        <div className="max-w-3xl w-full text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">
-            অভিযোগ / Feedback
-          </h1>
-          <p className="text-gray-600 text-sm md:text-base">
+    <div>
+      <Navbar />
+      <section className="relative py-32 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
+          }}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+            data-testid="text-gallery-page-title"
+          >
+            অভিযোগ
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-white/80 text-lg"
+          >
             আপনার পরিচয় গোপন রাখা হবে। দয়া করে সঠিক তথ্য দিয়ে অভিযোগ করুন।
-          </p>
+          </motion.p>
         </div>
-
-        {/* Form Card */}
+      </section>
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6 lg:px-8 ">
         <div className="bg-white shadow-lg rounded-xl w-full max-w-3xl p-8">
           {submitted && (
             <div className="bg-green-100 text-green-800 p-4 rounded mb-6 text-center">
@@ -81,7 +98,6 @@ export default function ComplaintPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 নাম <span className="text-red-500">*</span>
@@ -200,6 +216,6 @@ export default function ComplaintPage() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }

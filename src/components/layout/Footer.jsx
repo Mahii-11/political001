@@ -1,31 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
-const quickLinks = [
-  { label: "হোম", href: "/" },
-  { label: "আমাদের সম্পর্কে", href: "/about" },
-  { label: "জীবনী", href: "/biography" },
-  { label: "প্রচারণা", href: "/campaign" },
-  { label: "গ্যালারি", href: "/gallery" },
-  { label: "যোগাযোগ", href: "/contact" },
-];
-
 const socialLinks = [
   { icon: FaFacebookF, href: "#", label: "Facebook" },
-  { icon: FaTwitter, href: "#", label: "Twitter" },
-  { icon: FaInstagram, href: "#", label: "Instagram" },
-  { icon: FaLinkedinIn, href: "#", label: "LinkedIn" },
   { icon: FaYoutube, href: "#", label: "YouTube" },
 ];
 
@@ -64,32 +46,6 @@ export function Footer() {
                 </a>
               ))}
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <h3 className="text-lg font-semibold mb-6">
-              গুরুত্বপূর্ণ লিঙ্কসমূহ
-            </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-white/80 hover:text-political-yellow transition-colors text-sm"
-                    data-testid={`footer-link-${link.label
-                      .toLowerCase()
-                      .replace(" ", "-")}`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </motion.div>
 
           <motion.div

@@ -6,7 +6,6 @@ import { TooltipProvider } from "./components/ui/tooltip";
 
 import Home from "./pages/Home";
 import Biography from "./pages/Biography";
-import Blog from "./pages/Blog";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Campaign from "./pages/Campaign";
@@ -16,6 +15,7 @@ import ComingSoon from "./pages/ComingSoon";
 import ComplaintPage from "./pages/ComplaintPage";
 import VoterLocator from "./pages/VoterLocator";
 import Layout from "./components/layout/Layout";
+import PromisePage from "./pages/PromisePage";
 
 function App() {
   return (
@@ -26,8 +26,6 @@ function App() {
           <Router>
             <Route path="/" component={Home} />
             <Route path="/biography" component={Biography} />
-            <Route path="/blog" component={Blog} />
-            <Route path="/blog/:id" component={Blog} />
             <Route path="/gallery" component={Gallery} />
             <Route path="/contact" component={Contact} />
             <Route path="/complaint" component={ComplaintPage} />
@@ -36,6 +34,7 @@ function App() {
             <Route path="/about" component={About} />
             <Route path="/voter-locator" component={VoterLocator} />
             <Route path="/coming-soon" component={ComingSoon} />
+            <Route path="/promise" component={PromisePage} />
           </Router>
         </Layout>
       </TooltipProvider>

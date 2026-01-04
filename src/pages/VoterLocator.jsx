@@ -1,6 +1,7 @@
-import Header from "@/components/layout/Header";
+/* eslint-disable no-unused-vars */
+import { Navbar } from "@/components/layout/Navbar";
 import { useState } from "react";
-
+import { motion } from "framer-motion";
 export default function VoterLocator() {
   const [formData, setFormData] = useState({
     name: "",
@@ -26,16 +27,35 @@ export default function VoterLocator() {
 
   return (
     <>
-      <Header />
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6 mt-8">
-        <div className="max-w-2xl w-full bg-white shadow-lg rounded-xl p-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+      <Navbar />
+      <section className="relative py-32 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
+          }}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+            data-testid="text-gallery-page-title"
+          >
             আপনার ভোট কেন্দ্র খুঁজুন
-          </h1>
-          <p className="text-gray-600 mb-6">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-white/80 text-lg"
+          >
             নাম, জন্ম তারিখ বা ভোটার আইডি দিয়ে আপনার ভোট কেন্দ্র বের করুন
-          </p>
-
+          </motion.p>
+        </div>
+      </section>
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6">
+        <div className="max-w-2xl w-full bg-white shadow-lg rounded-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-gray-700 mb-1">নাম</label>

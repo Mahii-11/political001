@@ -17,7 +17,6 @@ const slogans = [
 
 export default function AnimatedHeader() {
   const [index, setIndex] = useState(0);
-  const [showHeader, setShowHeader] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,40 +25,42 @@ export default function AnimatedHeader() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowHeader(window.scrollY < 100);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <AnimatePresence>
-      {showHeader && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.4 }}
-          className="w-full h-12 flex items-center justify-center overflow-hidden
-bg-gradient-to-r from-[#0f5132] via-[#1b7a4a] to-[#b02a37]
-text-white border-b border-black/10"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6 }}
-              className="absolute text-center text-sm md:text-base px-4 font-medium"
-            >
-              {slogans[index]}
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-      )}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.3 }}
+        className="
+          fixed
+              /* navbar height */
+          left-0
+          w-full
+          h-12
+          z-40          /* navbar এর চেয়ে কম */
+          flex
+          items-center
+          justify-center
+          overflow-hidden
+          bg-gradient-to-r from-[#0f5132] via-[#1b7a4a] to-[#b02a37]
+          text-white
+          border-b border-black/10
+        "
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6 }}
+            className="absolute text-center text-sm md:text-base px-4 font-medium"
+          >
+            {slogans[index]}
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
     </AnimatePresence>
   );
 }

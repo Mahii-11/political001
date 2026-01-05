@@ -15,7 +15,7 @@ import ComingSoon from "./pages/ComingSoon";
 import ComplaintPage from "./pages/ComplaintPage";
 import VoterLocator from "./pages/VoterLocator";
 import Layout from "./components/layout/Layout";
-import PromisePage from "./pages/PromisePage";
+import Dhaka7Page from "./pages/Dhaka7page";
 
 function App() {
   return (
@@ -34,6 +34,7 @@ function App() {
             <Route path="/about" component={About} />
             <Route path="/voter-locator" component={VoterLocator} />
             <Route path="/coming-soon" component={ComingSoon} />
+            <Route path="/our-dhaka" component={Dhaka7Page} />
           </Router>
         </Layout>
       </TooltipProvider>

@@ -98,14 +98,16 @@ export default function Campaign() {
               className="text-4xl md:text-5xl font-bold text-white mb-4"
               data-testid="text-campaign-title"
             >
-              আমাদের প্রচেষ্টা
+              আমার নির্বাচনী প্রতিশ্রুতি
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-white/80 text-lg"
-            ></motion.p>
+            >
+              কথা নয়, কাজের মাধ্যমে জনগণের কল্যাণ নিশ্চিত করাই আমার অঙ্গীকার
+            </motion.p>
           </div>
         </section>
 
@@ -157,7 +159,7 @@ export default function Campaign() {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
+        {/*   <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <motion.div
@@ -247,6 +249,62 @@ export default function Campaign() {
               </motion.div>
             </div>
           </div>
+        </section>   */}
+        <section className="bg-gray-100 py-20">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl font-bold text-center mb-14"
+            >
+              বাস্তবায়ন পরিকল্পনা
+            </motion.h2>
+
+            <div className="space-y-8">
+              {[
+                {
+                  time: "প্রথম ১০০ দিন",
+                  text: "জরুরি সেবা ও প্রশাসনিক সংস্কার কার্যক্রম শুরু",
+                },
+                {
+                  time: "প্রথম ১ বছর",
+                  text: "শিক্ষা, স্বাস্থ্য ও কর্মসংস্থান প্রকল্প বাস্তবায়ন",
+                },
+                {
+                  time: "৫ বছর",
+                  text: "একটি টেকসই, স্মার্ট ও উন্নত অঞ্চল গড়ে তোলা",
+                },
+              ].map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row md:items-center md:gap-6"
+                >
+                  <span className="text-green-600 font-bold text-lg min-w-[140px]">
+                    {step.time}
+                  </span>
+                  <p className="text-gray-700 mt-2 md:mt-0">{step.text}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-6xl mx-auto px-6 py-20 text-center">
+          <motion.blockquote
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="text-2xl font-semibold text-gray-800 max-w-3xl mx-auto"
+          >
+            “আমি প্রতিশ্রুতি দিচ্ছি—এই ঘোষণাগুলো শুধু কথায় নয়, বাস্তব কাজের
+            মাধ্যমেই জনগণের সামনে তুলে ধরবো।”
+          </motion.blockquote>
+
+          <p className="mt-6 text-gray-600">— আপনার বিশ্বস্ত প্রার্থী</p>
         </section>
 
         <section className="py-20 bg-political-light">

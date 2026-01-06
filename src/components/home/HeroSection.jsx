@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getTopSection } from "../../services/api";
 import IntroVideo from "./IntroVideo";
+import VisionSlider from "@/pages/VisionSlider";
 
 const containerVariants = {
   hidden: {},

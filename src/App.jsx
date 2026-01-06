@@ -16,6 +16,7 @@ import ComplaintPage from "./pages/ComplaintPage";
 import VoterLocator from "./pages/VoterLocator";
 import Layout from "./components/layout/Layout";
 import Dhaka7Page from "./pages/Dhaka7page";
+import VisionSlider from "./pages/VisionSlider";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/voter-locator" component={VoterLocator} />
             <Route path="/coming-soon" component={ComingSoon} />
             <Route path="/our-dhaka" component={Dhaka7Page} />
+            <Route path="/31-points" component={VisionSlider} />
           </Router>
         </Layout>
       </TooltipProvider>

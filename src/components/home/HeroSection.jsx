@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getTopSection } from "../../services/api";
+import IntroVideo from "./IntroVideo";
 
 const containerVariants = {
   hidden: {},
@@ -39,83 +40,91 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 w-full">
-        <div className="max-w-xl">
-          {top.map((topdata, i) => (
-            <div key={i}>
-              <motion.h1
-                variants={containerVariants}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 flex flex-col gap-2"
-              >
-                <motion.span variants={lineVariants}>একটি সুন্দর ও</motion.span>
-                <motion.span
-                  variants={lineVariants}
-                  className="text-political-yellow"
-                >
-                  ঐক্যবদ্ধ আগামী
-                </motion.span>
-                <motion.span variants={lineVariants}>গড়ার প্রত্যয়ে</motion.span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-white/85 text-base md:text-lg leading-relaxed mb-10"
-              >
-                {topdata.description}
-              </motion.p>
-            </div>
-          ))}
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-wrap gap-4"
-          >
-            <Link href="/voter-locator">
-              <Button
-                size="lg"
-                className="bg-political-yellow text-political-blue font-semibold px-8 py-4 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
-              >
-                আপনার ভোট কেন্দ্র খুঁজুন
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Candidate Image */}
-      <motion.div
-        initial={{ opacity: 0, x: 80 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="hidden lg:block absolute right-0 bottom-0 h-full w-[45%]"
-      >
+    <>
+      <IntroVideo />
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+        {/* Background */}
         <div
-          className="absolute inset-0 bg-contain bg-right-bottom bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/images/bnp neta.jpg")',
-            maskImage: "linear-gradient(to left, black 70%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to left, black 70%, transparent 100%)",
+            backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
           }}
         />
-      </motion.div>
-    </section>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 w-full">
+          <div className="max-w-xl">
+            {top.map((topdata, i) => (
+              <div key={i}>
+                <motion.h1
+                  variants={containerVariants}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 flex flex-col gap-2"
+                >
+                  <motion.span variants={lineVariants}>
+                    একটি সুন্দর ও
+                  </motion.span>
+                  <motion.span
+                    variants={lineVariants}
+                    className="text-political-yellow"
+                  >
+                    ঐক্যবদ্ধ আগামী
+                  </motion.span>
+                  <motion.span variants={lineVariants}>
+                    গড়ার প্রত্যয়ে
+                  </motion.span>
+                </motion.h1>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-white/85 text-base md:text-lg leading-relaxed mb-10"
+                >
+                  {topdata.description}
+                </motion.p>
+              </div>
+            ))}
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex flex-wrap gap-4"
+            >
+              <Link href="/voter-locator">
+                <Button
+                  size="lg"
+                  className="bg-political-yellow text-political-blue font-semibold px-8 py-4 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
+                >
+                  আপনার ভোট কেন্দ্র খুঁজুন
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Candidate Image */}
+        <motion.div
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="hidden lg:block absolute right-0 bottom-0 h-full w-[45%]"
+        >
+          <div
+            className="absolute inset-0 bg-contain bg-right-bottom bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/images/bnp neta.jpg")',
+              maskImage:
+                "linear-gradient(to left, black 70%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to left, black 70%, transparent 100%)",
+            }}
+          />
+        </motion.div>
+      </section>
+    </>
   );
 }

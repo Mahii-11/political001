@@ -236,58 +236,6 @@ export default function About() {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                নেতৃত্বের সদস্যবৃন্দ
-              </h2>
-              <p className="text-political-dark/70 max-w-2xl mx-auto">
-                পরিচিত হন সেই নিবেদিতপ্রাণ পেশাজীবীদের সঙ্গে, যারা আমাদের
-                প্রচারণাকে এগিয়ে নিয়ে যাচ্ছেন।
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card
-                    className="text-center bg-white border-0 shadow-sm hover-elevate overflow-hidden"
-                    data-testid={`card-team-${index}`}
-                  >
-                    <div className=" aspect-square overflow-hidden">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold text-political-dark">
-                        {member.name}
-                      </h3>
-                      <p className="text-sm text-political-red">
-                        {member.role}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="py-20 bg-political-blue">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <motion.div

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 
@@ -11,7 +11,7 @@ const navItems = [
     href: "#",
     children: [
       { label: "আমাদের সম্পর্কে", href: "/about" },
-      { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer" },
+      { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer/new" },
       { label: "শীঘ্রই আসছে", href: "/coming-soon" },
     ],
   },
@@ -25,7 +25,9 @@ const navItems = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [location] = useLocation();
+
+  // react-router-dom থেকে current location
+  const location = window.location.pathname;
 
   return (
     <motion.nav
@@ -35,20 +37,22 @@ export function Navbar() {
       className="bg-white shadow-sm sticky top-0 z-50"
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" data-testid="link-home-logo">
-            <div className="flex items-center gap-2">
-              <div className="text-green-700 font-bold text-3xl tracking-tight">
-                বি<span className="text-political-red">এন</span>পি
-              </div>
+        <div className="flex items-center justify-between h-24">
+          <Link to="/" data-testid="link-home-logo">
+            <div className="flex items-end h-full pb-1">
               <img
-                src="/images/logo.png"
+                src="/images/logo.jpg"
                 alt="Campaign Logo"
-                className="h-10 w-auto"
+                className="
+          h-[90px]
+          w-auto
+          object-contain
+        "
               />
             </div>
           </Link>
 
+          {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <div
@@ -62,7 +66,7 @@ export function Navbar() {
                 {item.children ? (
                   <button
                     className={`flex items-center gap-1 text-sm font-medium transition-colors ${
-                      location === item.href
+                      item.children.some((c) => c.href === location)
                         ? "text-political-red"
                         : "text-political-dark hover:text-political-blue"
                     }`}
@@ -74,19 +78,21 @@ export function Navbar() {
                     <ChevronDown className="w-4 h-4" />
                   </button>
                 ) : (
-                  <Link
-                    href={item.href}
-                    className={`text-sm font-medium transition-colors ${
-                      location === item.href
-                        ? "text-political-red"
-                        : "text-political-dark hover:text-political-blue"
-                    }`}
+                  <NavLink
+                    to={item.href}
+                    className={({ isActive }) =>
+                      `text-sm font-medium transition-colors ${
+                        isActive
+                          ? "text-political-red"
+                          : "text-political-dark hover:text-political-blue"
+                      }`
+                    }
                     data-testid={`nav-${item.label
                       .toLowerCase()
                       .replace(" ", "-")}`}
                   >
                     {item.label}
-                  </Link>
+                  </NavLink>
                 )}
 
                 <AnimatePresence>
@@ -98,16 +104,20 @@ export function Navbar() {
                       className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-md py-2 min-w-[160px] z-50"
                     >
                       {item.children.map((child) => (
-                        <Link
+                        <NavLink
                           key={child.label}
-                          href={child.href}
-                          className="block px-4 py-2 text-sm text-political-dark hover:bg-political-light hover:text-political-blue transition-colors"
+                          to={child.href}
+                          className={({ isActive }) =>
+                            `block px-4 py-2 text-sm text-political-dark hover:bg-political-light hover:text-political-blue transition-colors ${
+                              isActive ? "text-political-red" : ""
+                            }`
+                          }
                           data-testid={`nav-${child.label
                             .toLowerCase()
                             .replace(" ", "-")}`}
                         >
                           {child.label}
-                        </Link>
+                        </NavLink>
                       ))}
                     </motion.div>
                   )}
@@ -115,6 +125,8 @@ export function Navbar() {
               </div>
             ))}
           </div>
+
+          {/* Mobile Menu Button */}
           <button
             className="lg:hidden p-2"
             onClick={() => setIsOpen(!isOpen)}
@@ -124,6 +136,7 @@ export function Navbar() {
           </button>
         </div>
 
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -161,31 +174,37 @@ export function Navbar() {
                               className="overflow-hidden pl-4"
                             >
                               {item.children.map((child) => (
-                                <Link
+                                <NavLink
                                   key={child.label}
-                                  href={child.href}
-                                  className="block py-2 text-political-dark/80 hover:text-political-blue"
+                                  to={child.href}
+                                  className={({ isActive }) =>
+                                    `block py-2 text-political-dark/80 hover:text-political-blue ${
+                                      isActive ? "text-political-red" : ""
+                                    }`
+                                  }
                                   onClick={() => setIsOpen(false)}
                                 >
                                   {child.label}
-                                </Link>
+                                </NavLink>
                               ))}
                             </motion.div>
                           )}
                         </AnimatePresence>
                       </div>
                     ) : (
-                      <Link
-                        href={item.href}
-                        className={`block py-2 font-medium ${
-                          location === item.href
-                            ? "text-political-red"
-                            : "text-political-dark"
-                        }`}
+                      <NavLink
+                        to={item.href}
+                        className={({ isActive }) =>
+                          `block py-2 font-medium ${
+                            isActive
+                              ? "text-political-red"
+                              : "text-political-dark"
+                          }`
+                        }
                         onClick={() => setIsOpen(false)}
                       >
                         {item.label}
-                      </Link>
+                      </NavLink>
                     )}
                   </div>
                 ))}

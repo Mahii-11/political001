@@ -2,6 +2,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
+import { FiLink } from "react-icons/fi";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -33,19 +34,6 @@ export function Footer() {
               জন্য একটি উজ্জ্বল ভবিষ্যত গড়ে তুলতে পারি এবং স্থায়ী ইতিবাচক
               প্রভাব সৃষ্টি করতে পারি।
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-political-red transition-colors"
-                  data-testid={`link-social-${social.label.toLowerCase()}`}
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
           </motion.div>
 
           <motion.div
@@ -108,21 +96,63 @@ export function Footer() {
               </Button>
             </form>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h3 className="text-lg font-semibold mb-6">গুরুত্বপূর্ণ লিংক</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <FiLink className="w-5 h-5 text-political-yellow flex-shrink-0 mt-0.5" />
+                <span className="text-white/80 text-sm">
+                  <a
+                    href="https://www.ecs.gov.bd/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    নির্বাচন কমিশন ওয়েবসাইট
+                  </a>
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <FiLink className="w-5 h-5 text-political-yellow flex-shrink-0" />
+                <span className="text-white/80 text-sm">
+                  <a
+                    href="https://www.bnpbd.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    বিএনপি অফিসিয়াল ওয়েবসাইট
+                  </a>
+                </span>
+              </li>
+              <div className="flex gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-political-red transition-colors"
+                    data-testid={`link-social-${social.label.toLowerCase()}`}
+                    aria-label={social.label}
+                  >
+                    <social.icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+            </ul>
+          </motion.div>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/60">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-white/60">
             <p>© 2025 Hamidur Rahman Hamid</p>
-            <div className="flex gap-6">
-              <Link href="#" className="hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="hover:text-white transition-colors">
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
       </div>

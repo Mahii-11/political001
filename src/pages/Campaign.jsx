@@ -14,8 +14,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
-import { Link } from "wouter";
-import { Progress } from "../components/ui/progress";
+import { Link } from "react-router-dom";
 
 const policies = [
   {
@@ -316,14 +315,14 @@ export default function Campaign() {
             >
               <Award className="w-16 h-16 text-political-yellow mx-auto mb-6" />
               <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
-                আন্দোলনে যুক্ত হোন
+                পরিবর্তনে আমাদের সঙ্গে থাকুন
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto mb-8">
                 পরিবর্তনের অংশ হোন। সকলের জন্য একটি উজ্জ্বল ভবিষ্যত গড়তে আপনার
                 সহায়তা গুরুত্বপূর্ণ।
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/volunteer">
+                <Link to="/volunteer/new">
                   <Button
                     size="lg"
                     className="bg-political-red hover:bg-political-red/90 text-white px-8"
@@ -332,7 +331,7 @@ export default function Campaign() {
                     স্বেচ্ছাসেবক হন
                   </Button>
                 </Link>
-                <Link href="/contact">
+                <Link to="/contact">
                   <Button
                     size="lg"
                     variant="outline"

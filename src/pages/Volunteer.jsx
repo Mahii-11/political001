@@ -1,51 +1,12 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
-import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
-
-import {
-  Heart,
-  Users,
-  Calendar,
-  Award,
-  CheckCircle,
-  Loader2,
-} from "lucide-react";
+import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Textarea } from "../components/ui/textarea";
-import { Button } from "../components/ui/button";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../components/ui/select";
-import { useToast } from "../hooks/use-toast";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "../lib/queryClient";
-
-const volunteerSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  address: z.string().min(5, "Please enter your address"),
-  skills: z.string().min(1, "Please select your area of interest"),
-  message: z.string().optional(),
-});
+import { Form, redirect } from "react-router-dom";
+import { createVolunteer } from "../services/api";
 
 const benefits = [
   {
@@ -86,42 +47,6 @@ const roles = [
 ];
 
 export default function Volunteer() {
-  const { toast } = useToast();
-
-  const form = useForm({
-    resolver: zodResolver(volunteerSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-      skills: "",
-      message: "",
-    },
-  });
-
-  const volunteerMutation = useMutation({
-    mutationFn: (data) => apiRequest("POST", "/api/volunteers", data),
-    onSuccess: () => {
-      toast({
-        title: "Application Submitted!",
-        description: "Thank you for joining our team. We'll contact you soon.",
-      });
-      form.reset();
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to submit application. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const onSubmit = (data) => {
-    volunteerMutation.mutate(data);
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -198,10 +123,18 @@ export default function Volunteer() {
             </div>
           </div>
         </section>
-
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <VolunteerForm />
+        </motion.div>
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="gap-12  flex items-center justify-between">
+              {/*grid grid-cols-1 lg:grid-cols-2 items-start*/}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -234,216 +167,6 @@ export default function Volunteer() {
                   </div>
                 </div>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card className="bg-political-light border-0 shadow-lg">
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold text-political-blue mb-6">
-                      স্বেচ্ছাসেবক নিবন্ধন
-                    </h3>
-                    <Form {...form}>
-                      <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-6"
-                      >
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                          <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>পূর্ণ নাম</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="আপনার পুরো নাম:"
-                                    {...field}
-                                    data-testid="input-volunteer-name"
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>ইমেইল</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="people@example.com"
-                                    {...field}
-                                    data-testid="input-volunteer-email"
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="ward"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>এলাকা / ওয়ার্ড নম্বর</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="ওয়ার্ড–৩ / ধানমন্ডি / লালবাগ"
-                                    {...field}
-                                    data-testid="input-volunteer-ward"
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                          <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>ফোন নম্বর</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="+০১৭১ ২৩৪ ৫৬৭৮"
-                                    {...field}
-                                    data-testid="input-volunteer-phone"
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="skills"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>আগ্রহের ক্ষেত্র</FormLabel>
-                                <Select
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                >
-                                  <FormControl>
-                                    <SelectTrigger data-testid="select-volunteer-skills">
-                                      <SelectValue placeholder="আপনি কীভাবে যুক্ত হতে চান?" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    {roles.map((role) => (
-                                      <SelectItem key={role} value={role}>
-                                        {role}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-
-                        <FormField
-                          control={form.control}
-                          name="availability"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>সময় দিতে পারবেন</FormLabel>
-                              <FormControl>
-                                <RadioGroup
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                  className="space-y-2"
-                                >
-                                  {[
-                                    "নিয়মিত",
-                                    "আংশিক সময়",
-                                    "নির্বাচনের আগের সময়গুলোতে",
-                                  ].map((item) => (
-                                    <FormItem
-                                      key={item}
-                                      className="flex items-center space-x-3 space-y-0"
-                                    >
-                                      <FormControl>
-                                        <RadioGroupItem value={item} />
-                                      </FormControl>
-                                      <FormLabel className="font-normal">
-                                        {item}
-                                      </FormLabel>
-                                    </FormItem>
-                                  ))}
-                                </RadioGroup>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="address"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>ঠিকানা</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="আপনার ঠিকানা লিখুন"
-                                  {...field}
-                                  data-testid="input-volunteer-address"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="message"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>অতিরিক্ত বার্তা (ঐচ্ছিক)</FormLabel>
-                              <FormControl>
-                                <Textarea
-                                  placeholder="নিজের সম্পর্কে সংক্ষেপে লিখুন…"
-                                  className="min-h-[100px] resize-none"
-                                  {...field}
-                                  data-testid="input-volunteer-message"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <Button
-                          type="submit"
-                          className="w-full bg-political-red hover:bg-political-red/90 text-white"
-                          data-testid="button-volunteer-submit"
-                          disabled={volunteerMutation.isPending}
-                        >
-                          {volunteerMutation.isPending && (
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          )}
-                          {volunteerMutation.isPending
-                            ? "Submitting..."
-                            : "আবেদন জমা দিন"}
-                        </Button>
-                      </form>
-                    </Form>
-                  </CardContent>
-                </Card>
-              </motion.div>
             </div>
           </div>
         </section>
@@ -451,4 +174,170 @@ export default function Volunteer() {
       <Footer />
     </div>
   );
+}
+
+export const fakeVolunteers = [
+  {
+    id: 1,
+    name: "রাকিব হাসান",
+    ward: "২৫",
+    phone: "০১৭১২৩৪৫৬৭৮",
+    email: "rakib@example.com",
+    skill: "মাঠ পর্যায়ে",
+    address: "ধানমন্ডি, ঢাকা",
+    message: "hello",
+    status: "Active",
+  },
+];
+
+export function VolunteerForm() {
+  const volunteers = fakeVolunteers;
+  function banglaNumbers(number) {
+    const eng = "0123456789";
+    const bang = "০১২৩৪৫৬৭৮৯";
+    return String(number)
+      .split("")
+      .map((d) => (eng.includes(d) ? bang[eng.indexOf(d)] : d))
+      .join("");
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+      <Form
+        method="post"
+        className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
+      >
+        <h2 className="text-3xl font-bold text-blue-900 mb-8">
+          স্বেচ্ছাসেবক নিবন্ধন
+        </h2>
+
+        {/* Grid Form */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              পূর্ণ নাম
+            </label>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="আপনার পুরো নাম:"
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              ইমেইল
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="people@example.com"
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              এলাকা / ওয়ার্ড নম্বর
+            </label>
+            <select
+              name="ward"
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              defaultValue=""
+            >
+              <option value="">ওয়ার্ড নির্বাচন করুন</option>
+              {[23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 56, 57].map(
+                (w) => (
+                  <option key={w} value={w}>
+                    ওয়ার্ড–{banglaNumbers(w)}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              ফোন নম্বর
+            </label>
+            <input
+              type="text"
+              name="phone"
+              placeholder="+০১৭১ ২৩৪ ৫৬৭৮"
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              আগ্রহের ক্ষেত্র
+            </label>
+            <select
+              name="interest"
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="">আপনি কীভাবে যুক্ত হতে চান?</option>
+              <option value="field">মাঠ পর্যায়ে</option>
+              <option value="online">অনলাইন সাপোর্ট</option>
+              <option value="event">ইভেন্ট ব্যবস্থাপনা</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Address */}
+        <div className="mt-6">
+          <label className="block text-gray-800 font-medium mb-2">ঠিকানা</label>
+          <input
+            type="text"
+            name="address"
+            placeholder="আপনার ঠিকানা লিখুন"
+            className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        {/* Additional Message */}
+        <div className="mt-6">
+          <label className="block text-gray-800 font-medium mb-2">
+            অতিরিক্ত বার্তা (ঐচ্ছিক)
+          </label>
+          <textarea
+            name="message"
+            rows="4"
+            placeholder="নিজের সম্পর্কে সংক্ষেপে লিখুন..."
+            className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        <div>
+          <input
+            type="hidden"
+            name="volunteers"
+            value={JSON.stringify(volunteers)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="mt-8 w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4 rounded-lg transition"
+        >
+          আবেদন জমা দিন
+        </button>
+      </Form>
+    </div>
+  );
+}
+
+// Action function for form submission
+export async function action({ request }) {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  console.log("Volunteer form submitted:", data);
+
+  const info = {
+    ...data,
+    volunteers: JSON.parse(data.volunteers),
+  };
+
+  const newVolunteer = await createVolunteer(info);
+  return redirect(`/register-volunteer/${newVolunteer.data.id}`);
 }

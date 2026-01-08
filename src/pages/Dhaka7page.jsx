@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Navbar } from "@/components/layout/Navbar";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   FaUser,
   FaVoteYea,
@@ -79,7 +80,7 @@ export default function Dhaka7Page() {
           viewport={{ once: true }}
           className="text-3xl font-bold text-center mb-12"
         >
-          Quick Stats
+          আমাদের এলাকার প্রধান পরিসংখ্যান
         </motion.h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((item, i) => (
@@ -107,7 +108,7 @@ export default function Dhaka7Page() {
           viewport={{ once: true }}
           className="text-3xl font-bold text-center mb-12"
         >
-          Key Issues
+          পরিবর্তনের মূল বিষয়সমূহ
         </motion.h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {issues.map((issue, i) => (
@@ -145,7 +146,7 @@ export default function Dhaka7Page() {
           কোন সমস্যাটি সবচেয়ে বেশি গুরুত্বপূর্ণ মনে করেন? আমাদের জানান।
         </motion.p>
         <button className="bg-blue-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-blue-700 transition">
-          মতামত পাঠান
+          <Link to="/contact">মতামত পাঠান</Link>
         </button>
       </section>
     </div>

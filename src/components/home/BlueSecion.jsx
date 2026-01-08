@@ -4,7 +4,7 @@ import { BookOpen, Building2, Users, Factory } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { useEffect, useState } from "react";
 import { getVision } from "../../services/api";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 
 const iconsByIndex = [Building2, BookOpen, Users, Factory];
 
@@ -22,7 +22,7 @@ export default function BlueSection() {
   const linkMap = {
     1: "/promise",
     3: "/31-points",
-    4: "/volunteer",
+    4: "/volunteer/new",
     5: "/our-dhaka",
   };
 
@@ -39,7 +39,7 @@ export default function BlueSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link key={item.id} href={linkMap[item.id]}>
+              <Link key={item.id} to={linkMap[item.id]}>
                 <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
                   <CardContent className="p-6">
                     <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">

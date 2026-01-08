@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { motion } from "framer-motion";
-import { Link } from "wouter";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getTopSection } from "../../services/api";
-import IntroVideo from "./IntroVideo";
-import VisionSlider from "@/pages/VisionSlider";
+
+//import VisionSlider from "@/pages/VisionSlider";
 
 const containerVariants = {
   hidden: {},
@@ -28,8 +28,23 @@ const lineVariants = {
   },
 };
 
+const candidateImages = [
+  "/images/bnp neta.jpg",
+  "/images/hamid.png",
+  "/images/hamidbhai.jpg",
+  "/images/bnp neta.jpg",
+];
+
 export function HeroSection() {
   const [top, setTop] = useState([]);
+  const [currentCandidate, setCurrentCandidate] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentCandidate((prev) => (prev + 1) % candidateImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     async function loadTopSection() {
@@ -42,7 +57,6 @@ export function HeroSection() {
 
   return (
     <>
-      <IntroVideo />
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background */}
         <div
@@ -95,7 +109,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex flex-wrap gap-4"
             >
-              <Link href="/voter-locator">
+              <Link to="/voter-locator">
                 <Button
                   size="lg"
                   className="bg-political-yellow text-political-blue font-semibold px-8 py-4 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
@@ -114,16 +128,25 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="hidden lg:block absolute right-0 bottom-0 h-full w-[45%]"
         >
-          <div
-            className="absolute inset-0 bg-contain bg-right-bottom bg-no-repeat"
-            style={{
-              backgroundImage: 'url("/images/bnp neta.jpg")',
-              maskImage:
-                "linear-gradient(to left, black 70%, transparent 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to left, black 70%, transparent 100%)",
-            }}
-          />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentCandidate}
+              className="absolute inset-0 bg-no-repeat"
+              style={{
+                backgroundImage: `url('${candidateImages[currentCandidate]}')`,
+                backgroundSize: "contain",
+                backgroundPosition: "right bottom",
+                maskImage:
+                  "linear-gradient(to left, black 60%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to left, black 60%, transparent 100%)",
+              }}
+              initial={{ opacity: 0, x: 100, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -100, scale: 0.95 }}
+              transition={{ duration: 1, ease: "easeInOut" }}
+            />
+          </AnimatePresence>
         </motion.div>
       </section>
     </>

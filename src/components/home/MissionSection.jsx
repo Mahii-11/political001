@@ -34,7 +34,7 @@ export function MissionSection() {
             }}
           />
 
-          <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center">
+          <div className="relative z-10 min-h-[70vh] flex flex-col items-center justify-center text-center px-4 md:px-8 max-w-4xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +45,6 @@ export function MissionSection() {
             >
               {item.title}
             </motion.h2>
-
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +54,6 @@ export function MissionSection() {
             >
               {item.description}
             </motion.p>
-
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/immutability */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
@@ -9,198 +10,196 @@ const slides = [
   {
     id: 1,
     title: "সংবিধান সংস্কার কমিশন গঠন",
-    short: "সংবিধান আধুনিক ও জনগণমুখী করা",
+    short: "",
     details:
       "সংবিধান সংস্কারের মাধ্যমে গণতন্ত্র শক্তিশালী করা, নাগরিক অধিকার নিশ্চিত করা এবং রাষ্ট্রীয় ভারসাম্য প্রতিষ্ঠা করা হবে।",
   },
   {
     id: 2,
     title: "জাতীয় ঐকমত্য ও পুনর্মিলন",
-    short: "National Reconciliation Commission",
+    short: "",
     details:
       "জাতীয় ঐকমত্য প্রতিষ্ঠার জন্য একটি স্বাধীন কমিশন গঠন করে রাজনৈতিক ও সামাজিক বিভাজন দূর করা হবে।",
   },
   {
     id: 3,
     title: "নির্বাচনকালীন নিরপেক্ষ সরকার",
-    short: "গণতান্ত্রিক নির্বাচন নিশ্চিতে",
+    short: "",
     details:
       "নির্বাচনকালীন সময়ে একটি সম্পূর্ণ নিরপেক্ষ প্রশাসনিক কাঠামো গড়ে তোলা হবে।",
   },
-  // ------------------------------
-  // 4–30 similar style
-  // ------------------------------
+
   {
     id: 4,
     title: "শিক্ষা সংস্কার",
-    short: "Quality Education for All",
+    short: "",
     details:
       "শিক্ষা ব্যবস্থার মান উন্নয়ন এবং সকলের জন্য সমান সুযোগ নিশ্চিত করা হবে।",
   },
   {
     id: 5,
     title: "স্বাস্থ্য সেবা উন্নয়ন",
-    short: "Improved Healthcare Access",
+    short: "",
     details: "জনগণের জন্য সহজলভ্য এবং মানসম্মত স্বাস্থ্যসেবা নিশ্চিত করা হবে।",
   },
   {
     id: 6,
     title: "পরিবেশ সংরক্ষণ",
-    short: "Environmental Protection Measures",
+    short: "",
     details:
       "পরিবেশের ভারসাম্য রক্ষা এবং দূষণ নিয়ন্ত্রণে কার্যকর পদক্ষেপ গ্রহণ করা হবে।",
   },
   {
     id: 7,
     title: "অর্থনৈতিক উন্নয়ন",
-    short: "Sustainable Economic Growth",
+    short: "",
     details: "দেশের অর্থনীতি শক্তিশালী ও টেকসই উন্নয়ন নিশ্চিত করা হবে।",
   },
   {
     id: 8,
     title: "স্মার্ট নগর উন্নয়ন",
-    short: "Smart City Initiatives",
+    short: "",
     details: "নগরগুলোর পরিকল্পিত ও প্রযুক্তিনির্ভর উন্নয়ন নিশ্চিত করা হবে।",
   },
   {
     id: 9,
     title: "সড়ক ও পরিবহন",
-    short: "Modern Transport Infrastructure",
+    short: "",
     details: "সড়ক ও পরিবহন ব্যবস্থার মান উন্নয়ন ও সম্প্রসারণ করা হবে।",
   },
   {
     id: 10,
     title: "ডিজিটাল বাংলাদেশ",
-    short: "Digitalization of Services",
+    short: "",
     details:
       "সরকারি ও বেসরকারি সেবা ডিজিটালাইজ করে নাগরিক সুবিধা বৃদ্ধি করা হবে।",
   },
   {
     id: 11,
     title: "কৃষি উন্নয়ন",
-    short: "Agricultural Productivity",
+    short: "",
     details: "কৃষি খাতের আধুনিকীকরণ ও উৎপাদন বৃদ্ধির উদ্যোগ গ্রহণ করা হবে।",
   },
   {
     id: 12,
     title: "শ্রমিক ও চাকরিজীবী সুরক্ষা",
-    short: "Worker Rights & Safety",
+    short: "",
     details: "শ্রমিক ও চাকরিজীবীদের অধিকার সুরক্ষা ও কল্যাণ নিশ্চিত করা হবে।",
   },
   {
     id: 13,
     title: "নারী ও শিশু অধিকার",
-    short: "Women & Child Welfare",
+    short: "",
     details: "নারী ও শিশুদের অধিকার ও নিরাপত্তা নিশ্চিত করা হবে।",
   },
   {
     id: 14,
     title: "নিরাপত্তা ব্যবস্থা",
-    short: "National Security Strengthening",
+    short: "",
     details:
       "দেশের নিরাপত্তা ও আইন-শৃঙ্খলা বজায় রাখার কার্যক্রম উন্নত করা হবে।",
   },
   {
     id: 15,
     title: "সাংস্কৃতিক উন্নয়ন",
-    short: "Promotion of Arts & Culture",
+    short: "",
     details: "দেশীয় সংস্কৃতি ও শিল্পকলার উন্নয়ন ও প্রসার নিশ্চিত করা হবে।",
   },
   {
     id: 16,
     title: "পর্যটন উন্নয়ন",
-    short: "Tourism Expansion",
+    short: "",
     details:
       "দেশের পর্যটন খাত সম্প্রসারণ এবং আন্তর্জাতিক পর্যটকদের আকর্ষণ বৃদ্ধি করা হবে।",
   },
   {
     id: 17,
     title: "উদ্যোক্তা সহায়তা",
-    short: "Entrepreneurship Support",
+    short: "",
     details:
       "নতুন উদ্যোক্তা ও ক্ষুদ্র ব্যবসায়ীদের জন্য সহায়তা ও সুবিধা প্রদান করা হবে।",
   },
   {
     id: 18,
     title: "তথ্য ও যোগাযোগ",
-    short: "ICT Development",
+    short: "",
     details: "তথ্য ও যোগাযোগ প্রযুক্তির উন্নয়ন ও সেবার প্রসার নিশ্চিত করা হবে।",
   },
   {
     id: 19,
     title: "গৃহহীন সমস্যা সমাধান",
-    short: "Affordable Housing Projects",
+    short: "",
     details:
       "গৃহহীনদের জন্য সাশ্রয়ী ও মানসম্মত আবাসন প্রকল্প বাস্তবায়ন করা হবে।",
   },
   {
     id: 20,
     title: "বিদ্যুৎ ও জ্বালানি",
-    short: "Reliable Energy Supply",
+    short: "",
     details:
       "বিদ্যুৎ ও জ্বালানির নিরাপদ, যথাযথ ও পর্যাপ্ত সরবরাহ নিশ্চিত করা হবে।",
   },
   {
     id: 21,
     title: "টেকসই শিল্পায়ন",
-    short: "Sustainable Industrial Growth",
+    short: "",
     details: "শিল্প খাতের টেকসই উন্নয়ন ও উৎপাদনশীলতা বৃদ্ধির উদ্যোগ নেওয়া হবে।",
   },
   {
     id: 22,
     title: "আইনশৃঙ্খলা উন্নয়ন",
-    short: "Law & Order Enhancement",
+    short: "",
     details: "আইনশৃঙ্খলা কার্যকর ও নাগরিক নিরাপত্তা নিশ্চিত করা হবে।",
   },
   {
     id: 23,
     title: "মানবসম্পদ উন্নয়ন",
-    short: "Human Resource Development",
+    short: "",
     details: "মানবসম্পদের দক্ষতা বৃদ্ধি ও শিক্ষার মান উন্নয়ন করা হবে।",
   },
   {
     id: 24,
     title: "সামুদ্রিক উন্নয়ন",
-    short: "Maritime Initiatives",
+    short: "",
     details: "সামুদ্রিক সম্পদ ব্যবস্থাপনা ও উন্নয়ন কার্যক্রম গ্রহণ করা হবে।",
   },
   {
     id: 25,
     title: "বাজার ও বাণিজ্য",
-    short: "Trade & Commerce Growth",
+    short: "",
     details:
       "দেশের অভ্যন্তরীণ ও আন্তর্জাতিক বাণিজ্য সম্প্রসারণ নিশ্চিত করা হবে।",
   },
   {
     id: 26,
     title: "ট্রাফিক ব্যবস্থাপনা",
-    short: "Traffic & Transport Planning",
+    short: "",
     details: "শহর ও শহরতলি ট্রাফিক ব্যবস্থাপনা উন্নয়ন করা হবে।",
   },
   {
     id: 27,
     title: "পরিষ্কার-পরিচ্ছন্নতা",
-    short: "Cleanliness & Sanitation",
+    short: "",
     details:
       "শহর ও গ্রামাঞ্চলে পরিচ্ছন্নতা ও স্বাস্থ্যকর পরিবেশ নিশ্চিত করা হবে।",
   },
   {
     id: 28,
     title: "অর্থনৈতিক নীতি",
-    short: "Economic Policy Reform",
+    short: "",
     details: "দেশের অর্থনৈতিক নীতি কার্যকর ও স্থিতিশীল করা হবে।",
   },
   {
     id: 29,
     title: "সামাজিক নিরাপত্তা",
-    short: "Social Safety Nets",
+    short: "",
     details:
       "অসচ্ছল ও দুর্বল জনগোষ্ঠীর জন্য সামাজিক নিরাপত্তা ব্যবস্থা নিশ্চিত করা হবে।",
   },
   {
     id: 30,
     title: "ডিজিটাল সেবা সম্প্রসারণ",
-    short: "Digital Service Expansion",
+    short: "",
     details:
       "সরকারি ও বেসরকারি সেবার ডিজিটালাইজেশন ও নাগরিক সুবিধা বৃদ্ধি করা হবে।",
   },
@@ -289,38 +288,14 @@ export default function HorizontalCarousel() {
                   className="flex-shrink-0 w-full sm:w-full md:w-1/2 lg:w-1/3"
                 >
                   <div className="bg-white rounded-2xl shadow-md p-6 text-center min-h-[220px] flex flex-col justify-between">
-                    <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-full bg-green-600 text-white font-bold text-lg">
+                    <div className="w-12 h-12 mx-auto mb-10 flex items-center justify-center rounded-full bg-green-600 text-white font-bold text-lg">
                       {slide.id}
                     </div>
-
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                      <h3 className="text-xl font-semibold text-gray-800">
                         {slide.title}
                       </h3>
-                      <p className="text-gray-600 text-sm">{slide.short}</p>
                     </div>
-
-                    <AnimatePresence>
-                      {openId === slide.id && (
-                        <motion.p
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="text-gray-700 text-sm mt-2"
-                        >
-                          {slide.details}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-
-                    <button
-                      onClick={() =>
-                        setOpenId(openId === slide.id ? null : slide.id)
-                      }
-                      className="mt-3 text-green-600 font-semibold hover:underline text-sm"
-                    >
-                      {openId === slide.id ? "Hide Details" : "View Details"}
-                    </button>
                   </div>
                 </motion.div>
               ))}
@@ -345,4 +320,31 @@ export default function HorizontalCarousel() {
       </section>
     </div>
   );
+}
+
+{
+  /*   <AnimatePresence>
+                      {openId === slide.id && (
+                        <motion.p
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="text-gray-700 text-sm mt-2"
+                        >
+                          {slide.details}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+
+                    <button
+                      onClick={() =>
+                        setOpenId(openId === slide.id ? null : slide.id)
+                      }
+                      className="mt-3 text-green-600 font-semibold hover:underline text-sm"
+                    >
+                      {openId === slide.id ? "Hide Details" : "View Details"}
+                    </button>
+
+                     <p className="text-gray-600 text-sm">{slide.short}</p>
+                     */
 }

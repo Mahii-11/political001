@@ -2,10 +2,16 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import DatePicker, { registerLocale } from "react-datepicker";
+import bn from "date-fns/locale/bn"; // Bengali locale
+import "react-datepicker/dist/react-datepicker.css";
+
+registerLocale("bn", bn);
+
 export default function VoterLocator() {
   const [formData, setFormData] = useState({
     name: "",
-    birthDate: "",
+    birthDate: null, // date picker use korar jonno null
     voterId: "",
   });
   const [result, setResult] = useState(null);
@@ -14,15 +20,29 @@ export default function VoterLocator() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleDateChange = (date) => {
+    setFormData({ ...formData, birthDate: date });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // এখানে API call বা dynamic lookup logic হবে
-    // demo purpose:
+    // demo purpose
     setResult({
       center: "কেন্দ্র-১২, ঢাকা জেলা",
       address: "রাজধানী কেন্দ্র, ঢাকা",
       booth: "বুথ ৫",
     });
+  };
+
+  // Optional: Bangla digits function
+  const toBanglaNumber = (num) => {
+    if (!num) return "";
+    const bnNums = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+    return num
+      .toLocaleDateString("en-GB")
+      .split("")
+      .map((n) => (/\d/.test(n) ? bnNums[n] : n))
+      .join("");
   };
 
   return (
@@ -40,7 +60,6 @@ export default function VoterLocator() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold text-white mb-4"
-            data-testid="text-gallery-page-title"
           >
             আপনার ভোট কেন্দ্র খুঁজুন
           </motion.h1>
@@ -54,6 +73,7 @@ export default function VoterLocator() {
           </motion.p>
         </div>
       </section>
+
       <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6">
         <div className="max-w-2xl w-full bg-white shadow-lg rounded-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -71,13 +91,17 @@ export default function VoterLocator() {
 
             <div>
               <label className="block text-gray-700 mb-1">জন্ম তারিখ</label>
-              <input
-                type="date"
-                name="birthDate"
-                value={formData.birthDate}
-                onChange={handleChange}
+              <DatePicker
+                selected={formData.birthDate}
+                onChange={handleDateChange}
+                locale="bn"
+                dateFormat="dd/MM/yyyy"
+                placeholderText="DD/MM/YYYY"
                 className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                required
+                showYearDropdown
+                scrollableYearDropdown
+                yearDropdownItemNumber={100} // ড্রপডাউন দেখাবে
+                maxDate={new Date(2005, 11, 31)} // ডিসেম্বর ৩১, 2005 পর্যন্ত
               />
             </div>
 
@@ -110,6 +134,7 @@ export default function VoterLocator() {
               <p>কেন্দ্র: {result.center}</p>
               <p>ঠিকানা: {result.address}</p>
               <p>বুথ: {result.booth}</p>
+              <p>জন্ম তারিখ: {toBanglaNumber(formData.birthDate)}</p>
             </div>
           )}
         </div>

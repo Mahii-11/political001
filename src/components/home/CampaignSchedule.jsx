@@ -5,14 +5,16 @@ import { Calendar, Clock, MapPin } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
-import { getCampaignSchedule } from "@/services/api";
+import { getCampaignSchedule } from "../../services/api";
 
-const scheduleFilters = ["All", "Jan 17", "Jan 18", "Jan 21", "Jan 23"];
+//const scheduleFilters = ["All", "Jan 17", "Jan 18", "Jan 21", "Jan 23"];
 
 export function CampaignSchedule() {
   const [eventsData, setEventsData] = useState([]);
-  const [activeFilter, setActiveFilter] = useState("All");
+  //  const [activeFilter, setActiveFilter] = useState("All");
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(null);
+
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -59,10 +61,9 @@ export function CampaignSchedule() {
     fetchData();
   }, []);
 
-  const filteredEvents =
-    activeFilter === "All"
-      ? eventsData
-      : eventsData.filter((event) => event.dateKey === activeFilter);
+  const filteredEvents = selectedDate
+    ? eventsData.filter((event) => event.dateKey === selectedDate)
+    : eventsData;
 
   return (
     <section className="py-20 bg-political-light">
@@ -87,30 +88,45 @@ export function CampaignSchedule() {
         </motion.div>
 
         {/* FILTER BUTTONS */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {scheduleFilters.map((filter) => (
-            <Button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-6 ${
-                activeFilter === filter
-                  ? "bg-political-red text-white"
-                  : "bg-white text-political-dark border border-political-dark/20"
-              }`}
-              data-testid={`button-filter-${filter
-                .toLowerCase()
-                .replace(" ", "-")}`}
-            >
-              {filter}
-            </Button>
-          ))}
-        </motion.div>
+        {/* REAL BANGLA CALENDAR */}
+        <div className="mb-12 bg-white rounded-xl shadow-sm p-4">
+          <div className="text-center font-semibold text-political-blue mb-4">
+            {banglaMonths[new Date().getMonth()]}
+          </div>
+
+          <div className="grid grid-cols-7 gap-2 text-center text-sm">
+            {banglaDays.map((d) => (
+              <div key={d} className="text-political-dark/60">
+                {d}
+              </div>
+            ))}
+
+            {Array.from({ length: 31 }, (_, i) => {
+              const day = i + 1;
+              const dateKey = `Jan ${String(day).padStart(2, "0")}`;
+              const hasEvent = eventsData.some((e) => e.dateKey === dateKey);
+
+              return (
+                <button
+                  key={day}
+                  disabled={!hasEvent}
+                  onClick={() => setSelectedDate(dateKey)}
+                  className={`h-10 rounded-md transition-all
+            ${
+              selectedDate === dateKey
+                ? "bg-political-red text-white"
+                : hasEvent
+                ? "bg-political-light hover:bg-political-red/10"
+                : "text-gray-300 cursor-not-allowed"
+            }
+          `}
+                >
+                  {toBanglaNumber(day)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isLoading
@@ -195,3 +211,29 @@ function formatTime(time) {
     minute: "2-digit",
   });
 }
+
+const banglaNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+
+function toBanglaNumber(num) {
+  return String(num)
+    .split("")
+    .map((d) => banglaNumbers[d] || d)
+    .join("");
+}
+
+const banglaMonths = [
+  "জানুয়ারি",
+  "ফেব্রুয়ারি",
+  "মার্চ",
+  "এপ্রিল",
+  "মে",
+  "জুন",
+  "জুলাই",
+  "আগস্ট",
+  "সেপ্টেম্বর",
+  "অক্টোবর",
+  "নভেম্বর",
+  "ডিসেম্বর",
+];
+
+const banglaDays = ["রবি", "সোম", "মঙ্গল", "বুধ", "বৃহস্পতি", "শুক্র", "শনি"];

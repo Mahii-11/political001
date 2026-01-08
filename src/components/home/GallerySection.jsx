@@ -53,7 +53,7 @@ export function GallerySection() {
               ))}
             </div>
             <Link
-              href="/gallery"
+              to="/gallery"
               className="inline-block mt-6 text-political-blue font-medium hover:text-political-red transition-colors"
               data-testid="link-view-gallery"
             >
@@ -75,7 +75,7 @@ export function GallerySection() {
                 মিডিয়া প্রকাশনা
               </h2>
               <Link
-                href="/gallery"
+                to="/gallery"
                 className="text-political-blue font-medium hover:text-political-red transition-colors text-sm"
               >
                 &gt; আরও ভিডিও

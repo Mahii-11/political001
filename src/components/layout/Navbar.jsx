@@ -37,7 +37,7 @@ export function Navbar() {
       className="bg-white shadow-sm sticky top-0 z-50"
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="flex items-center justify-between h-24">
+        <div className="flex items-center justify-between h-20">
           <Link to="/" data-testid="link-home-logo">
             <div className="flex items-end h-full pb-1">
               <img

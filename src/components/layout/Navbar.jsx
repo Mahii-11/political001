@@ -44,7 +44,7 @@ export function Navbar() {
                 src="/images/logo.jpg"
                 alt="Campaign Logo"
                 className="
-          h-[90px]
+          h-[80px]
           w-auto
           object-contain
         "

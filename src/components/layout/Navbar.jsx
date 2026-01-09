@@ -46,7 +46,7 @@ export function Navbar() {
             <div className="flex items-center gap-3">
               {/* Text Section */}
               <div className="flex flex-col justify-center">
-                <div className="text-green-700 font-extrabold text-4xl tracking-wider leading-tight font-bangla">
+                <div className="text-green-700 font-extrabold text-2xl md:text-2xl lg:text-3xl  tracking-wider leading-tight font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
               </div>

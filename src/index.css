@@ -1,9 +1,10 @@
+/* Import Google Fonts must be first */
+@import url("https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap");
+
+/* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* src/index.css */
-@import url("https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap");
 
 /* Custom Tailwind class for Bangla font */
 .font-bangla {

@@ -28,7 +28,7 @@ export function Footer() {
               transition={{ duration: 0.5 }}
             >
               <div className="mb-6">
-                <div className="text-2xl md:text-3xl font-extrabold tracking-tight  text-green-700">
+                <div className="text-2xl md:text-3xl font-extrabold tracking-tight  text-green-700 font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
               </div>

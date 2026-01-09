@@ -3,6 +3,7 @@ import { getMissionData } from "../../services/api";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useEffect, useState } from "react";
+import missionThumb from "../../assets/thumbnails/mission-2030.jpg";
 
 export function MissionSection() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,7 +12,6 @@ export function MissionSection() {
   useEffect(() => {
     async function loadMission() {
       const res = await getMissionData();
-      console.log("API response:", res);
       setMission(Array.isArray(res.data) ? res.data : []);
     }
     loadMission();
@@ -24,87 +24,89 @@ export function MissionSection() {
   };
 
   return (
-    <section className="relative py-32 overflow-hidden">
-      {mission.map((item, i) => (
-        <div key={i}>
+    <section className="relative py-32 bg-green-50 overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
+        {mission.map((item, i) => (
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(rgba(18, 90, 60, 0.85),rgba(18, 90, 60, 0.85)),url('images/image8.jpg')`,
-              // backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url(${item.image})`,
-            }}
-          />
+            key={i}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            {/* LEFT — TEXT */}
+            <div>
+              <motion.h2
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6"
+              >
+                {item.title}
+              </motion.h2>
 
-          <div className="relative z-10 min-h-[70vh] flex flex-col items-center justify-center text-center px-4 md:px-8 max-w-4xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-gray-700 text-base md:text-lg leading-relaxed max-w-xl"
+              >
+                {item.description}
+              </motion.p>
+            </div>
+
+            {/* RIGHT — VIDEO CARD */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl md:text-5xl font-bold text-white mb-4"
-              data-testid="text-mission-title"
-            >
-              {item.title}
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-white/80 text-lg italic mb-10"
-            >
-              {item.description}
-            </motion.p>
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsPlaying(true)}
-              className="w-20 h-20 rounded-full bg-political-red flex items-center justify-center shadow-lg shadow-political-red/30"
-              data-testid="button-play-video"
+              className="relative rounded-2xl bg-white shadow-xl overflow-hidden"
             >
-              <Play className="w-8 h-8 text-white ml-1" fill="white" />
-            </motion.button>
-          </div>
+              {/* Video / Thumbnail */}
+              <div className="aspect-video bg-gray-200 relative">
+                {!isPlaying ? (
+                  <>
+                    <div
+                      className="absolute inset-0 bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(${missionThumb})`,
+                      }}
+                    />
+                    <button
+                      onClick={() => setIsPlaying(true)}
+                      className="absolute inset-0 flex items-center justify-center"
+                      aria-label="Play video"
+                    >
+                      <div className="w-20 h-20 rounded-full bg-emerald-700 flex items-center justify-center shadow-lg hover:bg-emerald-800 transition">
+                        <Play
+                          className="w-8 h-8 text-white ml-1"
+                          fill="white"
+                        />
+                      </div>
+                    </button>
+                  </>
+                ) : (
+                  <iframe
+                    src={getEmbedUrl(item.youtube_link)}
+                    title="Mission Video"
+                    frameBorder="0"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                )}
+              </div>
 
-          {isPlaying && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-              onClick={() => setIsPlaying(false)}
-            >
-              <motion.div
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                className="w-full max-w-4xl aspect-video bg-black rounded-lg"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src={getEmbedUrl(item.youtube_link)}
-                  title="Campaign Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="rounded-lg"
-                />
-              </motion.div>
-              <button
-                onClick={() => setIsPlaying(false)}
-                className="absolute top-4 right-4 text-white text-4xl"
-                data-testid="button-close-video"
-              >
-                &times;
-              </button>
+              {/* Card Footer */}
+              <div className="p-6 border-t">
+                <p className="text-sm text-gray-600">
+                  মিশন ২০৩০ — ভবিষ্যৎ বাংলাদেশের পথে আমাদের অঙ্গীকার
+                </p>
+              </div>
             </motion.div>
-          )}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

@@ -20,10 +20,12 @@ export function QuoteSection() {
       {quote.map((item, i) => (
         <div key={i}>
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(rgba(18, 90, 60, 0.85),rgba(18, 90, 60, 0.85)),url('images/image8.jpg')`,
-            }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-green-50"
+            style={
+              {
+                //backgroundImage: `linear-gradient(rgba(18, 90, 60, 0.85),rgba(18, 90, 60, 0.85)),url('images/image8.jpg')`,
+              }
+            }
           />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center">
@@ -35,7 +37,7 @@ export function QuoteSection() {
             >
               <span className="text-political-red text-6xl font-serif">"</span>
               <blockquote
-                className="text-xl md:text-2xl lg:text-3xl text-white italic font-light leading-relaxed"
+                className="text-xl md:text-2xl lg:text-3xl text-gray-800 italic font-light leading-relaxed"
                 data-testid="text-quote"
               >
                 {item.description}
@@ -43,9 +45,9 @@ export function QuoteSection() {
               <span className="text-political-red text-6xl font-serif">"</span>
 
               <div className="mt-8 flex items-center justify-center gap-4">
-                <div className="w-12 h-0.5 bg-white/50" />
-                <p className="text-white/80 text-lg">{item.title}</p>
-                <div className="w-12 h-0.5 bg-white/50" />
+                <div className="w-12 h-0.5 bg-gray-900" />
+                <p className="text-gray-800 text-lg">{item.title}</p>
+                <div className="w-12 h-0.5 bg-gray-900" />
               </div>
             </motion.div>
           </div>

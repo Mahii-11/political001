@@ -43,8 +43,8 @@ export default function AnimatedHeader() {
           items-center
           justify-center
           overflow-hidden
-          bg-gradient-to-r from-[#0f5132] via-[#1b7a4a] to-[#b02a37]
-          text-white
+          bg-green-100
+          text-gray-900
           border-b border-black/10
         "
       >

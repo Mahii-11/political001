@@ -61,12 +61,7 @@ function AnimatedNumber({ value, prefix = "", suffix = "" }) {
 export function StatisticsSection() {
   return (
     <section className="relative py-20 overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(rgba(72, 80, 100, 0.9), rgba(52, 58, 74, 0.9)), url('images/bgimage.png')`,
-        }}
-      />
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-gray-100" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -17,92 +17,80 @@ export function GallerySection() {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2
-              className="text-2xl md:text-3xl font-bold text-political-blue mb-6"
-              data-testid="text-gallery-title"
-            >
+        {/* Single Professional Card */}
+        <motion.div
+          className="flex flex-col lg:flex-row gap-6 bg-white rounded-2xl shadow-2xl overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Left: Gallery */}
+          <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-4 p-4 h-full">
+            {/* Section Title */}
+            <h2 className="col-span-full text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-political-blue to-political-red mb-4">
               প্রচারণার চিত্রশালা
             </h2>
-            <div className="grid grid-cols-3 gap-3">
-              {galleryImages.map((image, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="aspect-square overflow-hidden rounded-md cursor-pointer"
-                >
-                  <img
-                    src={image}
-                    alt={`Campaign gallery ${index + 1}`}
-                    className="w-full h-full object-cover"
-                    data-testid={`img-gallery-${index}`}
-                  />
-                </motion.div>
-              ))}
-            </div>
+            {galleryImages.map((image, index) => (
+              <motion.div
+                key={index}
+                className="relative overflow-hidden rounded-lg shadow-md cursor-pointer hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                <img
+                  src={image}
+                  alt={`Campaign gallery ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </motion.div>
+            ))}
             <Link
               to="/gallery"
-              className="inline-block mt-6 text-political-blue font-medium hover:text-political-red transition-colors"
-              data-testid="link-view-gallery"
+              className="col-span-full mt-2 text-political-blue font-medium hover:text-political-red transition-colors"
             >
-              সম্পূর্ণ গ্যালারি দেখুন
+              সম্পূর্ণ গ্যালারি দেখুন &rarr;
             </Link>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h2
-                className="text-2xl md:text-3xl font-bold text-political-blue"
-                data-testid="text-media-title"
-              >
-                মিডিয়া প্রকাশনা
-              </h2>
-              <Link
-                className="text-political-blue font-medium hover:text-political-red transition-colors text-sm"
-                to="/gallery"
-              >
-                &gt; আরও ভিডিও
-              </Link>
-            </div>
-            <div className="relative aspect-video rounded-lg overflow-hidden">
+          {/* Right: Featured Video */}
+          <div className="w-full lg:w-1/3 relative flex flex-col justify-center p-4">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-political-blue mb-4">
+              মিডিয়া প্রকাশনা
+            </h2>
+            <div className="relative aspect-video rounded-lg overflow-hidden shadow-2xl flex-1">
               <img
                 src="images/image13.jpg"
                 alt="Media release video thumbnail"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex items-center justify-center">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsPlaying(true)}
-                  className="w-16 h-16 rounded-full bg-political-red flex items-center justify-center shadow-lg"
-                  data-testid="button-play-media"
+                  className="w-20 h-20 rounded-full bg-political-red flex items-center justify-center shadow-lg"
                 >
-                  <Play className="w-6 h-6 text-white ml-1" fill="white" />
+                  <Play className="w-8 h-8 text-white ml-1" fill="white" />
                 </motion.button>
               </div>
+              <Link
+                to="/gallery"
+                className="absolute bottom-4 right-4 text-sm text-white hover:text-political-red font-medium"
+              >
+                আরও ভিডিও &rarr;
+              </Link>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
 
+      {/* Video Modal */}
       {isPlaying && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -113,7 +101,7 @@ export function GallerySection() {
           <motion.div
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
-            className="w-full max-w-4xl aspect-video bg-black rounded-lg"
+            className="w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <iframe
@@ -124,7 +112,6 @@ export function GallerySection() {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="rounded-lg"
             />
           </motion.div>
           <button

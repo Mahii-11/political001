@@ -34,11 +34,12 @@ export function HeroSlider() {
           <button
             key={index}
             onClick={() => setActiveBanner(index)}
+            aria-label={`Go to banner ${index + 1}`}
             className={clsx(
-              "w-4 h-4 rounded-full transition-all duration-300",
+              "h-2 rounded-full transition-all duration-300 ease-out",
               activeBanner === index
-                ? "bg-political-yellow scale-125"
-                : "bg-white/50 hover:bg-white"
+                ? "w-8 bg-emerald-700"
+                : "w-2 bg-gray-300 hover:bg-gray-400"
             )}
           />
         ))}

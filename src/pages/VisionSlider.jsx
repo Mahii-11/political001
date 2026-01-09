@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/immutability */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 const slides = [
   {
@@ -318,6 +318,7 @@ export default function HorizontalCarousel() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

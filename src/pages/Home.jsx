@@ -1,6 +1,5 @@
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
-import { HeroSection } from "../components/home/HeroSection";
 import { CampaignNews } from "../components/home/CampaignNews";
 import { MissionSection } from "../components/home/MissionSection";
 import { CampaignSchedule } from "../components/home/CampaignSchedule";
@@ -9,6 +8,7 @@ import { GallerySection } from "../components/home/GallerySection";
 import { StatisticsSection } from "../components/home/StatisticsSection";
 import BlueSection from "../components/home/BlueSecion";
 import AnimatedHeader from "../components/home/AnimatedHeader";
+import { HeroSlider } from "@/components/home/HeroSlider";
 
 export default function Home() {
   return (
@@ -16,9 +16,11 @@ export default function Home() {
       <Navbar />
       <AnimatedHeader />
       <main>
-        <HeroSection />
+        <HeroSlider />
         <BlueSection />
-        <CampaignNews />
+        <div id="campaignnews">
+          <CampaignNews />
+        </div>
         <MissionSection />
         <CampaignSchedule />
         <QuoteSection />

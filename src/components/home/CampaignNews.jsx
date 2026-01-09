@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
-import { Link } from "wouter";
+//import { Link } from "wouter";
 import { FaUser, FaRegCalendarAlt } from "react-icons/fa";
 import { Card, CardContent } from "../ui/card";
-import { Skeleton } from "../ui/skeleton";
+//import { Skeleton } from "../ui/skeleton";
 import { useEffect, useState } from "react";
 import { getLatestCampaign } from "@/services/api";
 import { AnimatePresence } from "framer-motion";
@@ -15,8 +15,9 @@ const videos = [
     title: "জনসভায় গুরুত্বপূর্ণ বক্তব্য",
     description: "জনগণের অধিকার ও উন্নয়ন নিয়ে আমাদের সাম্প্রতিক জনসভা।",
     src: "/videos/video1.mp4",
-    type: "local", // local | youtube
+    type: "local",
     date: "১২ জানুয়ারি ২০২6",
+    thumbnail: "/images/image34.jpg",
   },
   {
     id: 2,
@@ -25,6 +26,7 @@ const videos = [
     src: "https://www.youtube.com/embed/VIDEO_ID",
     type: "youtube",
     date: "১০ জানুয়ারি ২০২6",
+    thumbnail: "/images/image1.jpg",
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const videos = [
     src: "/videos/video3.mp4",
     type: "local",
     date: "৮ জানুয়ারি ২০২6",
+    thumbnail: "/images/image23.jpg",
   },
 ];
 
@@ -69,7 +72,7 @@ export function CampaignNews() {
           </p>
         </motion.div>
 
-        {/* Blog Cards */}
+        {/* Blog Cards 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isLoading
             ? [1, 2, 3].map((i) => (
@@ -127,7 +130,7 @@ export function CampaignNews() {
                   </Link>
                 </motion.div>
               ))}
-        </div>
+        </div> */}
         <CampaignVideos />
       </div>
     </section>
@@ -140,22 +143,6 @@ export function CampaignVideos() {
   return (
     <section className="py-20 bg-political-light">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-            প্রচারণার ভিডিও গ্যালারি
-          </h2>
-          <p className="text-political-dark/70 max-w-2xl mx-auto">
-            আমাদের চলমান কার্যক্রম ও গুরুত্বপূর্ণ মুহূর্তের ভিডিও সংকলন।
-          </p>
-        </motion.div>
-
         {/* Video Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {videos.map((item, index) => (
@@ -170,26 +157,16 @@ export function CampaignVideos() {
                 onClick={() => setActiveVideo(item)}
                 className="overflow-hidden hover-elevate cursor-pointer h-full bg-white border-0 shadow-sm"
               >
-                {/* Video Preview */}
+                {/* Thumbnail */}
                 <div className="relative h-48 overflow-hidden group">
-                  {item.type === "local" ? (
-                    <video
-                      src={item.src}
-                      muted
-                      preload="metadata"
-                      className="w-full h-full object-cover"
-                      onMouseEnter={(e) => e.currentTarget.play()}
-                      onMouseLeave={(e) => e.currentTarget.pause()}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-black flex items-center justify-center">
-                      <FaPlayCircle className="text-white text-6xl opacity-80" />
-                    </div>
-                  )}
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                    <FaPlayCircle className="text-white text-5xl" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30  group-hover:opacity-100 transition">
+                    <FaPlayCircle className="text-white text-6xl opacity-90" />
                   </div>
                 </div>
 

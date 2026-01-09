@@ -20,24 +20,34 @@ import VisionSlider from "./pages/VisionSlider";
 import VolunteerDetail, {
   loader as volunteerData,
 } from "./pages/VolunteerDetail";
+import ScrollToTop from "./components/ScrollToTop";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/biography", element: <Biography /> },
-  { path: "/gallery", element: <Gallery /> },
-  { path: "/contact", element: <Contact /> },
-  { path: "/complaint", element: <ComplaintPage /> },
-  { path: "/promise", element: <Campaign /> },
-  { path: "/volunteer/new", element: <Volunteer />, action: volunteerAction },
-  { path: "/about", element: <About /> },
-  { path: "/voter-locator", element: <VoterLocator /> },
-  { path: "/coming-soon", element: <ComingSoon /> },
-  { path: "/our-dhaka", element: <Dhaka7Page /> },
-  { path: "/31-points", element: <VisionSlider /> },
   {
-    path: "/volunteer/:volunteerId",
-    element: <VolunteerDetail />,
-    loader: volunteerData,
+    element: <ScrollToTop />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/biography", element: <Biography /> },
+      { path: "/gallery", element: <Gallery /> },
+      { path: "/contact", element: <Contact /> },
+      { path: "/complaint", element: <ComplaintPage /> },
+      { path: "/promise", element: <Campaign /> },
+      {
+        path: "/volunteer/new",
+        element: <Volunteer />,
+        action: volunteerAction,
+      },
+      { path: "/about", element: <About /> },
+      { path: "/voter-locator", element: <VoterLocator /> },
+      { path: "/coming-soon", element: <ComingSoon /> },
+      { path: "/our-dhaka", element: <Dhaka7Page /> },
+      { path: "/31-points", element: <VisionSlider /> },
+      {
+        path: "/volunteer/:volunteerId",
+        element: <VolunteerDetail />,
+        loader: volunteerData,
+      },
+    ],
   },
 ]);
 

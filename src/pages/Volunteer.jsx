@@ -236,6 +236,29 @@ export function VolunteerForm() {
               className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              জাতীয় পরিচয়পত্র (NID) নম্বর
+            </label>
+            <input
+              type="text"
+              name="nid"
+              placeholder="আপনার ১০ বা ১৭ সংখ্যার NID নম্বর লিখুন"
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              ফোন নম্বর
+            </label>
+            <input
+              type="text"
+              name="phone"
+              placeholder="+০১৭১ ২৩৪ ৫৬৭৮"
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
 
           <div>
             <label className="block text-gray-800 font-medium mb-2">
@@ -255,18 +278,6 @@ export function VolunteerForm() {
                 )
               )}
             </select>
-          </div>
-
-          <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              ফোন নম্বর
-            </label>
-            <input
-              type="text"
-              name="phone"
-              placeholder="+০১৭১ ২৩৪ ৫৬৭৮"
-              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
           </div>
 
           <div>

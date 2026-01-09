@@ -4,9 +4,18 @@ import { useRef, useEffect } from "react";
 
 const statistics = [
   { value: 8200, label: "সদস্যগণ", suffix: "" },
-  { value: 5000000, label: "অর্থদান", prefix: "$" },
-  { value: 5000, label: "স্বেচ্ছাসেবক", suffix: "" },
+  { value: 50, label: "অভিযোগ", prefix: "" },
+  { value: 35, label: "অভিযোগ নিষ্পত্তি ", suffix: "" },
 ];
+
+function toBanglaNumber(num) {
+  const en = "0123456789";
+  const bn = "০১২৩৪৫৬৭৮৯";
+  return String(num)
+    .split("")
+    .map((d) => bn[en.indexOf(d)] ?? d)
+    .join("");
+}
 
 function AnimatedNumber({ value, prefix = "", suffix = "" }) {
   const ref = useRef(null);
@@ -25,15 +34,17 @@ function AnimatedNumber({ value, prefix = "", suffix = "" }) {
       if (ref.current) {
         let displayValue;
         if (value >= 1000000) {
-          displayValue = `${prefix}${(latest / 1000000).toFixed(
-            latest >= value ? 0 : 1
+          displayValue = `${prefix}${toBanglaNumber(
+            (latest / 1000000).toFixed(latest >= value ? 0 : 1)
           )}M`;
         } else if (value >= 1000) {
-          displayValue = `${prefix}${(latest / 1000).toFixed(
-            latest >= value * 0.9 ? 1 : 0
+          displayValue = `${prefix}${toBanglaNumber(
+            (latest / 1000).toFixed(latest >= value * 0.9 ? 1 : 0)
           )}K`;
         } else {
-          displayValue = `${prefix}${Math.floor(latest)}${suffix}`;
+          displayValue = `${prefix}${toBanglaNumber(
+            Math.floor(latest)
+          )}${suffix}`;
         }
         ref.current.textContent = displayValue;
       }
@@ -41,7 +52,8 @@ function AnimatedNumber({ value, prefix = "", suffix = "" }) {
     return () => unsubscribe();
   }, [springValue, value, prefix, suffix]);
 
-  const initialDisplay = value >= 1000000 ? "$0M" : value >= 1000 ? "0K" : "0";
+  const initialDisplay =
+    value >= 1000000 ? `${prefix}0M` : value >= 1000 ? "0K" : toBanglaNumber(0);
 
   return <span ref={ref}>{initialDisplay}</span>;
 }

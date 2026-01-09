@@ -2,6 +2,7 @@
 import { Navbar } from "../components/layout/Navbar";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Footer } from "@/components/layout/Footer";
 
 export default function ComplaintPage() {
   const [formData, setFormData] = useState({
@@ -216,6 +217,7 @@ export default function ComplaintPage() {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

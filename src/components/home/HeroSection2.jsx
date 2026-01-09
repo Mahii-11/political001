@@ -33,7 +33,7 @@ const candidateImages = [
   "/images/bnp neta.jpg",
 ];
 
-export function HeroSection() {
+export function HeroSection2() {
   const [top, setTop] = useState([]);
   const [currentCandidate, setCurrentCandidate] = useState(0);
 
@@ -60,7 +60,7 @@ export function HeroSection() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
+            backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/banner-1.jpg')`,
           }}
         />
 

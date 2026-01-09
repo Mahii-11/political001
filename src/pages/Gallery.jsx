@@ -160,20 +160,20 @@ const galleryImages = [
 
 const videos = [
   {
-    title: "Introduction to React",
-    description: "A beginner-friendly React tutorial.",
+    title: "জনসভায় গুরুত্বপূর্ণ বক্তব্য",
+    description: "জনগণের অধিকার ও উন্নয়ন নিয়ে আমাদের সাম্প্রতিক জনসভা।",
     src: "/videos/hamidvideo.mp4",
     poster: "/images/image3.jpg",
   },
   {
-    title: "Advanced JavaScript",
-    description: "Deep dive into JS concepts.",
+    title: "উন্নয়ন প্রকল্প পরিদর্শন",
+    description: "চলমান উন্নয়ন প্রকল্প সরেজমিনে পরিদর্শনের দৃশ্য।",
     src: "/videos/js-advanced.mp4",
     poster: "/images/image4.jpg",
   },
   {
-    title: "CSS Animations",
-    description: "Learn how to animate with CSS.",
+    title: "স্বেচ্ছাসেবকদের সাথে মতবিনিময়",
+    description: "স্বেচ্ছাসেবকদের সাথে গুরুত্বপূর্ণ আলোচনা ও দিকনির্দেশনা।",
     src: "/videos/css-animations.mp4",
     poster: "/images/image5.jpg",
   },
@@ -336,7 +336,7 @@ function VideoGallery() {
     <section className="w-full bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">
-          Our Video Tutorials
+          আমাদের ভিডিও টিউটোরিয়ালসমূহ
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

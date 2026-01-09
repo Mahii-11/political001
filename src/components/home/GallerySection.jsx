@@ -75,8 +75,8 @@ export function GallerySection() {
                 মিডিয়া প্রকাশনা
               </h2>
               <Link
-                to="/gallery"
                 className="text-political-blue font-medium hover:text-political-red transition-colors text-sm"
+                to="/gallery"
               >
                 &gt; আরও ভিডিও
               </Link>

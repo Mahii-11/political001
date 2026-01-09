@@ -38,16 +38,20 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" data-testid="link-home-logo">
-            <div className="flex items-end h-full pb-1">
+          <Link
+            to="/"
+            data-testid="link-home-logo"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <div className="flex items-center gap-2">
+              <div className="text-green-700 font-bold text-3xl tracking-tight">
+                হামিদুর<span className="text-political-red">রহমান</span>
+                <span>হামিদ</span>
+              </div>
               <img
-                src="/images/logo.jpg"
+                src="/images/logo.png"
                 alt="Campaign Logo"
-                className="
-          h-[80px]
-          w-auto
-          object-contain
-        "
+                className="h-10 w-auto"
               />
             </div>
           </Link>

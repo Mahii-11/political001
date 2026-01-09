@@ -14,9 +14,9 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-political-blue text-white">
+    <footer className=" bg-gradient-to-r from-[#0f5132] via-[#1b7a4a] to-[#b02a37] text-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -70,33 +70,6 @@ export function Footer() {
               </li>
             </ul>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <h3 className="text-lg font-semibold mb-6">নিউজলেটার</h3>
-            <p className="text-white/80 text-sm mb-4">
-              আমাদের নিউজলেটার সাবস্ক্রাইব করুন এবং প্রচারণার আপডেট ও খবর পান।
-            </p>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <Input
-                type="email"
-                placeholder="আপনার ইমেইল ঠিকানা"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                data-testid="input-newsletter-email"
-              />
-              <Button
-                className="w-full bg-political-yellow hover:bg-political-yellow/90 text-political-dark font-semibold"
-                data-testid="button-newsletter-subscribe"
-              >
-                সাবস্ক্রাইব করুন
-              </Button>
-            </form>
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -158,4 +131,32 @@ export function Footer() {
       </div>
     </footer>
   );
+}
+
+{
+  /*   <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <h3 className="text-lg font-semibold mb-6">নিউজলেটার</h3>
+            <p className="text-white/80 text-sm mb-4">
+              আমাদের নিউজলেটার সাবস্ক্রাইব করুন এবং প্রচারণার আপডেট ও খবর পান।
+            </p>
+            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+              <Input
+                type="email"
+                placeholder="আপনার ইমেইল ঠিকানা"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                data-testid="input-newsletter-email"
+              />
+              <Button
+                className="w-full bg-political-yellow hover:bg-political-yellow/90 text-political-dark font-semibold"
+                data-testid="button-newsletter-subscribe"
+              >
+                সাবস্ক্রাইব করুন
+              </Button>
+            </form>
+          </motion.div> */
 }

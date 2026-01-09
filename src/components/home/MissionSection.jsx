@@ -30,7 +30,8 @@ export function MissionSection() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url(${item.image})`,
+              backgroundImage: `linear-gradient(rgba(18, 90, 60, 0.85),rgba(18, 90, 60, 0.85)),url('images/image8.jpg')`,
+              // backgroundImage: `linear-gradient(rgba(26, 60, 142, 0.9), rgba(26, 60, 142, 0.9)), url(${item.image})`,
             }}
           />
 

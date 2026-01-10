@@ -2,23 +2,29 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Calendar, Clock, MapPin } from "lucide-react";
-import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 import { getCampaignSchedule } from "../../services/api";
 
-const scheduleFilters = ["All", "Jan 17", "Jan 18", "Jan 21", "Jan 23"];
-const scheduleFilterLabels = {
-  All: "সব",
-  "Jan 17": "১৭ জানুয়ারি",
-  "Jan 18": "১৮ জানুয়ারি",
-  "Jan 21": "২১ জানুয়ারি",
-  "Jan 23": "২৩ জানুয়ারি",
-};
+// Bangla month names
+const banglaMonths = [
+  "জানুয়ারি",
+  "ফেব্রুয়ারি",
+  "মার্চ",
+  "এপ্রিল",
+  "মে",
+  "জুন",
+  "জুলাই",
+  "আগস্ট",
+  "সেপ্টেম্বর",
+  "অক্টোবর",
+  "নভেম্বর",
+  "ডিসেম্বর",
+];
 
 export function CampaignSchedule() {
   const [eventsData, setEventsData] = useState([]);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeDate, setActiveDate] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,6 +33,7 @@ export function CampaignSchedule() {
       try {
         setIsLoading(true);
         const data = await getCampaignSchedule();
+
         const formattedData = data.map((item) => {
           const dateObj = new Date(item.date);
 
@@ -34,23 +41,11 @@ export function CampaignSchedule() {
             id: item.id,
             title: item.title,
             image: item.image,
-
-            // 🔹 Filter key (English)
-            dateKey: dateObj.toLocaleDateString("en-US", {
-              month: "short",
-              day: "2-digit",
-            }),
-            // 🔹 Display date (Bangla)
-            date: dateObj.toLocaleDateString("bn-BD", {
-              month: "long",
-              day: "numeric",
-            }),
-
-            // 🔹 Time (Bangla)
+            dateObj,
+            date: `${dateObj.getDate()} ${banglaMonths[dateObj.getMonth()]}`,
             time: `${formatTime(item.start_time)} - ${formatTime(
               item.end_time
             )}`,
-
             location: "ঢাকা, বাংলাদেশ",
           };
         });
@@ -66,14 +61,18 @@ export function CampaignSchedule() {
     fetchData();
   }, []);
 
+  // Filter events
   const filteredEvents =
-    activeFilter === "All"
+    activeDate === null
       ? eventsData
-      : eventsData.filter((event) => event.dateKey === activeFilter);
+      : eventsData.filter(
+          (event) => event.dateObj.toDateString() === activeDate.toDateString()
+        );
 
   return (
     <section className="py-20 bg-political-light">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
+        {/* TITLE */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,10 +80,7 @@ export function CampaignSchedule() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2
-            className="text-3xl md:text-4xl font-bold text-political-blue mb-4"
-            data-testid="text-schedule-title"
-          >
+          <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
             প্রচারণার সময়সূচি
           </h2>
           <p className="text-political-dark/70 max-w-2xl mx-auto">
@@ -93,32 +89,82 @@ export function CampaignSchedule() {
           </p>
         </motion.div>
 
-        {/* FILTER BUTTONS */}
+        {/* CALENDAR */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="bg-white rounded-2xl shadow-sm p-6 mb-12"
         >
-          {scheduleFilters.map((filter) => (
-            <Button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-6 ${
-                activeFilter === filter
-                  ? "bg-political-red text-white"
-                  : "bg-white text-political-dark border border-political-dark/20"
-              }`}
-              data-testid={`button-filter-${filter
-                .toLowerCase()
-                .replace(" ", "-")}`}
-            >
-              {scheduleFilterLabels[filter]}
-            </Button>
-          ))}
+          {/* MONTH */}
+          <h3 className="text-center text-lg font-semibold text-political-blue mb-6">
+            {banglaMonths[new Date().getMonth()]}
+          </h3>
+
+          {/* WEEK */}
+          <div className="grid grid-cols-7 text-center text-sm text-political-dark/60 mb-4">
+            <span>রবি</span>
+            <span>সোম</span>
+            <span>মঙ্গল</span>
+            <span>বুধ</span>
+            <span>বৃহস্পতি</span>
+            <span>শুক্র</span>
+            <span>শনি</span>
+          </div>
+
+          {/* DATES */}
+          <div className="grid grid-cols-7 gap-y-4 text-center">
+            {(() => {
+              const today = new Date();
+              const year = today.getFullYear();
+              const month = today.getMonth();
+
+              const firstDay = new Date(year, month, 1).getDay();
+              const totalDays = new Date(year, month + 1, 0).getDate();
+
+              const days = [];
+
+              for (let i = 0; i < firstDay; i++) {
+                days.push(<div key={`empty-${i}`} />);
+              }
+
+              for (let day = 1; day <= totalDays; day++) {
+                const dateObj = new Date(year, month, day);
+
+                const hasEvent = eventsData.some(
+                  (e) => e.dateObj.toDateString() === dateObj.toDateString()
+                );
+
+                const isActive =
+                  activeDate &&
+                  activeDate.toDateString() === dateObj.toDateString();
+
+                days.push(
+                  <button
+                    key={day}
+                    disabled={!hasEvent}
+                    onClick={() => hasEvent && setActiveDate(dateObj)}
+                    className={`mx-auto w-10 h-10 rounded-lg text-sm transition
+                      ${
+                        hasEvent
+                          ? isActive
+                            ? "bg-political-blue text-white"
+                            : "bg-political-light text-political-dark hover:bg-political-blue/10"
+                          : "text-political-dark/30 cursor-default"
+                      }`}
+                  >
+                    {day}
+                  </button>
+                );
+              }
+
+              return days;
+            })()}
+          </div>
         </motion.div>
 
+        {/* EVENTS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isLoading
             ? [1, 2, 3].map((i) => (
@@ -140,13 +186,12 @@ export function CampaignSchedule() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  layout
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.1,
+                  }}
                 >
-                  <Card
-                    className="overflow-hidden hover-elevate h-full bg-white border-0 shadow-sm"
-                    data-testid={`card-event-${event.id}`}
-                  >
+                  <Card className="overflow-hidden h-full bg-white border-0 shadow-sm">
                     <div className="relative h-48 overflow-hidden">
                       <img
                         src={event.image}
@@ -160,7 +205,7 @@ export function CampaignSchedule() {
                         {event.title}
                       </h3>
 
-                      <div className="space-y-2 text-sm text-political-dark/60 mb-4">
+                      <div className="space-y-2 text-sm text-political-dark/60">
                         <div className="flex items-center gap-2">
                           <Calendar className="w-4 h-4 text-political-blue" />
                           <span>{event.date}</span>
@@ -174,14 +219,6 @@ export function CampaignSchedule() {
                           <span>{event.location}</span>
                         </div>
                       </div>
-
-                      {/*  <Button
-                        variant="outline"
-                        className="border-political-dark/30 text-political-dark hover:bg-political-blue hover:text-white hover:border-political-blue"
-                        data-testid={`button-view-event-${event.id}`}
-                      >
-                        View Details
-                      </Button> */}
                     </CardContent>
                   </Card>
                 </motion.div>

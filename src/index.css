@@ -11,6 +11,12 @@
   font-family: "Anek Bangla", sans-serif;
 }
 
+.highlight-date {
+  background: #e11d48 !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
 /* LIGHT MODE */
 :root {
   --button-outline: rgba(0, 0, 0, 0.1);

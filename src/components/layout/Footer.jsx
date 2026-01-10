@@ -6,8 +6,18 @@ import { FiLink } from "react-icons/fi";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 const socialLinks = [
-  { icon: FaFacebookF, href: "#", label: "Facebook" },
-  { icon: FaYoutube, href: "#", label: "YouTube" },
+  {
+    icon: FaFacebookF,
+    href: "#",
+    label: "Facebook",
+    hoverBg: "hover:bg-blue-600",
+  },
+  {
+    icon: FaYoutube,
+    href: "#",
+    label: "YouTube",
+    hoverBg: "hover:bg-red-600",
+  },
 ];
 
 export function Footer() {
@@ -122,7 +132,7 @@ export function Footer() {
                   <a
                     key={social.label}
                     href={social.href}
-                    className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-blue-500 hover:text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-110"
+                    className={`w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-110 ${social.hoverBg} text-white`}
                     aria-label={social.label}
                   >
                     <social.icon className="w-4 h-4 text-gray-800" />

@@ -121,6 +121,7 @@ export default function ComplaintPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Name */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 নাম <span className="text-red-500">*</span>
@@ -224,8 +225,43 @@ export default function ComplaintPage() {
               )}
             </div>
 
+            {/* নতুন Fields: ছবি ও ভিডিও */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+              {/* ছবি */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  ছবি আপলোড করুন
+                </label>
+                <input
+                  type="file"
+                  name="complaintImage"
+                  accept="image/*"
+                  className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <p className="text-sm text-gray-500 mt-1">
+                  আপনার অভিযোগের সাথে ছবি সংযুক্ত করুন (ঐচ্ছিক)
+                </p>
+              </div>
+
+              {/* ভিডিও */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  ভিডিও আপলোড করুন
+                </label>
+                <input
+                  type="file"
+                  name="complaintVideo"
+                  accept="video/*"
+                  className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <p className="text-sm text-gray-500 mt-1">
+                  আপনার অভিযোগের সাথে ভিডিও সংযুক্ত করুন (ঐচ্ছিক)
+                </p>
+              </div>
+            </div>
+
             {/* Privacy Note */}
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-sm mt-2">
               আপনার তথ্য সম্পূর্ণভাবে গোপন রাখা হবে।
             </p>
 

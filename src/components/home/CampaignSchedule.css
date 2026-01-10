@@ -1,0 +1,13 @@
+.highlight-date {
+  background: #e11d48 !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
+/* Calendar title styling */
+.react-calendar__navigation {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}

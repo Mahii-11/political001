@@ -46,32 +46,52 @@ export default function PromisePage() {
   return (
     <div className="bg-white text-gray-800">
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-green-600 to-green-700 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-24 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+      <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+        <div className="absolute top-24 left-1/2 -translate-x-1/2 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl" />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-extrabold"
+            className="inline-block mb-6 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700"
           >
-            আমার নির্বাচনী প্রতিশ্রুতি
+            অভিযোগ
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
+            data-testid="text-biography-title"
+          >
+            অভিযোগ জানান এবং আপনার কণ্ঠস্বর শোনা যাক
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="mt-6 text-lg md:text-xl max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="mx-auto max-w-2xl text-base md:text-lg text-slate-600 leading-relaxed"
           >
-            কথা নয়, কাজের মাধ্যমে জনগণের কল্যাণ নিশ্চিত করাই আমার অঙ্গীকার
+            আপনার পরিচয় গোপন রাখা হবে। দয়া করে সঠিক তথ্য দিয়ে অভিযোগ করুন।
           </motion.p>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            className="mt-10 bg-white text-green-700 font-semibold px-8 py-3 rounded-full shadow-lg"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
           >
-            প্রতিশ্রুতিগুলো দেখুন
-          </motion.button>
+            <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
+
+            <p className="relative text-sm md:text-base text-slate-700">
+              আপনার অভিযোগ আমাদের জন্য গুরুত্বপূর্ণ। আমরা নিশ্চিত করি যে প্রতিটি
+              মতামত ও অভিযোগ মনোযোগ দিয়ে শোনা হবে এবং প্রয়োজনীয় ব্যবস্থা
+              গ্রহণ করা হবে। ন্যায় ও স্বচ্ছতার প্রতিশ্রুতি আমাদের অঙ্গীকার।
+            </p>
+          </motion.div>
         </div>
       </section>
 

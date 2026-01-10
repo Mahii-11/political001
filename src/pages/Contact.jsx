@@ -93,28 +93,54 @@ export default function Contact() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <section className="relative py-32 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
-            }}
-          />
-          <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
+        <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+          <div className="absolute top-24 left-1/2 -translate-x-1/2 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl" />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-block mb-6 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700"
+            >
+              যোগাযোগ
+            </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4"
-              data-testid="text-contact-title"
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
+              data-testid="text-biography-title"
             >
-              যোগাযোগ করুন
+              যোগাযোগ করুন এবং আমাদের সাথে যুক্ত হোন
             </motion.h1>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-white/80 text-lg"
-            ></motion.p>
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="mx-auto max-w-2xl text-base md:text-lg text-slate-600 leading-relaxed"
+            >
+              যোগাযোগ করুন এবং আমাদের সাথে যুক্ত হয়ে সমাজে ইতিবাচক পরিবর্তনের
+              অংশ হোন
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
+            >
+              <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
+
+              <p className="relative text-sm md:text-base text-slate-700">
+                আপনার মতামত ও অংশগ্রহণই একটি সচেতন ও শক্তিশালী সমাজ গঠনের
+                ভিত্তি। আমাদের লক্ষ্য মানুষের কণ্ঠস্বরকে গুরুত্ব দেওয়া এবং
+                ন্যায়, উন্নয়ন ও সমতার পথে একসাথে এগিয়ে যাওয়া। আপনার একটি
+                বার্তাই পারে পরিবর্তনের সূচনা করতে।
+              </p>
+            </motion.div>
           </div>
         </section>
 

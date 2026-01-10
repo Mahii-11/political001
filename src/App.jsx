@@ -12,7 +12,6 @@ import Contact from "./pages/Contact";
 import Campaign from "./pages/Campaign";
 import Volunteer, { action as volunteerAction } from "./pages/Volunteer";
 import About from "./pages/About";
-import ComingSoon from "./pages/ComingSoon";
 import ComplaintPage from "./pages/ComplaintPage";
 import VoterLocator from "./pages/VoterLocator";
 import Dhaka7Page from "./pages/Dhaka7page";
@@ -39,7 +38,6 @@ const router = createBrowserRouter([
       },
       { path: "/about", element: <About /> },
       { path: "/voter-locator", element: <VoterLocator /> },
-      { path: "/coming-soon", element: <ComingSoon /> },
       { path: "/our-dhaka", element: <Dhaka7Page /> },
       { path: "/31-points", element: <VisionSlider /> },
       {

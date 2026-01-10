@@ -6,18 +6,10 @@ import { Menu, X, ChevronDown } from "lucide-react";
 
 const navItems = [
   { label: "হোম", href: "/" },
-  {
-    label: "পরিচিতি ও অংশগ্রহণ",
-    href: "#",
-    children: [
-      { label: "আমাদের সম্পর্কে", href: "/about" },
-      { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer/new" },
-      { label: "শীঘ্রই আসছে", href: "/coming-soon" },
-    ],
-  },
+  { label: "আমাদের সম্পর্কে", href: "/about" },
   { label: "জীবনী", href: "/biography" },
-  { label: "নির্বাচনী প্রতিশ্রুতি", href: "/promise" },
   { label: "গ্যালারি", href: "/gallery" },
+  { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer/new" },
   { label: "যোগাযোগ", href: "/contact" },
   { label: "অভিযোগ", href: "/complaint" },
 ];
@@ -44,14 +36,11 @@ export function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <div className="flex items-center gap-3">
-              {/* Text Section */}
               <div className="flex flex-col justify-center">
                 <div className="text-green-700 font-extrabold text-2xl md:text-2xl lg:text-3xl  tracking-wider leading-tight font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
               </div>
-
-              {/* Logo Image */}
               <img
                 src="/images/logo.png"
                 alt="Campaign Logo"

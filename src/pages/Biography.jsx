@@ -72,28 +72,53 @@ export default function Biography() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <section className="relative py-32 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
-            }}
-          />
-          <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
+        <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+          <div className="absolute top-24 left-1/2 -translate-x-1/2 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl" />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-block mb-6 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700"
+            >
+              জীবনী
+            </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-2xl md:text-3xl font-bold text-white mb-4"
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
               data-testid="text-biography-title"
             >
               জনাব হামিদুর রহমান হামিদ – জীবনবৃত্তান্ত
             </motion.h1>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-white/80 text-lg"
-            ></motion.p>
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="mx-auto max-w-2xl text-base md:text-lg text-slate-600 leading-relaxed"
+            >
+              অভিজ্ঞতা, নেতৃত্ব এবং মানবিক মূল্যবোধের এক অনন্য সমন্বয়—যেখানে
+              শিক্ষা ও সমাজ গঠনের পথচলা একসাথে এগিয়ে যায়।
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
+            >
+              {/* warm reddish glow inside card */}
+              <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
+
+              <p className="relative text-sm md:text-base text-slate-700">
+                এই অংশটি তাঁর জীবনের গুরুত্বপূর্ণ অধ্যায়, কর্মপরিকল্পনা এবং
+                অবদানের গল্প তুলে ধরে—যা ভবিষ্যৎ প্রজন্মকে অনুপ্রাণিত করবে।
+              </p>
+            </motion.div>
           </div>
         </section>
 

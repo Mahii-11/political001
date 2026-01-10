@@ -84,31 +84,53 @@ export default function About() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <section className="relative py-32 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
-            }}
-          />
-          <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
+        <section className="relative py-28 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+
+          <div className="relative max-w-6xl mx-auto px-4 md:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-block mb-6 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700"
+            >
+              আমাদের সম্পর্কে
+            </motion.div>
+
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl  mb-4 font-extrabold text-white leading-tight"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-semibold text-slate-900 leading-tight mb-6"
               data-testid="text-about-title"
             >
               আমাদের লক্ষ্য ও উদ্দেশ্য
             </motion.h1>
+
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-white/85 text-base md:text-lg leading-relaxed"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="text-base md:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto"
             >
               আমরা একসাথে কাজ করি, পরিবর্তনের জন্য প্রতিশ্রুতিবদ্ধ এবং একটি
-              উজ্জ্বল ভবিষ্যত গড়ি।
+              উজ্জ্বল ভবিষ্যৎ গড়ি—যেখানে শিক্ষা, উদ্ভাবন এবং মানবিক মূল্যবোধ
+              একসাথে এগিয়ে যায়।
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="mt-12 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-6 shadow-lg relative overflow-hidden"
+            >
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 h-24 w-72 rounded-full bg-rose-300/40 blur-3xl" />
+
+              <p className="relative text-sm md:text-base text-slate-700 leading-relaxed">
+                এই প্ল্যাটফর্মের মাধ্যমে আমরা এমন একটি পরিবেশ তৈরি করতে চাই,
+                যেখানে প্রতিভা বিকশিত হয় এবং ভবিষ্যৎ গঠনের শক্তি জন্ম নেয়।
+              </p>
+            </motion.div>
           </div>
         </section>
 
@@ -122,7 +144,7 @@ export default function About() {
                 transition={{ duration: 0.5 }}
               >
                 <img
-                  src="images/hamid.png"
+                  src="images/Hamid.jpg"
                   alt="Team Meeting"
                   className="rounded-lg shadow-xl w-full"
                 />
@@ -236,20 +258,22 @@ export default function About() {
           </div>
         </section>
 
-        <section className="py-20 bg-political-blue">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
+            {/* Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
                 আমাদের যাত্রা
               </h2>
             </motion.div>
 
-            <div className="flex flex-wrap justify-center gap-8">
+            {/* Milestones */}
+            <div className="flex flex-wrap justify-center gap-10">
               {milestones.map((milestone, index) => (
                 <motion.div
                   key={milestone.year}
@@ -257,14 +281,29 @@ export default function About() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center"
+                  className="text-center group"
                 >
-                  <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-3">
-                    <span className="text-political-blue font-bold text-lg">
+                  {/* Circle */}
+                  <div
+                    className="
+              w-20 h-20 rounded-full
+              bg-gradient-to-br from-purple-500 to-purple-700
+              flex items-center justify-center mx-auto mb-3
+              shadow-[0_10px_30px_rgba(128,90,213,0.35)]
+              ring-1 ring-purple-300/40
+              transition-all duration-300 ease-out
+              group-hover:scale-110
+              group-hover:shadow-[0_20px_50px_rgba(128,90,213,0.55)]
+              group-hover:ring-4 group-hover:ring-purple-400/40
+            "
+                  >
+                    <span className="text-white font-bold text-lg tracking-wide">
                       {milestone.year}
                     </span>
                   </div>
-                  <p className="text-white text-sm max-w-[120px]">
+
+                  {/* Text */}
+                  <p className="text-gray-800 text-sm max-w-[140px] mx-auto leading-snug line-clamp-2 min-h-[2.5rem]">
                     {milestone.event}
                   </p>
                 </motion.div>

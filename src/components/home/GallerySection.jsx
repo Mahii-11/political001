@@ -35,13 +35,8 @@ export function GallerySection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            {/* TWO COLUMN GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* LEFT (Gallery) */}
               <div className="lg:col-span-2 grid grid-rows-[auto_1fr] gap-4">
-                {/* Title */}
-
-                {/* IMAGE GRID (HEIGHT SOURCE) */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 h-full">
                   {galleryImages.map((image, index) => (
                     <motion.div
@@ -69,11 +64,7 @@ export function GallerySection() {
                 </Link>
               </div>
 
-              {/* RIGHT (Video) */}
               <div className="grid grid-rows-[auto_1fr] gap-4">
-                {/* Title */}
-
-                {/* VIDEO (EXACT SAME ROW HEIGHT) */}
                 <div className="relative rounded-lg overflow-hidden shadow-2xl h-full">
                   <img
                     src="images/image13.jpg"
@@ -89,10 +80,11 @@ export function GallerySection() {
                       <Play className="w-8 h-8 text-white ml-1" fill="white" />
                     </button>
                   </div>
-
+                </div>
+                <div className="mt-2 text-right">
                   <Link
                     to="/gallery"
-                    className="absolute bottom-4 right-4 text-sm text-white hover:text-political-red"
+                    className="text-political-blue font-medium hover:text-political-red"
                   >
                     আরও ভিডিও →
                   </Link>
@@ -102,7 +94,6 @@ export function GallerySection() {
           </motion.div>
         </div>
 
-        {/* VIDEO MODAL */}
         {isPlaying && (
           <div
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"

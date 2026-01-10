@@ -35,16 +35,16 @@ export function Navbar() {
             data-testid="link-home-logo"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mr-8">
               <div className="flex flex-col justify-center">
                 <div className="text-green-700 font-extrabold text-2xl md:text-2xl lg:text-3xl  tracking-wider leading-tight font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
               </div>
               <img
-                src="/images/logo.png"
+                src="/images/logo-1.jpg"
                 alt="Campaign Logo"
-                className="h-12 w-12 object-contain"
+                className="h-20 w-20 object-contain"
               />
             </div>
           </Link>

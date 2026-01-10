@@ -150,7 +150,7 @@ export function CampaignSchedule() {
                         hasEvent
                           ? isActive
                             ? "bg-political-blue text-white"
-                            : "bg-political-light text-political-dark hover:bg-political-blue/10"
+                            : "bg-green-100 text-political-dark hover:bg-green-300"
                           : "text-political-dark/30 cursor-default"
                       }`}
                   >

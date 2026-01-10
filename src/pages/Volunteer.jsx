@@ -282,39 +282,35 @@ export function VolunteerForm() {
               className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-          {/* Image Upload Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            {/* নিজের ছবি */}
-            <div>
-              <label className="block text-gray-800 font-medium mb-2">
-                নিজের ছবি
-              </label>
-              <input
-                type="file"
-                name="profilePhoto"
-                accept="image/*"
-                className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <p className="text-sm text-gray-500 mt-1">
-                নিজের ছবি এখানে আপলোড করুন
-              </p>
-            </div>
 
-            {/* NID ছবি */}
-            <div>
-              <label className="block text-gray-800 font-medium mb-2">
-                NID ছবি
-              </label>
-              <input
-                type="file"
-                name="nidPhoto"
-                accept="image/*"
-                className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <p className="text-sm text-gray-500 mt-1">
-                আপনার NID এর ছবি এখানে আপলোড করুন
-              </p>
-            </div>
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              নিজের ছবি
+            </label>
+            <input
+              type="file"
+              name="profilePhoto"
+              accept="image/*"
+              className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              নিজের ছবি এখানে আপলোড করুন
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-gray-800 font-medium mb-2">
+              NID ছবি
+            </label>
+            <input
+              type="file"
+              name="nidPhoto"
+              accept="image/*"
+              className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              আপনার NID এর ছবি এখানে আপলোড করুন
+            </p>
           </div>
 
           <div>

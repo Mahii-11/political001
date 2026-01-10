@@ -8,13 +8,13 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 const socialLinks = [
   {
     icon: FaFacebookF,
-    href: "#",
+    href: "https://www.facebook.com/hamidurrahmanhamiddhaka7",
     label: "Facebook",
     hoverBg: "hover:bg-blue-600",
   },
   {
     icon: FaYoutube,
-    href: "#",
+    href: "https://www.youtube.com/@HamidurRahmanHamid-politician",
     label: "YouTube",
     hoverBg: "hover:bg-red-600",
   },
@@ -61,25 +61,25 @@ export function Footer() {
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <MapPin className="w-5 h-5 text-political-yellow flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-emerald-700 flex-shrink-0 mt-0.5" />
                   <span className="text-gray-800 text-sm">
                     ১২৩ প্রগতি সরণি, মতিঝিল, ঢাকা ১০০০
                   </span>
                 </li>
                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <Phone className="w-5 h-5 text-political-yellow flex-shrink-0" />
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
                     +৮৮ ০১৭১ ২৩৪ ৫৬৭৮
                   </span>
                 </li>
                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <Mail className="w-5 h-5 text-political-yellow flex-shrink-0" />
+                  <Mail className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
                     contact@netacampaign.com
                   </span>
                 </li>
                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <Clock className="w-5 h-5 text-political-yellow flex-shrink-0" />
+                  <Clock className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
                     সোমবার - শনিবার: সকাল ৯টা - বিকেল ৬টা
                   </span>
@@ -99,7 +99,7 @@ export function Footer() {
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <FiLink className="w-5 h-5 text-political-yellow flex-shrink-0 mt-0.5" />
+                  <FiLink className="w-5 h-5 text-emerald-700 flex-shrink-0 mt-0.5" />
                   <span className="text-gray-800 text-sm">
                     <a
                       href="https://www.ecs.gov.bd/"
@@ -112,7 +112,7 @@ export function Footer() {
                   </span>
                 </li>
                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <FiLink className="w-5 h-5 text-political-yellow flex-shrink-0" />
+                  <FiLink className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
                     <a
                       href="https://www.bnpbd.org/"

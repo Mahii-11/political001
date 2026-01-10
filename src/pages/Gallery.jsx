@@ -6,7 +6,15 @@ import { Button } from "../components/ui/button";
 import { useState } from "react";
 import { X } from "lucide-react";
 
-const categories = ["All", "Rally", "Meeting", "Community", "Event"];
+//const categories = ["All", "Rally", "Meeting", "Community", "Event"];
+const categories = ["সকল", "মিছিল", "মিটিং", "কমিউনিটি", "ইভেন্ট"];
+const categoryMap = {
+  সকল: "All",
+  মিছিল: "Rally",
+  মিটিং: "Meeting",
+  কমিউনিটি: "Community",
+  ইভেন্ট: "Event",
+};
 
 const galleryImages = [
   {
@@ -180,14 +188,16 @@ const videos = [
 ];
 
 export default function Gallery() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("সকল");
 
   const [selectedImage, setSelectedImage] = useState(null);
 
   const filteredImages =
-    activeCategory === "All"
+    activeCategory === "সকল"
       ? galleryImages
-      : galleryImages.filter((img) => img.category === activeCategory);
+      : galleryImages.filter(
+          (img) => img.category === categoryMap[activeCategory]
+        );
 
   return (
     <div className="min-h-screen bg-white">

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const slogans = [
   "জনগণের শক্তিতেই গড়বো আগামীর বাংলাদেশ",
@@ -16,51 +15,23 @@ const slogans = [
 ];
 
 export default function AnimatedHeader() {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slogans.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <AnimatePresence>
+    <div className="fixed  left-0 w-full h-12 z-40 overflow-hidden bg-green-100 border-b border-black/10 flex items-center">
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.3 }}
-        className="
-          fixed
-              /* navbar height */
-          left-0
-          w-full
-          h-12
-          z-40          /* navbar এর চেয়ে কম */
-          flex
-          items-center
-          justify-center
-          overflow-hidden
-          bg-green-100
-          text-gray-900
-          border-b border-black/10
-        "
+        className="flex whitespace-nowrap text-sm md:text-base font-medium text-gray-900"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{
+          repeat: Infinity,
+          duration: 30,
+          ease: "linear",
+        }}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
-            className="absolute text-center text-sm md:text-base px-4 font-medium"
-          >
-            {slogans[index]}
-          </motion.div>
-        </AnimatePresence>
+        {slogans.map((text, i) => (
+          <span key={i} className="mx-8">
+            {text}
+          </span>
+        ))}
       </motion.div>
-    </AnimatePresence>
+    </div>
   );
 }

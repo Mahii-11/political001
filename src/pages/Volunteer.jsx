@@ -101,7 +101,7 @@ export default function Volunteer() {
             </motion.div>
           </div>
         </section>
-
+        <VolunteerForm />
         <section className="py-20 bg-political-light">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <motion.div
@@ -151,9 +151,7 @@ export default function Volunteer() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-        >
-          <VolunteerForm />
-        </motion.div>
+        ></motion.div>
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="gap-12  flex items-center justify-between">

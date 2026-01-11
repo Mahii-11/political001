@@ -20,8 +20,8 @@ export function GallerySection() {
     <>
       <section className="py-20 bg-gray-50">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-political-blue tracking-tight">
-            আমাদের কাজের ঝলক
+          <h1 className="text-4xl md:text-5xl font-bold text-green-900 tracking-tight">
+            আমাদের <span className="text-gray-900">কাজের ঝলক</span>
           </h1>
           <p className="mt-2 text-lg md:text-xl text-gray-950">
             ছবি ও ভিডিওতে দেখুন আমাদের সৃজনশীলতা ও উদ্ভাবনী কাজের গল্প।

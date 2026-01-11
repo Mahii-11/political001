@@ -63,8 +63,8 @@ export function CampaignNews() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-            প্রচারণার সর্বশেষ খবর
+          <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+            প্রচারণার <span className="text-gray-950">সর্বশেষ খবর</span>
           </h2>
           <p className="text-political-dark/70 max-w-2xl mx-auto">
             দেশ ও জনগণের স্বার্থে পরিচালিত আমাদের চলমান প্রচারণা কার্যক্রম ও
@@ -172,7 +172,7 @@ export function CampaignVideos() {
 
                 {/* Content */}
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-political-blue mb-3 line-clamp-2 hover:text-political-red transition-colors">
+                  <h3 className="text-lg font-semibold text-green-900 mb-3 line-clamp-2 hover:text-political-red transition-colors">
                     {item.title}
                   </h3>
 

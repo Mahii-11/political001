@@ -142,8 +142,8 @@ export default function Campaign() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                আমাদের মূল নীতিমালা
+              <h2 className="text-3xl md:text-4xl font-bold text-red-700 mb-4">
+                আমাদের <span className="text-gray-900">মূল নীতিমালা</span>
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
                 আমরা চিন্তাশীল নীতিমালার মাধ্যমে এমন পরিবর্তন আনার
@@ -165,10 +165,10 @@ export default function Campaign() {
                     data-testid={`card-policy-${index}`}
                   >
                     <CardContent className="p-8 text-center">
-                      <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-6">
-                        <policy.icon className="w-8 h-8 text-political-blue" />
+                      <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-6">
+                        <policy.icon className="w-8 h-8 text-green-950" />
                       </div>
-                      <h3 className="text-xl font-semibold text-political-blue mb-3">
+                      <h3 className="text-xl font-semibold text-green-800 mb-3">
                         {policy.title}
                       </h3>
                       <p className="text-political-dark/60">
@@ -306,7 +306,7 @@ export default function Campaign() {
                   viewport={{ once: true }}
                   className="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row md:items-center md:gap-6"
                 >
-                  <span className="text-green-600 font-bold text-lg min-w-[140px]">
+                  <span className="text-green-800 font-bold text-lg min-w-[140px]">
                     {step.time}
                   </span>
                   <p className="text-gray-700 mt-2 md:mt-0">{step.text}</p>
@@ -338,8 +338,9 @@ export default function Campaign() {
               viewport={{ once: true }}
             >
               <Award className="w-16 h-16 text-political-yellow mx-auto mb-6" />
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
-                পরিবর্তনে আমাদের সঙ্গে থাকুন
+              <h2 className="text-3xl md:text-4xl font-bold text-red-700 mb-6">
+                পরিবর্তনে আমাদের{" "}
+                <span className="text-gray-900">সঙ্গে থাকুন</span>
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto mb-8">
                 পরিবর্তনের অংশ হোন। সকলের জন্য একটি উজ্জ্বল ভবিষ্যত গড়তে আপনার

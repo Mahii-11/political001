@@ -80,8 +80,8 @@ export function CampaignSchedule() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-            প্রচারণার সময়সূচি
+          <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4">
+            প্রচারণার <span className="text-gray-950">সময়সূচি</span>
           </h2>
           <p className="text-political-dark/70 max-w-2xl mx-auto">
             দেশজুড়ে অনুষ্ঠিতব্য প্রচারণা কর্মসূচি ও গুরুত্বপূর্ণ আয়োজনের
@@ -98,7 +98,7 @@ export function CampaignSchedule() {
           className="bg-white rounded-2xl shadow-sm p-6 mb-12"
         >
           {/* MONTH */}
-          <h3 className="text-center text-lg font-semibold text-political-blue mb-6">
+          <h3 className="text-center text-lg font-semibold text-green-900 mb-6">
             {banglaMonths[new Date().getMonth()]}
           </h3>
 
@@ -149,7 +149,7 @@ export function CampaignSchedule() {
                       ${
                         hasEvent
                           ? isActive
-                            ? "bg-political-blue text-white"
+                            ? "bg-green-900 text-white"
                             : "bg-green-100 text-political-dark hover:bg-green-300"
                           : "text-political-dark/30 cursor-default"
                       }`}

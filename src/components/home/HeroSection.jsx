@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getTopSection } from "../../services/api";
 import { ArrowRight } from "lucide-react";
+import heroBg from "../../assets/thumbnails/bgimage.jpg";
 
 const containerVariants = {
   hidden: {},
@@ -33,14 +34,22 @@ export function HeroSection() {
   useEffect(() => {
     async function loadTopSection() {
       const res = await getTopSection();
-      setTop(Array.isArray(res.data) ? res.data : []);
+      setTop(Array.isArray(res?.data) ? res.data : []);
     }
     loadTopSection();
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-white">
-      {/* Content */}
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-white/60">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-70 z-0"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+        }}
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/60 to-white/85 z-[1]" />
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text */}
@@ -51,7 +60,7 @@ export function HeroSection() {
                   variants={containerVariants}
                   initial="hidden"
                   animate="show"
-                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight mb-6"
+                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-snug mb-6"
                 >
                   <motion.span variants={lineVariants} className="block mb-4">
                     একটি সুন্দর ও
@@ -96,7 +105,6 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Image */}
           <div className="hidden lg:flex justify-end">
             <div
               className="w-full h-[520px] bg-no-repeat bg-contain bg-right-bottom"

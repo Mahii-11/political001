@@ -19,9 +19,13 @@ export function MissionSection() {
     loadMission();
   }, []);
 
-  const stripHeadings = (html) => {
+  const stripHeadingsAndParagraphs = (html) => {
     if (!html) return "";
-    return html.replace(/<\/?h[1-6][^>]*>/gi, "");
+    // 1️⃣ remove H1–H6
+    let cleanHtml = html.replace(/<\/?h[1-6][^>]*>/gi, "");
+    // 2️⃣ remove <p> tags
+    cleanHtml = cleanHtml.replace(/<\/?p[^>]*>/gi, "");
+    return cleanHtml;
   };
 
   const getEmbedUrl = (url) => {
@@ -59,9 +63,9 @@ export function MissionSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-gray-700 text-base md:text-lg leading-relaxed max-w-xl"
+                className="text-gray-700 text-base md:text-base leading-7 md:leading-8 max-w-xl"
               >
-                {stripHeadings(item.description)}
+                {stripHeadingsAndParagraphs(item.description)}
               </motion.p>
             </div>
             <motion.div

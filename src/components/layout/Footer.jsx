@@ -63,7 +63,7 @@ export function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h3 className="text-lg md:text-xl font-semibold mb-6 text-political-blue">
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900">
                 যোগাযোগের তথ্য
               </h3>
               <ul className="space-y-4">
@@ -101,7 +101,7 @@ export function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h3 className="text-lg md:text-xl font-semibold mb-6 text-political-blue">
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900">
                 গুরুত্বপূর্ণ লিংক
               </h3>
               <ul className="space-y-4">

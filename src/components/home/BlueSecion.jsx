@@ -42,8 +42,8 @@ export default function BlueSection() {
               <Link key={item.id} to={linkMap[item.id]}>
                 <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
                   <CardContent className="p-6">
-                    <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">
-                      <Icon className="w-8 h-8 text-political-blue" />
+                    <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-8 h-8 text-green-900" />
                     </div>
                     <h3 className="font-semibold text-political-dark mb-2">
                       {item.title}

@@ -375,19 +375,14 @@ export function VolunteerForm() {
 
 export async function action({ request }) {
   const formData = await request.formData();
-
-  // Convert FormData → plain object
   const data = Object.fromEntries(formData);
   console.log(data);
 
-  // Remove file fields (since API expects JSON)
   delete data.image;
   delete data.nidImage;
 
   try {
     const response = await createVolunteer(data);
-
-    // response is already data
     return redirect(`/register-volunteer/${response.id}`);
   } catch (err) {
     throw new Error("Volunteer registration failed");

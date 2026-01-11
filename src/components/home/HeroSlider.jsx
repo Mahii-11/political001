@@ -19,7 +19,7 @@ export function HeroSlider() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveBanner((prev) => (prev + 1) % banners.length);
-    }, 1000000); // ⏱️ 6 sec
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [banners.length]);

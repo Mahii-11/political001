@@ -35,7 +35,7 @@ export function HeroSection() {
         >
           <motion.h1
             variants={lineVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-snug text-white space-y-3"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-snug text-white space-y-3 font-bangla"
           >
             <span className="block mb-2">একটি সুন্দর ও</span>
             <span className="block text-emerald-700 mb-2">ঐক্যবদ্ধ আগামী</span>

@@ -19,6 +19,11 @@ export function MissionSection() {
     loadMission();
   }, []);
 
+  const stripHeadings = (html) => {
+    if (!html) return "";
+    return html.replace(/<\/?h[1-6][^>]*>/gi, "");
+  };
+
   const getEmbedUrl = (url) => {
     if (!url) return "";
     const id = url.split("v=")[1]?.split("&")[0];
@@ -56,7 +61,7 @@ export function MissionSection() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="text-gray-700 text-base md:text-lg leading-relaxed max-w-xl"
               >
-                {item.description}
+                {stripHeadings(item.description)}
               </motion.p>
             </div>
             <motion.div

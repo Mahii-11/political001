@@ -3,7 +3,8 @@ import { getMissionData } from "../../services/api";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useEffect, useState } from "react";
-import missionThumb from "../../assets/thumbnails/mission-2030.jpg";
+//import missionThumb from "../../assets/thumbnails/mission-2030.jpg";
+import childThumb from "../../assets/thumbnails/child.jpg";
 
 export function MissionSection() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -71,7 +72,7 @@ export function MissionSection() {
                     <div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        backgroundImage: `url(${missionThumb})`,
+                        backgroundImage: `url(${childThumb})`,
                       }}
                     />
                     <button

@@ -1,92 +1,153 @@
 const API_BASE_URL = "https://election-backend.dotzpos.com/api";
 
-// 🔹 Shared fetch helper
+// 🔹 Shared fetch helper with error handling
 async function fetchData(url, options = {}) {
-  const res = await fetch(url, options);
+  try {
+    const res = await fetch(url, options);
 
-  if (!res.ok) {
-    throw new Error(`Request failed: ${res.status}`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Request failed: ${res.status} - ${errorText}`);
+    }
+
+    const json = await res.json();
+    return json?.data ?? [];
+  } catch (error) {
+    console.error(`Error fetching data from ${url}:`, error);
+    return []; // fallback empty array
   }
-
-  const json = await res.json();
-  return json?.data ?? [];
 }
 
 // ---------------- GET REQUESTS ----------------
 
-export function getTopSection() {
-  return fetchData(`${API_BASE_URL}/top-section-data`);
+export async function getTopSection() {
+  try {
+    return await fetchData(`${API_BASE_URL}/top-section-data`);
+  } catch (error) {
+    console.error("getTopSection error:", error);
+    return [];
+  }
 }
 
-export function getVision() {
-  return fetchData(`${API_BASE_URL}/vision-data`);
+export async function getVision() {
+  try {
+    return await fetchData(`${API_BASE_URL}/vision-data`);
+  } catch (error) {
+    console.error("getVision error:", error);
+    return [];
+  }
 }
 
-export function getLatestCampaign() {
-  return fetchData(`${API_BASE_URL}/latest-campaign-data`);
+export async function getLatestCampaign() {
+  try {
+    return await fetchData(`${API_BASE_URL}/latest-campaign-data`);
+  } catch (error) {
+    console.error("getLatestCampaign error:", error);
+    return [];
+  }
 }
 
-export function getMissionData() {
-  return fetchData(`${API_BASE_URL}/mission-data`);
+export async function getMissionData() {
+  try {
+    return await fetchData(`${API_BASE_URL}/mission-data`);
+  } catch (error) {
+    console.error("getMissionData error:", error);
+    return [];
+  }
 }
 
 export async function getCampaignSchedule() {
-  const res = await fetch(`${API_BASE_URL}/campaign-schedule-data`);
+  try {
+    const res = await fetch(`${API_BASE_URL}/campaign-schedule-data`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(
+        `Failed to fetch campaign schedule: ${res.status} - ${errorText}`
+      );
+    }
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch campaign schedule");
+    const json = await res.json();
+    return json?.data?.data ?? [];
+  } catch (error) {
+    console.error("getCampaignSchedule error:", error);
+    return [];
   }
-
-  const json = await res.json();
-  return json?.data?.data ?? [];
 }
 
-export function getLeaderMessage() {
-  return fetchData(`${API_BASE_URL}/leader-message-data`);
+export async function getLeaderMessage() {
+  try {
+    return await fetchData(`${API_BASE_URL}/leader-message-data`);
+  } catch (error) {
+    console.error("getLeaderMessage error:", error);
+    return [];
+  }
 }
 
 export async function getVolunteer(id) {
-  const res = await fetch(`${API_BASE_URL}/register-volunteer/${id}`);
+  try {
+    const res = await fetch(`${API_BASE_URL}/register-volunteer/${id}`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(
+        `Couldn't find volunteer #${id}: ${res.status} - ${errorText}`
+      );
+    }
 
-  if (!res.ok) {
-    throw new Error(`Couldn't find volunteer #${id}`);
+    const json = await res.json();
+    return json?.data ?? null;
+  } catch (error) {
+    console.error(`getVolunteer error (id: ${id}):`, error);
+    return null;
   }
-
-  const json = await res.json();
-  return json?.data;
 }
 
 // ---------------- POST / PATCH ----------------
 
 export async function createVolunteer(newVolunteer) {
-  const res = await fetch(`${API_BASE_URL}/register-volunteer`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newVolunteer),
-  });
+  try {
+    const res = await fetch(`${API_BASE_URL}/register-volunteer`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newVolunteer),
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed creating your data");
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(
+        `Failed creating your data: ${res.status} - ${errorText}`
+      );
+    }
+
+    const json = await res.json();
+    return json?.data ?? null;
+  } catch (error) {
+    console.error("createVolunteer error:", error);
+    return null;
   }
-
-  const json = await res.json();
-  return json?.data;
 }
 
 export async function updateVolunteer(id, updateObj) {
-  const res = await fetch(`${API_BASE_URL}/register-volunteer/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updateObj),
-  });
+  try {
+    const res = await fetch(`${API_BASE_URL}/register-volunteer/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateObj),
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed updating your data");
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(
+        `Failed updating your data: ${res.status} - ${errorText}`
+      );
+    }
+
+    return true;
+  } catch (error) {
+    console.error(`updateVolunteer error (id: ${id}):`, error);
+    return false;
   }
-
-  return true;
 }

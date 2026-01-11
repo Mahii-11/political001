@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { FaFacebookF, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaYoutube, FaInstagram } from "react-icons/fa";
 import { FiLink } from "react-icons/fi";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
@@ -17,6 +17,13 @@ const socialLinks = [
     href: "https://www.youtube.com/@HamidurRahmanHamid-politician",
     label: "YouTube",
     hoverBg: "hover:bg-red-600",
+  },
+  {
+    icon: FaInstagram,
+    href: "https://www.instagram.com/",
+    label: "Instagram",
+    hoverBg:
+      "hover:bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600",
   },
 ];
 

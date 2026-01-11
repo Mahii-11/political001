@@ -199,22 +199,7 @@ export default function Volunteer() {
   );
 }
 
-export const fakeVolunteers = [
-  {
-    id: 1,
-    name: "রাকিব হাসান",
-    ward: "২৫",
-    phone: "০১৭১২৩৪৫৬৭৮",
-    email: "rakib@example.com",
-    skill: "মাঠ পর্যায়ে",
-    address: "ধানমন্ডি, ঢাকা",
-    message: "hello",
-    status: "Active",
-  },
-];
-
 export function VolunteerForm() {
-  const volunteers = fakeVolunteers;
   function banglaNumbers(number) {
     const eng = "0123456789";
     const bang = "০১২৩৪৫৬৭৮৯";
@@ -234,7 +219,6 @@ export function VolunteerForm() {
           স্বেচ্ছাসেবক নিবন্ধন
         </h2>
 
-        {/* Grid Form */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-gray-800 font-medium mb-2">
@@ -242,7 +226,8 @@ export function VolunteerForm() {
             </label>
             <input
               type="text"
-              name="fullName"
+              name="name"
+              required
               placeholder="আপনার পুরো নাম:"
               className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -255,6 +240,7 @@ export function VolunteerForm() {
             <input
               type="email"
               name="email"
+              required
               placeholder="people@example.com"
               className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -266,6 +252,7 @@ export function VolunteerForm() {
             <input
               type="text"
               name="nid"
+              required
               placeholder="আপনার ১০ বা ১৭ সংখ্যার NID নম্বর লিখুন"
               className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -278,6 +265,7 @@ export function VolunteerForm() {
             <input
               type="text"
               name="phone"
+              required
               placeholder="+০১৭১ ২৩৪ ৫৬৭৮"
               className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -289,7 +277,7 @@ export function VolunteerForm() {
             </label>
             <input
               type="file"
-              name="profilePhoto"
+              name="image"
               accept="image/*"
               className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -304,7 +292,7 @@ export function VolunteerForm() {
             </label>
             <input
               type="file"
-              name="nidPhoto"
+              name="nidImage"
               accept="image/*"
               className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -319,6 +307,7 @@ export function VolunteerForm() {
             </label>
             <select
               name="ward"
+              required
               className="w-full rounded-lg border border-blue-300 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
               defaultValue=""
             >
@@ -338,7 +327,8 @@ export function VolunteerForm() {
               আগ্রহের ক্ষেত্র
             </label>
             <select
-              name="interest"
+              name="skill"
+              required
               className="w-full rounded-lg border border-blue-300 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               <option value="">আপনি কীভাবে যুক্ত হতে চান?</option>
@@ -349,18 +339,17 @@ export function VolunteerForm() {
           </div>
         </div>
 
-        {/* Address */}
         <div className="mt-6">
           <label className="block text-gray-800 font-medium mb-2">ঠিকানা</label>
           <input
             type="text"
             name="address"
+            required
             placeholder="আপনার ঠিকানা লিখুন"
             className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
-        {/* Additional Message */}
         <div className="mt-6">
           <label className="block text-gray-800 font-medium mb-2">
             অতিরিক্ত বার্তা (ঐচ্ছিক)
@@ -373,13 +362,6 @@ export function VolunteerForm() {
           />
         </div>
 
-        <div>
-          <input
-            type="hidden"
-            name="volunteers"
-            value={JSON.stringify(volunteers)}
-          />
-        </div>
         <button
           type="submit"
           className="mt-8 w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4 rounded-lg transition"
@@ -391,17 +373,23 @@ export function VolunteerForm() {
   );
 }
 
-// Action function for form submission
 export async function action({ request }) {
   const formData = await request.formData();
+
+  // Convert FormData → plain object
   const data = Object.fromEntries(formData);
-  console.log("Volunteer form submitted:", data);
+  console.log(data);
 
-  const info = {
-    ...data,
-    volunteers: JSON.parse(data.volunteers),
-  };
+  // Remove file fields (since API expects JSON)
+  delete data.image;
+  delete data.nidImage;
 
-  const newVolunteer = await createVolunteer(info);
-  return redirect(`/register-volunteer/${newVolunteer.data.id}`);
+  try {
+    const response = await createVolunteer(data);
+
+    // response is already data
+    return redirect(`/register-volunteer/${response.id}`);
+  } catch (err) {
+    throw new Error("Volunteer registration failed");
+  }
 }

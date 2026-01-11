@@ -44,7 +44,8 @@ export function Navbar() {
               <img
                 src="/images/logo-1.jpg"
                 alt="Campaign Logo"
-                className="h-20 w-20 object-contain"
+                className="h-20 w-20 object-contain  hover:scale-105
+                hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
               />
             </div>
           </Link>

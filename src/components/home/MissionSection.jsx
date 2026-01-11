@@ -31,16 +31,20 @@ export function MissionSection() {
             key={i}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
-            {/* LEFT — TEXT */}
             <div>
               <motion.h2
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6"
+                className="text-3xl md:text-5xl font-extrabold mb-6 text-gray-800"
               >
-                {item.title}
+                <span className="text-green-900">
+                  {item.title.split(" ")[0]}
+                </span>{" "}
+                <span className="text-gray-800">
+                  {item.title.split(" ").slice(1).join(" ")}
+                </span>
               </motion.h2>
 
               <motion.p
@@ -54,7 +58,6 @@ export function MissionSection() {
               </motion.p>
             </div>
 
-            {/* RIGHT — VIDEO CARD */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +65,6 @@ export function MissionSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative rounded-2xl bg-white shadow-xl overflow-hidden"
             >
-              {/* Video / Thumbnail */}
               <div className="aspect-video bg-gray-200 relative">
                 {!isPlaying ? (
                   <>
@@ -97,9 +99,8 @@ export function MissionSection() {
                 )}
               </div>
 
-              {/* Card Footer */}
               <div className="p-6 border-t">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm font-semibold text-green-900 tracking-wide">
                   মিশন ২০৩০ — ভবিষ্যৎ বাংলাদেশের পথে আমাদের অঙ্গীকার
                 </p>
               </div>

@@ -5,6 +5,7 @@ import { Play } from "lucide-react";
 import { useEffect, useState } from "react";
 //import missionThumb from "../../assets/thumbnails/mission-2030.jpg";
 import childThumb from "../../assets/thumbnails/child.jpg";
+import FeaturesSection from "./FeaturesSection";
 
 export function MissionSection() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -58,7 +59,6 @@ export function MissionSection() {
                 {item.description}
               </motion.p>
             </div>
-
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -109,6 +109,7 @@ export function MissionSection() {
           </div>
         ))}
       </div>
+      <FeaturesSection />
     </section>
   );
 }

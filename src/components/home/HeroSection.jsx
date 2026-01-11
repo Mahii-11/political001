@@ -53,12 +53,12 @@ export function HeroSection() {
                   animate="show"
                   className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight mb-6"
                 >
-                  <motion.span variants={lineVariants} className="block">
+                  <motion.span variants={lineVariants} className="block mb-4">
                     একটি সুন্দর ও
                   </motion.span>
                   <motion.span
                     variants={lineVariants}
-                    className="block text-emerald-700 font-extrabold"
+                    className="block text-emerald-700 font-extrabold mb-2"
                   >
                     ঐক্যবদ্ধ আগামী
                   </motion.span>

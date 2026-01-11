@@ -106,7 +106,9 @@ export function GallerySection() {
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                src="https://www.youtube.com/embed/Du2e6dIw4Xw?autoplay=1"
+                title="Video"
+                frameBorder="0"
                 allowFullScreen
               />
             </div>

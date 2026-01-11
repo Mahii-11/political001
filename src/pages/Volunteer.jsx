@@ -5,7 +5,7 @@ import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useActionData } from "react-router-dom";
 import { createVolunteer } from "../services/api";
 
 const benefits = [
@@ -198,6 +198,7 @@ export default function Volunteer() {
 }
 
 export function VolunteerForm() {
+  const actionData = useActionData();
   function banglaNumbers(number) {
     const eng = "0123456789";
     const bang = "০১২৩৪৫৬৭৮৯";
@@ -213,6 +214,11 @@ export function VolunteerForm() {
         method="post"
         className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
       >
+        {actionData?.error && (
+          <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
+            {actionData.message}
+          </div>
+        )}
         <h2 className="text-3xl font-bold text-blue-900 mb-8">
           স্বেচ্ছাসেবক নিবন্ধন
         </h2>
@@ -275,7 +281,7 @@ export function VolunteerForm() {
             </label>
             <input
               type="file"
-              name="image"
+              name="profile_photo_url"
               accept="image/*"
               className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -380,8 +386,20 @@ export async function action({ request }) {
 
   try {
     const response = await createVolunteer(data);
-    return redirect(`/register-volunteer/${response.id}`);
+    console.log("Backend Response:", response);
+
+    if (!response || !response.id) {
+      return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+    }
+
+    return redirect(`/volunteer/${response.id}`);
   } catch (err) {
-    throw new Error("Volunteer registration failed");
+    if (err.message?.toLowerCase().includes("duplicate")) {
+      return {
+        error: true,
+        message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
+      };
+    }
+    return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
   }
 }

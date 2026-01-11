@@ -114,17 +114,17 @@ export async function createVolunteer(newVolunteer) {
     });
 
     if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(
-        `Failed creating your data: ${res.status} - ${errorText}`
-      );
+      const errorText = await res.text(); // backend error text
+      // throw Error with backend message
+      throw new Error(errorText || "Failed creating your data");
     }
 
     const json = await res.json();
     return json?.data ?? null;
   } catch (error) {
     console.error("createVolunteer error:", error);
-    return null;
+    // throw again to handle in action
+    throw error;
   }
 }
 

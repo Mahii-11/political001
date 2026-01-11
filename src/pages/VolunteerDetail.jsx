@@ -14,9 +14,26 @@ function banglaNumbers(number) {
 export default function VolunteerDetail() {
   const volunteer = useLoaderData();
 
+  // 🔹 Centered Friendly Error
   if (!volunteer) {
     return (
-      <p className="text-center text-red-500 mt-10">Volunteer not found!</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+        <div className="bg-white p-8 rounded-2xl shadow-lg text-center max-w-lg">
+          <h2 className="text-3xl font-bold text-red-600 mb-4">
+            Volunteer not found!
+          </h2>
+          <p className="text-gray-700 mb-6">
+            সম্ভবত এই ID এর কোন নিবন্ধন পাওয়া যায়নি। অনুগ্রহ করে ঠিকঠাক URL
+            চেক করুন অথবা নতুন স্বেচ্ছাসেবক হিসেবে আবেদন করুন।
+          </p>
+          <a
+            href="/volunteer/new"
+            className="inline-block px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition"
+          >
+            নতুন আবেদন করুন
+          </a>
+        </div>
+      </div>
     );
   }
 
@@ -36,44 +53,61 @@ export default function VolunteerDetail() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow mt-10">
-      <h2 className="text-2xl font-bold mb-4">আবেদনের অবস্থা</h2>
+    <div className="max-w-md mx-auto mt-12 bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
+      <div className="bg-red-600 p-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-white text-center">
+          স্বেচ্ছাসেবক তথ্য
+        </h2>
+        <p className="text-sm text-white/90 text-center mt-1">
+          আবেদন অবস্থা এবং ব্যক্তিগত তথ্য
+        </p>
+      </div>
 
-      <p>
-        <b>ID:</b> {banglaNumbers(id)}
-      </p>
-      <p>
-        <b>নাম:</b> {name}
-      </p>
-      <p>
-        <b>ওয়ার্ড:</b> {ward ? banglaNumbers(ward) : "N/A"}
-      </p>
-      <p>
-        <b>ফোন:</b> {phone}
-      </p>
-      <p>
-        <b>ইমেইল:</b> {email}
-      </p>
-      <p>
-        <b>আগ্রহ:</b> {skill}
-      </p>
-      <p>
-        <b>ঠিকানা:</b> {address}
-      </p>
-      <p>
-        <b>বার্তা:</b> {message || "N/A"}
-      </p>
+      <div className="p-6 space-y-4 text-slate-700">
+        <div className="flex justify-between">
+          <span className="font-semibold">ID:</span>
+          <span>{banglaNumbers(id)}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">নাম:</span>
+          <span>{name}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">ওয়ার্ড:</span>
+          <span>{ward ? banglaNumbers(ward) : "N/A"}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">ফোন:</span>
+          <span>{phone}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">ইমেইল:</span>
+          <span>{email}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">আগ্রহ:</span>
+          <span>{skill}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">ঠিকানা:</span>
+          <span>{address}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">বার্তা:</span>
+          <span>{message || "N/A"}</span>
+        </div>
+      </div>
 
-      <p className="mt-4">
-        <b>Status:</b>{" "}
+      <div className="bg-gray-50 p-4 flex justify-between items-center border-t border-gray-200">
+        <span className="font-semibold text-gray-600">অবস্থা:</span>
         <span
-          className={`px-3 py-1 rounded-full text-xs font-medium ${
+          className={`px-4 py-2 rounded-full text-sm font-semibold ${
             statusMap[status] || "bg-gray-100 text-gray-600"
           }`}
         >
           {statusLabel[status] || status}
         </span>
-      </p>
+      </div>
     </div>
   );
 }
@@ -83,7 +117,7 @@ export async function loader({ params }) {
     const volunteer = await getVolunteer(params.volunteerId);
     return volunteer;
   } catch (error) {
-    console.error(error);
+    console.error("getVolunteer error (id:", params.volunteerId, "):", error);
     return null;
   }
 }

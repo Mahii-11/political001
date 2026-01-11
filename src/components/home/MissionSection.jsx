@@ -42,13 +42,13 @@ export function MissionSection() {
             key={i}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
-            <div>
+            <div className="relative bg-white/80 p-6 md:p-10 rounded-2xl shadow-lg max-w-3xl mx-auto border-l-4 border-r-4 border-green-200">
               <motion.h2
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="text-3xl md:text-5xl font-extrabold mb-6 text-gray-800"
+                className="text-3xl md:text-5xl font-extrabold mb-6 text-gray-800 text-center md:text-left"
               >
                 <span className="text-green-900">
                   {item.title.split(" ")[0]}
@@ -63,11 +63,13 @@ export function MissionSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-gray-700 text-base md:text-base leading-7 md:leading-8 max-w-xl"
+                className="text-gray-700 text-base md:text-lg leading-7 md:leading-8 text-justify md:text-left"
+                style={{ textAlign: "justify", textJustify: "inter-word" }}
               >
                 {stripHeadingsAndParagraphs(item.description)}
               </motion.p>
             </div>
+
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}

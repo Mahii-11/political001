@@ -9,6 +9,7 @@ import { StatisticsSection } from "../components/home/StatisticsSection";
 import BlueSection from "../components/home/BlueSecion";
 import AnimatedHeader from "../components/home/AnimatedHeader";
 import { HeroSlider } from "@/components/home/HeroSlider";
+import LogoBnp from "@/components/home/LogoBnp";
 
 export default function Home() {
   return (
@@ -18,6 +19,8 @@ export default function Home() {
       <main>
         <HeroSlider />
         <BlueSection />
+        <div className="w-full h-1 bg-green-100"></div>
+        <LogoBnp />
         <div id="campaignnews">
           <CampaignNews />
         </div>

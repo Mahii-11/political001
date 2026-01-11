@@ -11,15 +11,15 @@ export function HeroSlider() {
 
   const banners = [
     <HeroSection key="hero1" />,
-    <HeroSection2 key="hero2" />,
-    <HeroSection3 key="hero3" />,
+    <HeroSection2 key="hero1" />,
+    <HeroSection3 key="hero1" />,
   ];
 
   // 🔹 AUTO SLIDE
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveBanner((prev) => (prev + 1) % banners.length);
-    }, 6000); // ⏱️ 6 sec
+    }, 1000000); // ⏱️ 6 sec
 
     return () => clearInterval(interval);
   }, [banners.length]);

@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import {
-  Target,
   Shield,
   Heart,
   Users,
@@ -52,29 +51,6 @@ const policies = [
     title: "সামাজিক ন্যায়",
     description:
       "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
-  },
-];
-
-const donationGoal = 5000000;
-const currentDonation = 3750000;
-const donationPercentage = (currentDonation / donationGoal) * 100;
-
-const upcomingEvents = [
-  {
-    date: "জানুয়ারি ২৫",
-    title: "টাউন হল মিটিং",
-    location: "কমিউনিটি সেন্টার, ঢাকা",
-  },
-  {
-    date: "জানুয়ারি ২৮",
-    title: "যুব র‍্যালি",
-    location: "বিশ্ববিদ্যালয় ক্যাম্পাস",
-  },
-  { date: "ফেব্রুয়ারি ০২", title: "নীতিমালা আলোচনা", location: "সিটি হল" },
-  {
-    date: "ফেব্রুয়ারি ০৫",
-    title: "স্বেচ্ছাসেবক প্রশিক্ষণ",
-    location: "প্রচারণা সদর দফতর",
   },
 ];
 
@@ -181,107 +157,15 @@ export default function Campaign() {
             </div>
           </div>
         </section>
-
-        {/*   <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card className="bg-political-blue text-white border-0">
-                  <CardContent className="p-8">
-                    <div className="flex items-center gap-3 mb-6">
-                      <Target className="w-8 h-8 text-political-yellow" />
-                      <h3 className="text-2xl font-bold">প্রচারণার তহবিল</h3>
-                    </div>
-                    <p className="text-white/80 mb-6">
-                      আমাদের তহবিল সংগ্রহের লক্ষ্যে সাহায্য করুন, যাতে আমরা
-                      আমাদের বার্তা সারাদেশে পৌঁছে দিতে পারি এবং প্রতিটি
-                      কমিউনিটিতে ইতিবাচক পরিবর্তন আনতে পারি।
-                    </p>
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span>
-                          উত্থাপিত অর্থ: $
-                          {(currentDonation / 1000000).toFixed(2)}M
-                        </span>
-                        <span>
-                          লক্ষ্য: ${(donationGoal / 1000000).toFixed(0)}M
-                        </span>
-                      </div>
-                      <Progress
-                        value={donationPercentage}
-                        className="h-3 bg-white/20"
-                      />
-                    </div>
-                    <p className="text-political-yellow font-semibold text-lg mb-6">
-                      {donationPercentage.toFixed(0)}% লক্ষ্য অর্জিত!
-                    </p>
-                    <Link href="/contact">
-                      <Button
-                        className="w-full bg-political-red hover:bg-political-red/90 text-white"
-                        data-testid="button-donate-now"
-                      >
-                        এখনই দান করুন
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h3 className="text-2xl font-bold text-political-blue mb-6">
-                  আসন্ন কার্যক্রম
-                </h3>
-                <div className="space-y-4">
-                  {upcomingEvents.map((event, index) => (
-                    <Card
-                      key={index}
-                      className="bg-political-light border-0 hover-elevate"
-                      data-testid={`card-upcoming-event-${index}`}
-                    >
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="w-16 h-16 bg-political-red text-white rounded-lg flex flex-col items-center justify-center flex-shrink-0">
-                          <span className="text-xs font-medium">
-                            {event.date.split(" ")[0]}
-                          </span>
-                          <span className="text-xl font-bold">
-                            {event.date.split(" ")[1]}
-                          </span>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-political-dark">
-                            {event.title}
-                          </h4>
-                          <p className="text-sm text-political-dark/60">
-                            {event.location}
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>   */}
         <section className="bg-gray-100 py-20">
           <div className="max-w-6xl mx-auto px-6">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl font-bold text-center mb-14"
+              className="text-3xl font-bold text-center mb-14 text-red-700"
             >
-              বাস্তবায়ন পরিকল্পনা
+              বাস্তবায়ন <span className="text-gray-900">পরিকল্পনা</span>
             </motion.h2>
 
             <div className="space-y-8">

@@ -156,7 +156,7 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                   তাঁর সম্পর্কে জানুন
                 </h2>
                 <h2 className="text-xl md:text-2xl font-bold text-political-red mb-6">
@@ -225,8 +225,8 @@ export default function About() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                আমাদের মূল মূল্যবোধ
+              <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+                আমাদের <span className="text-gray-900">মূল মূল্যবোধ</span>
               </h2>
             </motion.div>
 
@@ -241,8 +241,8 @@ export default function About() {
                 >
                   <Card className="h-full bg-white border-0 shadow-sm text-center hover-elevate">
                     <CardContent className="p-6">
-                      <div className="w-14 h-14 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">
-                        <value.icon className="w-7 h-7 text-political-blue" />
+                      <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+                        <value.icon className="w-7 h-7 text-green-800" />
                       </div>
                       <h3 className="font-semibold text-political-dark mb-2">
                         {value.title}
@@ -267,8 +267,8 @@ export default function About() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                আমাদের যাত্রা
+              <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+                আমাদের <span className="text-gray-900">যাত্রা</span>
               </h2>
             </motion.div>
 

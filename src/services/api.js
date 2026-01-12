@@ -74,6 +74,23 @@ export async function getCampaignSchedule() {
   }
 }
 
+export async function getGallery() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/get-gallery-data`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(
+        `Failed to fetch campaign schedule: ${res.status} - ${errorText}`
+      );
+    }
+    const json = await res.json();
+    return json?.data.data ?? [];
+  } catch (error) {
+    console.error("getGallery error:", error);
+    return [];
+  }
+}
+
 export async function getLeaderMessage() {
   try {
     return await fetchData(`${API_BASE_URL}/leader-message-data`);

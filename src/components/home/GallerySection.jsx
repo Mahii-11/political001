@@ -2,19 +2,23 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
-import { useState } from "react";
-
-const galleryImages = [
-  "images/image39.jpg",
-  "images/image35.jpg",
-  "images/image37.jpg",
-  "images/image36.jpg",
-  "images/image38.jpg",
-  "images/image40.jpg",
-];
+import { useEffect, useState } from "react";
+import { getGallery } from "@/services/api";
 
 export function GallerySection() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    async function loadGallery() {
+      const data = await getGallery();
+      console.log("Gallery API response:", data);
+      const homeImage = data.filter((item) => item.category === "হোম");
+      console.log("Filtered home images:", homeImage);
+      setImages(homeImage);
+    }
+    loadGallery();
+  }, []);
 
   return (
     <>
@@ -35,20 +39,20 @@ export function GallerySection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-fr">
               <div className="lg:col-span-2 grid grid-rows-[auto_1fr] gap-4">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 h-full">
-                  {galleryImages.map((image, index) => (
+                  {images.map((item, index) => (
                     <motion.div
-                      key={index}
-                      className="relative overflow-hidden rounded-lg shadow-md"
+                      key={item.id}
+                      className="relative overflow-hidden rounded-lg shadow-md h-48 md:h-48"
                       initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.05 }}
                     >
                       <img
-                        src={image}
+                        src={item.image}
                         alt=""
                         className="w-full h-full object-cover"
                       />

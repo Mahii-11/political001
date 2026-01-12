@@ -3,168 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { Button } from "../components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import { getGallery } from "@/services/api";
 
-//const categories = ["All", "Rally", "Meeting", "Community", "Event"];
 const categories = ["সকল", "মিছিল", "মিটিং", "কমিউনিটি", "ইভেন্ট"];
-const categoryMap = {
-  সকল: "All",
-  মিছিল: "Rally",
-  মিটিং: "Meeting",
-  কমিউনিটি: "Community",
-  ইভেন্ট: "Event",
-};
-
-const galleryImages = [
-  {
-    id: 1,
-    image: "/images/image1.jpg",
-    title: "নির্বাচন প্রচারাভিযান",
-    category: "Rally",
-  },
-  {
-    id: 2,
-    image: "/images/image2.jpg",
-    title: "স্বেচ্ছাসেবক মিলন",
-    category: "Rally",
-  },
-  {
-    id: 3,
-    image: "/images/image3.jpg",
-    title: "সংবাদ সম্মেলন",
-    category: "Rally",
-  },
-  {
-    id: 4,
-    image: "/images/image4.jpg",
-    title: "জনসভা ও বক্তৃতা",
-    category: "Rally",
-  },
-  {
-    id: 5,
-    image: "/images/image5.jpg",
-    title: "দান সংগ্রহ কার্যক্রম",
-    category: "Rally",
-  },
-  {
-    id: 6,
-    image: "/images/image6.jpg",
-    title: "সচেতনতা র‍্যালি",
-    category: "Rally",
-  },
-
-  {
-    id: 7,
-    image: "/images/image7.jpg",
-    title: "কমিউনিটি মিলন",
-    category: "Meeting",
-  },
-  {
-    id: 8,
-    image: "/images/image8.jpg",
-    title: "দলের সমাবেশ",
-    category: "Meeting",
-  },
-  {
-    id: 9,
-    image: "/images/image9.jpg",
-    title: "প্রচারণার ফটোশুট",
-    category: "Meeting",
-  },
-  {
-    id: 10,
-    image: "/images/image10.jpg",
-    title: "ফান্ডরেইজার সভা",
-    category: "Meeting",
-  },
-  {
-    id: 11,
-    image: "/images/image11.jpg",
-    title: "স্থানীয় এলাকা পরিদর্শন",
-    category: "Meeting",
-  },
-  {
-    id: 12,
-    image: "/images/image12.jpg",
-    title: "পড়শি এলাকা হাঁটাহাঁটি",
-    category: "Meeting",
-  },
-
-  {
-    id: 13,
-    image: "/images/image13.jpg",
-    title: "সংবাদ সম্মেলন",
-    category: "Community",
-  },
-  {
-    id: 14,
-    image: "/images/image14.jpg",
-    title: "কমিউনিটি আলোচনা",
-    category: "Community",
-  },
-  {
-    id: 15,
-    image: "/images/image15.jpg",
-    title: "মিডিয়া সাক্ষাৎকার",
-    category: "Community",
-  },
-  {
-    id: 16,
-    image: "/images/image16.jpg",
-    title: "কৌশল আলোচনা",
-    category: "Community",
-  },
-  {
-    id: 17,
-    image: "/images/image17.jpg",
-    title: "দলের কর্মশালা",
-    category: "Community",
-  },
-  {
-    id: 18,
-    image: "/images/image18.jpg",
-    title: "নীতি ঘোষণা",
-    category: "Community",
-  },
-
-  {
-    id: 19,
-    image: "/images/image19.jpg",
-    title: "ফান্ডরেইজিং প্রোগ্রাম",
-    category: "Event",
-  },
-  {
-    id: 20,
-    image: "/images/image20.jpg",
-    title: "সমর্থক মিলন",
-    category: "Event",
-  },
-  {
-    id: 21,
-    image: "/images/image21.jpg",
-    title: "নেতৃত্বের সেশন",
-    category: "Event",
-  },
-  {
-    id: 22,
-    image: "/images/image22.jpg",
-    title: "জনসাধারণের মিলন",
-    category: "Event",
-  },
-  {
-    id: 23,
-    image: "/images/image23.jpg",
-    title: "যুব সম্বর্ধনা ও আলোচনাসভা",
-    category: "Event",
-  },
-  {
-    id: 24,
-    image: "/images/image24.jpg",
-    title: "সোশ্যাল মিডিয়া শুটিং",
-    category: "Event",
-  },
-];
 
 const videos = [
   {
@@ -189,15 +32,33 @@ const videos = [
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("সকল");
-
   const [selectedImage, setSelectedImage] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadGallery() {
+      try {
+        const data = await getGallery();
+        const mappedData = data.map((item) => ({
+          id: item.id,
+          image: item.image,
+          category: item.category,
+        }));
+        setGalleryImages(mappedData);
+      } catch (err) {
+        console.error("Gallery load error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadGallery();
+  }, []);
 
   const filteredImages =
     activeCategory === "সকল"
       ? galleryImages
-      : galleryImages.filter(
-          (img) => img.category === categoryMap[activeCategory]
-        );
+      : galleryImages.filter((img) => img.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-white">

@@ -7,6 +7,7 @@ import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
 import { Form, redirect, useActionData } from "react-router-dom";
 import { createVolunteer } from "../services/api";
+import { useState } from "react";
 
 const benefits = [
   {
@@ -198,6 +199,10 @@ export default function Volunteer() {
 }
 
 export function VolunteerForm() {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const isValid = error === "" && password.length > 0;
+
   const actionData = useActionData();
   function banglaNumbers(number) {
     const eng = "0123456789";
@@ -207,6 +212,21 @@ export function VolunteerForm() {
       .map((d) => (eng.includes(d) ? bang[eng.indexOf(d)] : d))
       .join("");
   }
+
+  const validatePassword = (value) => {
+    // Example rules: min 8 chars, at least 1 uppercase, 1 number, 1 special char
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+    if (!regex.test(value)) {
+      return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে এবং একটি বড় হাতের অক্ষর, একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে।";
+    }
+    return "";
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    setError(validatePassword(value));
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
@@ -354,6 +374,20 @@ export function VolunteerForm() {
         </div>
 
         <div className="mt-6">
+          <label className="block text-gray-800 font-medium mb-2">পাসওয়ার্ড</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required
+            placeholder="পাসওয়ার্ড দিন (পরবর্তীতে লগইনের জন্য ব্যবহৃত হবে)"
+            className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+        </div>
+
+        <div className="mt-6">
           <label className="block text-gray-800 font-medium mb-2">
             অতিরিক্ত বার্তা (ঐচ্ছিক)
           </label>
@@ -365,12 +399,9 @@ export function VolunteerForm() {
           />
         </div>
 
-        <button
-          type="submit"
-          className="mt-8 w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4 rounded-lg transition"
-        >
-          আবেদন জমা দিন
-        </button>
+        <button type="submit" disabled={!isValid} className={`mt-8 w-full ${ isValid ? "bg-red-600 hover:bg-red-700" : "bg-gray-400 cursor-not-allowed" } text-white font-semibold py-4 rounded-lg transition`} >
+        আবেদন জমা দিন
+      </button>
       </Form>
     </div>
   );

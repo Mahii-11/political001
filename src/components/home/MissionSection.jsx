@@ -42,13 +42,13 @@ export function MissionSection() {
             key={i}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
-            <div className="relative  p-6 md:p-10 rounded-2xl shadow-lg max-w-3xl mx-auto ">
+            <div className="relative  p-6 md:p-10 rounded-2xl  max-w-3xl mx-auto ">
               <motion.h2
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="text-3xl md:text-5xl font-extrabold mb-6 text-gray-800 text-center md:text-left"
+                className="text-3xl md:text-5xl font-extrabold mb-6 text-gray-800 text-center items-center font-bangla"
               >
                 <span className="text-green-900">
                   {item.title.split(" ")[0]}
@@ -56,6 +56,7 @@ export function MissionSection() {
                 <span className="text-gray-800">
                   {item.title.split(" ").slice(1).join(" ")}
                 </span>
+                <span className="block w-24 h-1 bg-green-900 mx-auto mt-2 rounded"></span>
               </motion.h2>
 
               <motion.p
@@ -63,7 +64,7 @@ export function MissionSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-gray-700 text-base md:text-lg leading-7 md:leading-8 text-justify md:text-left"
+                className="text-gray-700 text-base md:text-lg  leading-7 md:leading-8 text-justify md:text-left"
                 style={{ textAlign: "justify", textJustify: "inter-word" }}
               >
                 {stripHeadingsAndParagraphs(item.description)}

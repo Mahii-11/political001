@@ -76,16 +76,30 @@ export function CampaignSchedule() {
           (e) => e.dateObj.toDateString() === activeDate.toDateString()
         );
 
-  // Month navigation
-  const prevMonth = () =>
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
-    );
+  const today = new Date();
 
-  const nextMonth = () =>
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+  // Prev month function
+  const prevMonth = () => {
+    const prev = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() - 1,
+      1
     );
+    // যদি previous month আজকের মাস থেকে আগে হয়, block কর
+    if (prev >= new Date(today.getFullYear(), today.getMonth(), 1)) {
+      setCurrentMonth(prev);
+    }
+  };
+
+  // Next month function
+  const nextMonth = () => {
+    const next = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + 1,
+      1
+    );
+    setCurrentMonth(next); // Next month allowed
+  };
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();

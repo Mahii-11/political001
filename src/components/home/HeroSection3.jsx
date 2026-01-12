@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getTopSection } from "../../services/api";
 import heroBg from "../../assets/thumbnails/netabg-1.jpg";
+import { ArrowRight } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -100,11 +101,9 @@ export function HeroSection3() {
               className="flex flex-wrap gap-4"
             >
               <Link to="/voter-locator">
-                <Button
-                  size="lg"
-                  className="bg-green-500 text-white font-semibold px-8 py-4 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
-                >
-                  আপনার ভোট কেন্দ্র খুঁজুন
+                <Button className="h-[56px] px-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
+                  ভোট কেন্দ্র খুঁজুন
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </motion.div>

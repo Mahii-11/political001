@@ -42,7 +42,7 @@ export function MissionSection() {
             key={i}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
-            <div className="relative bg-white/80 p-6 md:p-10 rounded-2xl shadow-lg max-w-3xl mx-auto border-l-4 border-r-4 border-green-200">
+            <div className="relative  p-6 md:p-10 rounded-2xl shadow-lg max-w-3xl mx-auto ">
               <motion.h2
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}

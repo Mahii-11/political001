@@ -21,6 +21,7 @@ export default function Home() {
         <BlueSection />
         <div className="w-full h-1 bg-green-100"></div>
         <LogoBnp />
+        <div className="w-full h-1 bg-green-100"></div>
         <div id="campaignnews">
           <CampaignNews />
         </div>

@@ -10,9 +10,9 @@ export function HeroSlider() {
   const [activeBanner, setActiveBanner] = useState(0);
 
   const banners = [
-    <HeroSection key="hero1" />,
+    <HeroSection3 key="hero1" />,
     <HeroSection2 key="hero2" />,
-    <HeroSection3 key="hero3" />,
+    <HeroSection key="hero3" />,
   ];
 
   const autoPlay = true;

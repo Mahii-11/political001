@@ -22,11 +22,15 @@ const banglaMonths = [
   "ডিসেম্বর",
 ];
 
+// Bangla digit converter
+const toBanglaNumber = (num) =>
+  num.toString().replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[d]);
+
 export function CampaignSchedule() {
   const [eventsData, setEventsData] = useState([]);
   const [activeDate, setActiveDate] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -34,7 +38,7 @@ export function CampaignSchedule() {
         setIsLoading(true);
         const data = await getCampaignSchedule();
 
-        const formattedData = data.map((item) => {
+        const formatted = data.map((item) => {
           const dateObj = new Date(item.date);
 
           return {
@@ -42,7 +46,9 @@ export function CampaignSchedule() {
             title: item.title,
             image: item.image,
             dateObj,
-            date: `${dateObj.getDate()} ${banglaMonths[dateObj.getMonth()]}`,
+            date: `${toBanglaNumber(dateObj.getDate())} ${
+              banglaMonths[dateObj.getMonth()]
+            }`,
             time: `${formatTime(item.start_time)} - ${formatTime(
               item.end_time
             )}`,
@@ -50,9 +56,7 @@ export function CampaignSchedule() {
           };
         });
 
-        setEventsData(formattedData);
-      } catch (err) {
-        setError(err.message);
+        setEventsData(formatted);
       } finally {
         setIsLoading(false);
       }
@@ -61,13 +65,31 @@ export function CampaignSchedule() {
     fetchData();
   }, []);
 
-  // Filter events
+  // Event date set
+  const eventDates = new Set(eventsData.map((e) => e.dateObj.toDateString()));
+
+  // Filter events by active date
   const filteredEvents =
     activeDate === null
       ? eventsData
       : eventsData.filter(
-          (event) => event.dateObj.toDateString() === activeDate.toDateString()
+          (e) => e.dateObj.toDateString() === activeDate.toDateString()
         );
+
+  // Month navigation
+  const prevMonth = () =>
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+    );
+
+  const nextMonth = () =>
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+    );
+
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+  const todayKey = new Date().toDateString();
 
   return (
     <section className="py-20 bg-political-light">
@@ -77,30 +99,38 @@ export function CampaignSchedule() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4">
             প্রচারণার <span className="text-gray-950">সময়সূচি</span>
           </h2>
           <p className="text-political-dark/70 max-w-2xl mx-auto">
-            দেশজুড়ে অনুষ্ঠিতব্য প্রচারণা কর্মসূচি ও গুরুত্বপূর্ণ আয়োজনের
-            সময়সূচি।
+            দেশজুড়ে অনুষ্ঠিতব্য প্রচারণা কর্মসূচির সময়সূচি।
           </p>
         </motion.div>
 
         {/* CALENDAR */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-white rounded-2xl shadow-sm p-6 mb-12"
-        >
-          {/* MONTH */}
-          <h3 className="text-center text-lg font-semibold text-green-900 mb-6">
-            {banglaMonths[new Date().getMonth()]}
-          </h3>
+        <div className="bg-white rounded-2xl shadow-sm p-6 mb-12">
+          {/* MONTH HEADER */}
+          <div className="flex items-center justify-between mb-6">
+            <button
+              onClick={prevMonth}
+              className="px-3 py-1 rounded-md bg-green-100 hover:bg-green-200"
+            >
+              ←
+            </button>
+
+            <h3 className="text-lg font-semibold text-green-900">
+              {banglaMonths[month]} {toBanglaNumber(year)}
+            </h3>
+
+            <button
+              onClick={nextMonth}
+              className="px-3 py-1 rounded-md bg-green-100 hover:bg-green-200"
+            >
+              →
+            </button>
+          </div>
 
           {/* WEEK */}
           <div className="grid grid-cols-7 text-center text-sm text-political-dark/60 mb-4">
@@ -116,107 +146,89 @@ export function CampaignSchedule() {
           {/* DATES */}
           <div className="grid grid-cols-7 gap-y-4 text-center">
             {(() => {
-              const today = new Date();
-              const year = today.getFullYear();
-              const month = today.getMonth();
-
               const firstDay = new Date(year, month, 1).getDay();
               const totalDays = new Date(year, month + 1, 0).getDate();
-
               const days = [];
 
               for (let i = 0; i < firstDay; i++) {
-                days.push(<div key={`empty-${i}`} />);
+                days.push(<div key={`e-${i}`} />);
               }
 
-              for (let day = 1; day <= totalDays; day++) {
-                const dateObj = new Date(year, month, day);
+              for (let d = 1; d <= totalDays; d++) {
+                const dateObj = new Date(year, month, d);
+                const dateKey = dateObj.toDateString();
 
-                const hasEvent = eventsData.some(
-                  (e) => e.dateObj.toDateString() === dateObj.toDateString()
-                );
-
+                const hasEvent = eventDates.has(dateKey);
                 const isActive =
-                  activeDate &&
-                  activeDate.toDateString() === dateObj.toDateString();
+                  activeDate && activeDate.toDateString() === dateKey;
+                const isToday = dateKey === todayKey;
 
                 days.push(
                   <button
-                    key={day}
+                    key={d}
                     disabled={!hasEvent}
-                    onClick={() => hasEvent && setActiveDate(dateObj)}
+                    onClick={() =>
+                      hasEvent && setActiveDate(isActive ? null : dateObj)
+                    }
                     className={`mx-auto w-10 h-10 rounded-lg text-sm transition
                       ${
                         hasEvent
                           ? isActive
                             ? "bg-green-900 text-white"
-                            : "bg-green-100 text-political-dark hover:bg-green-300"
-                          : "text-political-dark/30 cursor-default"
-                      }`}
+                            : "bg-green-100 hover:bg-green-300"
+                          : "text-political-dark/30 cursor-not-allowed"
+                      }
+                      ${isToday && hasEvent ? "ring-2 ring-green-500" : ""}`}
                   >
-                    {day}
+                    {toBanglaNumber(d)}
                   </button>
                 );
               }
-
               return days;
             })()}
           </div>
-        </motion.div>
+        </div>
 
         {/* EVENTS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isLoading
             ? [1, 2, 3].map((i) => (
-                <Card
-                  key={i}
-                  className="overflow-hidden bg-white border-0 shadow-sm"
-                >
+                <Card key={i} className="border-0 shadow-sm">
                   <Skeleton className="h-48 w-full" />
                   <CardContent className="p-6 space-y-3">
                     <Skeleton className="h-6 w-3/4" />
                     <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-1/2" />
                   </CardContent>
                 </Card>
               ))
-            : filteredEvents.map((event, index) => (
+            : filteredEvents.map((event, i) => (
                 <motion.div
                   key={event.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.1,
-                  }}
+                  transition={{ delay: i * 0.1 }}
                 >
-                  <Card className="overflow-hidden h-full bg-white border-0 shadow-sm">
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
+                  <Card className="overflow-hidden h-full border-0 shadow-sm">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="h-48 w-full object-cover"
+                    />
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-political-dark mb-4">
-                        {event.title}
-                      </h3>
-
+                      <h3 className="font-semibold mb-3">{event.title}</h3>
                       <div className="space-y-2 text-sm text-political-dark/60">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-political-blue" />
-                          <span>{event.date}</span>
+                        <div className="flex gap-2">
+                          <Calendar className="w-4 h-4" />
+                          {event.date}
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-political-blue" />
-                          <span>{event.time}</span>
+                        <div className="flex gap-2">
+                          <Clock className="w-4 h-4" />
+                          {event.time}
                         </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4 text-political-red" />
-                          <span>{event.location}</span>
+                        <div className="flex gap-2">
+                          <MapPin className="w-4 h-4" />
+                          {event.location}
                         </div>
                       </div>
                     </CardContent>
@@ -230,11 +242,10 @@ export function CampaignSchedule() {
 }
 
 function formatTime(time) {
-  const [hour, minute] = time.split(":");
-  const date = new Date();
-  date.setHours(hour, minute);
-
-  return date.toLocaleTimeString("bn-BD", {
+  const [h, m] = time.split(":");
+  const d = new Date();
+  d.setHours(h, m);
+  return d.toLocaleTimeString("bn-BD", {
     hour: "numeric",
     minute: "2-digit",
   });

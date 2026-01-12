@@ -1,8 +1,16 @@
 /* eslint-disable no-unused-vars */
-//import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+
+const toBanglaNumber = (number) => {
+  const banglaDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+  return number
+    .toString()
+    .split("")
+    .map((digit) => banglaDigits[digit])
+    .join("");
+};
 
 const slides = [
   {
@@ -288,7 +296,7 @@ export default function HorizontalCarousel() {
                       className="flex h-12 w-12 items-center justify-center rounded-full
                 bg-emerald-600 text-white text-lg font-semibold shadow-md"
                     >
-                      {slide.id}
+                      {toBanglaNumber(slide.id)}
                     </div>
                   </div>
 

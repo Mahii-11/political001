@@ -153,7 +153,7 @@ export default function Contact() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl font-bold text-political-blue mb-6">
+                <h2 className="text-3xl font-bold text-red-700 mb-6">
                   যোগাযোগ করুন
                 </h2>
                 <p className="text-political-dark/70 mb-8">
@@ -199,7 +199,7 @@ export default function Contact() {
               >
                 <Card className="bg-white border-0 shadow-lg">
                   <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold text-political-blue mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">
                       বার্তা পাঠান
                     </h3>
                     <Form {...form}>

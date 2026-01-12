@@ -111,8 +111,9 @@ export default function Volunteer() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                আমাদের সঙ্গে স্বেচ্ছাসেবক হবেন কেন?
+              <h2 className="text-3xl md:text-4xl font-bold text-red-700 mb-4">
+                আমাদের সঙ্গে{" "}
+                <span className="text-gray-900">স্বেচ্ছাসেবক হবেন কেন?</span>
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
                 হাজারো নিবেদিত স্বেচ্ছাসেবকের সঙ্গে যুক্ত হন, যারা নিজ নিজ
@@ -163,8 +164,11 @@ export default function Volunteer() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl font-bold text-political-blue mb-6">
-                  ঢাকা–৭ এর মানুষের পাশে থাকতে আমাদের সাথে যুক্ত হন
+                <h2 className="text-3xl font-bold text-red-800 mb-6">
+                  ঢাকা–৭ এর মানুষের পাশে{" "}
+                  <span className="text-gray-800">
+                    থাকতে আমাদের সাথে যুক্ত হন
+                  </span>
                 </h2>
                 <p className="text-political-dark/70 mb-8">
                   স্বেচ্ছাসেবক হিসেবে নিবন্ধনের জন্য নিচের ফর্মটি পূরণ করুন।
@@ -239,8 +243,8 @@ export function VolunteerForm() {
             {actionData.message}
           </div>
         )}
-        <h2 className="text-3xl font-bold text-blue-900 mb-8">
-          স্বেচ্ছাসেবক নিবন্ধন
+        <h2 className="text-3xl font-bold text-red-700 mb-8">
+          স্বেচ্ছাসেবক <span className="text-gray-900">নিবন্ধন</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

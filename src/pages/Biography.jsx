@@ -146,7 +146,7 @@ export default function Biography() {
                 transition={{ duration: 0.5 }}
               >
                 <div className="items-center text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-6">
+                  <h2 className="text-3xl md:text-4xl font-bold text-red-800 mb-6">
                     তাঁর সম্পর্কে জানুন
                   </h2>
                   <div className="flex justify-center mt-4">
@@ -168,8 +168,8 @@ export default function Biography() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                জীবনের যাত্রা
+              <h2 className="text-3xl md:text-4xl font-bold text-red-800 mb-4">
+                জীবনের <span className="text-gray-800">যাত্রা</span>
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
                 জনসেবা ও সম্প্রদায় নেতৃত্বে নিবেদিত এক জীবনকাল
@@ -200,7 +200,7 @@ export default function Biography() {
                         <span className="text-political-red font-bold text-xl">
                           {item.year}
                         </span>
-                        <h3 className="text-lg font-semibold text-political-blue mt-2">
+                        <h3 className="text-lg font-semibold text-gray-800 mt-2">
                           {item.title}
                         </h3>
                         <p className="text-political-dark/70 text-sm mt-2">
@@ -229,8 +229,8 @@ export default function Biography() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-political-blue mb-4">
-                অর্জন ও সম্মাননা
+              <h2 className="text-3xl md:text-4xl font-bold text-red-700 mb-4">
+                অর্জন <span className="text-gray-900">ও সম্মাননা</span>
               </h2>
             </motion.div>
 
@@ -246,7 +246,7 @@ export default function Biography() {
                   <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
                     <CardContent className="p-6">
                       <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">
-                        <item.icon className="w-8 h-8 text-political-blue" />
+                        <item.icon className="w-8 h-8 text-red-800" />
                       </div>
                       <h3 className="font-semibold text-political-dark mb-2">
                         {item.title}

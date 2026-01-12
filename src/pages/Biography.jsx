@@ -92,7 +92,7 @@ export default function Biography() {
               className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
               data-testid="text-biography-title"
             >
-              জনাব হামিদুর রহমান হামিদ – জীবনবৃত্তান্ত
+              জনাব হামিদুর রহমান – জীবনবৃত্তান্ত
             </motion.h1>
 
             <motion.p

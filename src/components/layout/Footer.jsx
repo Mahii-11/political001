@@ -43,15 +43,14 @@ export function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <div className="mt-0">
+              <div className="mt-0"></div>
+              <div className="mb-6 mt-0">
                 <img
                   src="/images/logo-1.jpg"
                   alt="Campaign Logo"
                   className="h-20 w-20 object-contain  hover:scale-105
                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
                 />
-              </div>
-              <div className="mb-6">
                 <div className="text-2xl md:text-3xl font-extrabold tracking-tight  text-green-700 font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>

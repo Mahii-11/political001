@@ -160,7 +160,7 @@ export default function About() {
                   তাঁর সম্পর্কে জানুন
                 </h2>
                 <h2 className="text-xl md:text-2xl font-bold text-political-red mb-6">
-                  জনাব হামিদুর রহমান হামিদ – জীবনবৃত্তান্ত
+                  জনাব হামিদুর রহমান – জীবনবৃত্তান্ত
                 </h2>
                 <AccordionSection />
                 <div class="bg-white rounded-lg shadow overflow-hidden"></div>

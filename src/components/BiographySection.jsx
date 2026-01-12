@@ -53,7 +53,7 @@ const BiographySection = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-            জনাব হামিদুর রহমান হামিদ
+            জনাব হামিদুর রহমান
           </h2>
           <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
             রাজনীতি, সমাজসেবা ও উন্নয়নের পথে এক অনবদ্য নেতৃত্বের প্রতিচ্ছবি

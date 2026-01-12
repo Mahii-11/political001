@@ -27,7 +27,7 @@ export default function BlueSection() {
   };
 
   return (
-    <div className="w-full bg-white py-14">
+    <div className="w-full bg-[#fdf6f6] py-14">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
         {vision.map((item, index) => {
           const Icon = iconsByIndex[index];
@@ -40,7 +40,7 @@ export default function BlueSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link key={item.id} to={linkMap[item.id]}>
-                <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
+                <Card className="text-center h-full bg-white border-0 shadow-lg hover-elevate">
                   <CardContent className="p-6">
                     <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
                       <Icon className="w-8 h-8 text-green-900" />

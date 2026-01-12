@@ -2,7 +2,7 @@ const LogoBnp = () => {
   return (
     <div className="bg-gray-50 py-12">
       <div className="max-w-5xl mx-auto flex flex-col  items-center gap-8 px-4 md:px-0">
-        <div className="flex-shrink-0 w-full md:w-1/4">
+        <div className="flex-shrink-0  w-32 ">
           <img
             src="/images/bnpflag.jpg"
             alt="BNP Logo"

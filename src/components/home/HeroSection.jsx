@@ -25,7 +25,7 @@ export function HeroSection() {
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
-      <div className="absolute inset-0 bg-black/60 z-10" />
+      <div className="absolute inset-0 bg-black/40 z-10" />
       <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-32 w-full flex flex-col lg:flex-row items-center gap-10">
         <motion.div
           variants={containerVariants}
@@ -61,22 +61,6 @@ export function HeroSection() {
               </Button>
             </Link>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          variants={lineVariants}
-          className="flex-1 hidden lg:flex justify-end"
-        >
-          <div
-            className="w-full h-[500px] bg-no-repeat bg-contain bg-right-bottom drop-shadow-lg"
-            style={{
-              backgroundImage: "url('/images/image42.png')",
-              maskImage:
-                "linear-gradient(to left, black 70%, transparent 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to left, black 70%, transparent 100%)",
-            }}
-          />
         </motion.div>
       </div>
     </section>

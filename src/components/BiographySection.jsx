@@ -68,7 +68,7 @@ const BiographySection = () => {
               className="bg-white rounded-2xl shadow-sm p-6 hover:shadow-md transition"
             >
               <div className="flex items-center mb-4">
-                <div className="text-primary text-2xl mr-3">{item.icon}</div>
+                <div className="text-green-700 text-2xl mr-3">{item.icon}</div>
                 <h3 className="text-xl font-semibold text-gray-800">
                   {item.title}
                 </h3>

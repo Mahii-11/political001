@@ -35,14 +35,18 @@ export function QuoteSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <span className="text-political-red text-6xl font-serif">"</span>
               <blockquote
                 className="text-xl md:text-2xl lg:text-3xl text-gray-800 italic font-light leading-relaxed"
                 data-testid="text-quote"
               >
+                <span className="text-political-red text-4xl font-serif mr-1">
+                  “
+                </span>
                 {item.description}
+                <span className="text-political-red text-4xl font-serif ml-1">
+                  ”
+                </span>
               </blockquote>
-              <span className="text-political-red text-6xl font-serif">"</span>
 
               <div className="mt-8 flex items-center justify-center gap-4">
                 <div className="w-12 h-0.5 bg-gray-900" />

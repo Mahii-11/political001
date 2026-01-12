@@ -286,15 +286,16 @@ export default function About() {
                   {/* Circle */}
                   <div
                     className="
-              w-20 h-20 rounded-full
-              bg-gradient-to-br from-purple-500 to-purple-700
-              flex items-center justify-center mx-auto mb-3
-              shadow-[0_10px_30px_rgba(128,90,213,0.35)]
-              ring-1 ring-purple-300/40
-              transition-all duration-300 ease-out
-              group-hover:scale-110
-              group-hover:shadow-[0_20px_50px_rgba(128,90,213,0.55)]
-              group-hover:ring-4 group-hover:ring-purple-400/40
+        w-20 h-20 rounded-full
+bg-gradient-to-br from-green-500 to-green-700
+flex items-center justify-center mx-auto mb-3
+shadow-[0_10px_30px_rgba(34,197,94,0.35)]
+ring-1 ring-green-300/40
+transition-all duration-300 ease-out
+group-hover:scale-110
+group-hover:shadow-[0_20px_50px_rgba(34,197,94,0.55)]
+group-hover:ring-4 group-hover:ring-green-400/40
+
             "
                   >
                     <span className="text-white font-bold text-lg tracking-wide">

@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getTopSection } from "../../services/api";
+import heroBg from "../../assets/thumbnails/netabg-1.jpg";
 
 const containerVariants = {
-  hidden: {},
+  hidden: { opacity: 0 },
   show: {
     transition: {
       staggerChildren: 0.05,
@@ -26,12 +27,7 @@ const lineVariants = {
   },
 };
 
-const candidateImages = [
-  "/images/bnp neta.jpg",
-  "/images/hamid.png",
-  "/images/hamidbhai.jpg",
-  "/images/bnp neta.jpg",
-];
+const candidateImages = ["/images/", "/images/", "/images/", "/images/"];
 
 export function HeroSection3() {
   const [top, setTop] = useState([]);
@@ -55,17 +51,13 @@ export function HeroSection3() {
 
   return (
     <>
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-        {/* Background */}
+      <section className="relative w-full min-h-screen flex items-center">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/banner-2.jpg')`,
-          }}
+          className="absolute inset-0 bg-cover bg-center z-0"
+          style={{ backgroundImage: `url(${heroBg})` }}
         />
-
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 w-full">
+        <div className="absolute inset-0 bg-black/60 z-10" />
+        <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-32 w-full flex flex-col lg:flex-row items-center gap-10">
           <div className="max-w-xl">
             {top.map((topdata, i) => (
               <div key={i}>
@@ -74,14 +66,14 @@ export function HeroSection3() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 flex flex-col gap-2"
+                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 flex flex-col gap-2 font-bangla"
                 >
                   <motion.span variants={lineVariants}>
                     একটি সুন্দর ও
                   </motion.span>
                   <motion.span
                     variants={lineVariants}
-                    className="text-political-yellow"
+                    className="text-green-700"
                   >
                     ঐক্যবদ্ধ আগামী
                   </motion.span>
@@ -110,7 +102,7 @@ export function HeroSection3() {
               <Link to="/voter-locator">
                 <Button
                   size="lg"
-                  className="bg-political-yellow text-political-blue font-semibold px-8 py-4 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
+                  className="bg-green-500 text-white font-semibold px-8 py-4 text-base shadow-lg hover:shadow-xl hover:bg-yellow-400 transition"
                 >
                   আপনার ভোট কেন্দ্র খুঁজুন
                 </Button>

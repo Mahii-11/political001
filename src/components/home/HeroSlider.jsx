@@ -11,18 +11,21 @@ export function HeroSlider() {
 
   const banners = [
     <HeroSection key="hero1" />,
-    <HeroSection2 key="hero1" />,
-    <HeroSection3 key="hero1" />,
+    <HeroSection2 key="hero2" />,
+    <HeroSection3 key="hero3" />,
   ];
 
-  // 🔹 AUTO SLIDE
+  const autoPlay = true;
+
   useEffect(() => {
+    if (!autoPlay) return;
+
     const interval = setInterval(() => {
       setActiveBanner((prev) => (prev + 1) % banners.length);
-    }, 8000);
+    }, 6000);
 
     return () => clearInterval(interval);
-  }, [banners.length]);
+  }, [banners.length, autoPlay]);
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -38,7 +41,6 @@ export function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* 🔘 DOTS */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
         {banners.map((_, index) => (
           <button

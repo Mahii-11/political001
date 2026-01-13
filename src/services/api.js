@@ -180,3 +180,27 @@ export async function updateVolunteer(id, updateObj) {
     return false;
   }
 }
+
+export async function loginUser(credentials) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/user/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text(); // backend error text
+      throw new Error(errorText.substring(0, 150) || "Login failed");
+    }
+
+    const json = await res.json();
+    return json?.data ?? null;
+  } catch (error) {
+    console.error("loginUser error:", error);
+    // throw again to handle in Login.jsx
+    throw error;
+  }
+}

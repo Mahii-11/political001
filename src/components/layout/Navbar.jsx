@@ -12,6 +12,7 @@ const navItems = [
   { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer/new" },
   { label: "যোগাযোগ", href: "/contact" },
   { label: "অভিযোগ", href: "/complaint" },
+  { label: "লগইন", href: "/login" }
 ];
 
 export function Navbar() {

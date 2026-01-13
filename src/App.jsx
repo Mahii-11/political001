@@ -20,6 +20,7 @@ import VolunteerDetail, {
   loader as volunteerData,
 } from "./pages/VolunteerDetail";
 import ScrollToTop from "./components/ScrollToTop";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
         element: <VolunteerDetail />,
         loader: volunteerData,
       },
+      { path: "/login", element: <Login /> }
     ],
   },
 ]);

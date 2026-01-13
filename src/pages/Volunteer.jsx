@@ -84,22 +84,6 @@ export default function Volunteer() {
               উন্নত আগামী বিনির্মাণে, হামিদুর রহমান হামিদের নেতৃত্বে ঐক্যবদ্ধ
               হোন!
             </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
-            >
-              <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
-
-              <p className="relative text-sm md:text-base text-slate-700">
-                স্বেচ্ছাসেবক হোন—একটি ছোট উদ্যোগ হলেও এর প্রভাব অসীম। সমাজের
-                প্রয়োজনে হাত বাড়িয়ে দিয়ে আপনি মানুষের জীবনকে আরও সুন্দর ও
-                সহজ করতে পারেন। এটি শুধু সাহায্যের হাত নয়, বরং নিজের ব্যক্তিগত
-                উন্নয়ন ও মানবিক মানসিকতার বিকাশের পথও।
-              </p>
-            </motion.div>
           </div>
         </section>
         <VolunteerForm />
@@ -378,7 +362,9 @@ export function VolunteerForm() {
         </div>
 
         <div className="mt-6">
-          <label className="block text-gray-800 font-medium mb-2">পাসওয়ার্ড</label>
+          <label className="block text-gray-800 font-medium mb-2">
+            পাসওয়ার্ড
+          </label>
           <input
             type="password"
             name="password"
@@ -403,9 +389,17 @@ export function VolunteerForm() {
           />
         </div>
 
-        <button type="submit" disabled={!isValid} className={`mt-8 w-full ${ isValid ? "bg-red-600 hover:bg-red-700" : "bg-gray-400 cursor-not-allowed" } text-white font-semibold py-4 rounded-lg transition`} >
-        আবেদন জমা দিন
-      </button>
+        <button
+          type="submit"
+          disabled={!isValid}
+          className={`mt-8 w-full ${
+            isValid
+              ? "bg-red-600 hover:bg-red-700"
+              : "bg-gray-400 cursor-not-allowed"
+          } text-white font-semibold py-4 rounded-lg transition`}
+        >
+          আবেদন জমা দিন
+        </button>
       </Form>
     </div>
   );

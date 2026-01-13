@@ -94,7 +94,7 @@ export function HeroSection3() {
               </div>
             ))}
 
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -115,7 +115,7 @@ export function HeroSection3() {
                 className="flex flex-wrap gap-4"
               >
                 <Link to="/voter-locator">
-                  <Button className="h-[56px] px-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
+                  <Button className="h-[56px] px-8 rounded-full bg-emerald-800 hover:bg-emerald-600 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
                     স্বেচ্ছাসেবক হোন
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>

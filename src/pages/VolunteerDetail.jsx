@@ -19,19 +19,10 @@ export default function VolunteerDetail() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
         <div className="bg-white p-8 rounded-2xl shadow-lg text-center max-w-lg">
-          <h2 className="text-3xl font-bold text-red-600 mb-4">
-            Volunteer not found!
-          </h2>
           <p className="text-gray-700 mb-6">
-            সম্ভবত এই ID এর কোন নিবন্ধন পাওয়া যায়নি। অনুগ্রহ করে ঠিকঠাক URL
-            চেক করুন অথবা নতুন স্বেচ্ছাসেবক হিসেবে আবেদন করুন।
+            অভিনন্দন! আপনার আবেদনের প্রক্রিয়াটি সফলভাবে সম্পন্ন হয়েছে। শীঘ্রই
+            আমাদের পক্ষ থেকে আপনার সঙ্গে যোগাযোগ করা হবে।
           </p>
-          <a
-            href="/volunteer/new"
-            className="inline-block px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition"
-          >
-            নতুন আবেদন করুন
-          </a>
         </div>
       </div>
     );

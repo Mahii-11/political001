@@ -56,6 +56,18 @@ export async function getMissionData() {
   }
 }
 
+export async function getBioData() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bio-api-data`);
+    const data = await res.json();
+    console.log("fetched data", data);
+    return data;
+  } catch (error) {
+    console.error("getBioData error:", error);
+    return null;
+  }
+}
+
 export async function getCampaignSchedule() {
   try {
     const res = await fetch(`${API_BASE_URL}/campaign-schedule-data`);

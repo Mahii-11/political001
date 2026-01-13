@@ -5,69 +5,50 @@ import { Footer } from "../components/layout/Footer";
 import { Award, BookOpen, Heart, Users } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
 import BiographySection from "../components/BiographySection";
+import { useEffect, useState } from "react";
+import { getBioData } from "@/services/api";
 
-const timeline = [
-  {
-    year: "১৯৬৫",
-    title: "জন্ম ও শৈশব",
-    description:
-      "সমাজমনস্ক ও মূল্যবোধসম্পন্ন একটি মধ্যবিত্ত পরিবারে জন্মগ্রহণ করেন",
-  },
-  {
-    year: "১৯৮৭",
-    title: "আইনশাস্ত্রে স্নাতক ডিগ্রি অর্জন",
-    description:
-      "সম্মানের সাথে আইনশাস্ত্রে স্নাতক সম্পন্ন করেন এবং নাগরিক অধিকার বিষয়ে বিশেষ মনোযোগ দেন",
-  },
-  {
-    year: "১৯৯০",
-    title: "সামাজিক কর্মকাণ্ডের সূচনা",
-    description:
-      "স্থানীয় জনগণের কল্যাণে বিভিন্ন সামাজিক উন্নয়নমূলক কার্যক্রমে যুক্ত হন",
-  },
-  {
-    year: "২০০০",
-    title: "জনপ্রতিনিধিত্বের সূচনা",
-    description: "জনগণের সেবায় প্রথমবারের মতো জনপ্রতিনিধি হিসেবে নির্বাচিত হন",
-  },
-  {
-    year: "২০১০",
-    title: "রাষ্ট্রীয় পর্যায়ের নেতৃত্ব",
-    description:
-      "রাষ্ট্রীয় পর্যায়ে নাগরিকদের প্রতিনিধিত্ব করার দায়িত্ব লাভ করেন",
-  },
-  {
-    year: "২০২০",
-    title: "জাতীয় নেতৃত্বের প্রত্যয়",
-    description:
-      "দেশকে সামনের দিকে এগিয়ে নেওয়ার লক্ষ্যে জাতীয় পর্যায়ের নেতৃত্বে এগিয়ে আসেন",
-  },
-];
-
-const achievements = [
-  {
-    icon: Award,
-    title: "নেতৃত্বে সম্মাননা",
-    description: "জনসেবায় অসামান্য অবদানের জন্য জাতীয় স্বীকৃতি (২০১৮)",
-  },
-  {
-    icon: Users,
-    title: "সমাজসেবায় অনন্য অবদান",
-    description: "সামাজিক কল্যাণমূলক উদ্যোগে বিশেষ স্বীকৃতি লাভ",
-  },
-  {
-    icon: BookOpen,
-    title: "প্রকাশিত লেখক",
-    description: "রাষ্ট্র পরিচালনা ও সংস্কার বিষয়ে জনপ্রিয় গ্রন্থের প্রণেতা",
-  },
-  {
-    icon: Heart,
-    title: "মানবতার সেবক",
-    description: "তিনটি দাতব্য প্রতিষ্ঠানের প্রতিষ্ঠাতা ও সমর্থক",
-  },
-];
+const achievementIconMap = {
+  "নেতৃত্বে সম্মাননা": Award,
+  "সমাজসেবায় অনন্য অবদান": Users,
+  "প্রকাশিত লেখক": BookOpen,
+  "মানবতার সেবক": Heart,
+};
 
 export default function Biography() {
+  const [lifeline, setLifeline] = useState([]);
+  const [achievements, setAchievements] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadBiography() {
+      try {
+        const bio = await getBioData();
+        console.log(bio);
+        if (!bio || !isMounted) return;
+
+        setLifeline(Array.isArray(bio.lifeline) ? bio.lifeline : []);
+        setAchievements(
+          Array.isArray(bio.achievements) ? bio.achievements : []
+        );
+      } catch (error) {
+        console.error("loadBiography error:", error);
+      }
+    }
+
+    loadBiography();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const uiAchievements = achievements.map((item) => ({
+    ...item,
+    icon: achievementIconMap[item.name] || Award,
+  }));
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -111,7 +92,6 @@ export default function Biography() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
             >
-              {/* warm reddish glow inside card */}
               <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
 
               <p className="relative text-sm md:text-base text-slate-700">
@@ -179,7 +159,7 @@ export default function Biography() {
             <div className="relative">
               <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-political-blue/20 hidden md:block" />
 
-              {timeline.map((item, index) => (
+              {lifeline.map((item, index) => (
                 <motion.div
                   key={item.year}
                   initial={{ opacity: 0, y: 30 }}
@@ -198,10 +178,10 @@ export default function Biography() {
                     <Card className="inline-block bg-white border-0 shadow-sm">
                       <CardContent className="p-6">
                         <span className="text-political-red font-bold text-xl">
-                          {item.year}
+                          {item.title}
                         </span>
                         <h3 className="text-lg font-semibold text-gray-800 mt-2">
-                          {item.title}
+                          {item.sub_title}
                         </h3>
                         <p className="text-political-dark/70 text-sm mt-2">
                           {item.description}
@@ -235,29 +215,32 @@ export default function Biography() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {achievements.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
-                    <CardContent className="p-6">
-                      <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">
-                        <item.icon className="w-8 h-8 text-red-800" />
-                      </div>
-                      <h3 className="font-semibold text-political-dark mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-political-dark/60">
-                        {item.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+              {uiAchievements.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card className="text-center h-full bg-white border-0 shadow-sm hover-elevate">
+                      <CardContent className="p-6">
+                        <div className="w-16 h-16 rounded-full bg-political-blue/10 flex items-center justify-center mx-auto mb-4">
+                          <Icon className="w-8 h-8 text-red-800" />
+                        </div>
+                        <h3 className="font-semibold text-political-dark mb-2">
+                          {item.name}
+                        </h3>
+                        <p className="text-sm text-political-dark/60">
+                          {item.description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>

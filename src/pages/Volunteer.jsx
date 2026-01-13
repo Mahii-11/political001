@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
@@ -5,9 +6,9 @@ import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
-import { Form, redirect, useActionData } from "react-router-dom";
+import { data, Form, redirect, useActionData } from "react-router-dom";
 import { createVolunteer } from "../services/api";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const benefits = [
   {
@@ -187,16 +188,15 @@ export default function Volunteer() {
 }
 
 export function VolunteerForm() {
+  const actionData = useActionData();
+  const [formErrors, setFormErrors] = useState({});
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [formErrors, setFormErrors] = useState({});
+  const [wards, setWards] = useState([]);
 
-  const actionData = useActionData();
-
-  const isValid =
-    Object.keys(formErrors).length === 0 &&
-    password.length > 0 &&
-    passwordError === "";
+  // File refs
+  const imageRef = useRef();
+  const nidRef = useRef();
 
   function banglaNumbers(number) {
     const eng = "0123456789";
@@ -207,23 +207,39 @@ export function VolunteerForm() {
       .join("");
   }
 
-  // -------- Validators --------
+  useEffect(() => {
+    async function fetchWards() {
+      try {
+        const res = await fetch(
+          "https://election-backend.dotzpos.com/api/ward-list"
+        );
+        const json = await res.json();
+        console.log("wards fetched:", json);
+        if (json.success && Array.isArray(json.wardList)) {
+          setWards(json.wardList);
+        } else {
+          setWards([]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch wards:", err);
+        setWards([]);
+      }
+    }
+
+    fetchWards();
+  }, []);
+
   const validators = {
     name: (v) => (v.trim().split(" ").length >= 1 ? "" : "পূর্ণ নাম লিখুন"),
-
     email: (v) =>
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : "সঠিক ইমেইল লিখুন",
-
     phone: (v) =>
       /^01[3-9]\d{8}$/.test(v.replace(/\D/g, ""))
         ? ""
         : "সঠিক বাংলাদেশি ফোন নম্বর লিখুন",
-
-    nid: (v) =>
+    nid_no: (v) =>
       /^(\d{10}|\d{17})$/.test(v) ? "" : "১০ বা ১৭ সংখ্যার সঠিক NID দিন",
-
     ward_no: (v) => (v ? "" : "ওয়ার্ড নির্বাচন করুন"),
-
     skill: (v) => (v ? "" : "একটি অপশন নির্বাচন করুন"),
   };
 
@@ -232,7 +248,6 @@ export function VolunteerForm() {
     if (!validators[name]) return;
 
     const error = validators[name](value);
-
     setFormErrors((prev) => {
       const copy = { ...prev };
       if (error) copy[name] = error;
@@ -255,11 +270,19 @@ export function VolunteerForm() {
     setPasswordError(validatePassword(value));
   };
 
+  const isValid =
+    Object.keys(formErrors).length === 0 &&
+    password.length > 0 &&
+    passwordError === "" &&
+    imageRef.current?.files[0] &&
+    nidRef.current?.files[0];
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       <Form
         method="post"
         className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
+        encType="multipart/form-data"
       >
         {actionData?.error && (
           <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
@@ -272,6 +295,7 @@ export function VolunteerForm() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
           <div>
             <label className="block font-medium mb-2">পূর্ণ নাম</label>
             <input
@@ -286,6 +310,7 @@ export function VolunteerForm() {
             )}
           </div>
 
+          {/* Email */}
           <div>
             <label className="block font-medium mb-2">ইমেইল</label>
             <input
@@ -300,6 +325,7 @@ export function VolunteerForm() {
             )}
           </div>
 
+          {/* NID */}
           <div>
             <label className="block font-medium mb-2">
               জাতীয় পরিচয়পত্র (NID)
@@ -311,11 +337,12 @@ export function VolunteerForm() {
               onBlur={handleBlur}
               className="w-full rounded-lg border px-4 py-3"
             />
-            {formErrors.nid && (
-              <p className="text-red-500 text-sm mt-1">{formErrors.nid}</p>
+            {formErrors.nid_no && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.nid_no}</p>
             )}
           </div>
 
+          {/* Phone */}
           <div>
             <label className="block font-medium mb-2">ফোন নম্বর</label>
             <input
@@ -330,28 +357,33 @@ export function VolunteerForm() {
             )}
           </div>
 
+          {/* Image */}
           <div>
             <label className="block font-medium mb-2">নিজের ছবি</label>
             <input
               type="file"
               required
               name="image"
-              accept="image/*"
+              ref={imageRef}
+              accept="image/jpeg,image/jpg,image/png,image/svg+xml,image/gif"
               className="w-full border rounded-lg p-2"
             />
           </div>
 
+          {/* NID Image */}
           <div>
             <label className="block font-medium mb-2">NID ছবি</label>
             <input
               type="file"
-              name="nid_image"
-              accept="image/*"
               required
+              name="nid_image"
+              ref={nidRef}
+              accept="image/jpeg,image/jpg,image/png,image/svg+xml,image/gif"
               className="w-full border rounded-lg p-2"
             />
           </div>
 
+          {/* Ward No */}
           <div>
             <label className="block font-medium mb-2">
               এলাকা / ওয়ার্ড নম্বর
@@ -363,19 +395,18 @@ export function VolunteerForm() {
               className="w-full rounded-lg border px-4 py-3"
             >
               <option value="">ওয়ার্ড নির্বাচন করুন</option>
-              {[23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 56, 57].map(
-                (w) => (
-                  <option key={w} value={w}>
-                    ওয়ার্ড–{banglaNumbers(w)}
-                  </option>
-                )
-              )}
+              {wards.map((w) => (
+                <option key={w.id} value={w.id}>
+                  ওয়ার্ড–{banglaNumbers(w.name)}
+                </option>
+              ))}
             </select>
             {formErrors.ward_no && (
               <p className="text-red-500 text-sm mt-1">{formErrors.ward_no}</p>
             )}
           </div>
 
+          {/* Skill */}
           <div>
             <label className="block font-medium mb-2">আগ্রহের ক্ষেত্র</label>
             <select
@@ -395,6 +426,7 @@ export function VolunteerForm() {
           </div>
         </div>
 
+        {/* Address */}
         <div className="mt-6">
           <label className="block font-medium mb-2">ঠিকানা (ঐচ্ছিক)</label>
           <input
@@ -404,6 +436,7 @@ export function VolunteerForm() {
           />
         </div>
 
+        {/* Password */}
         <div className="mt-6">
           <label className="block font-medium mb-2">পাসওয়ার্ড</label>
           <input
@@ -419,6 +452,7 @@ export function VolunteerForm() {
           )}
         </div>
 
+        {/* Message */}
         <div className="mt-6">
           <label className="block font-medium mb-2">
             অতিরিক্ত বার্তা (ঐচ্ছিক)
@@ -446,30 +480,37 @@ export function VolunteerForm() {
   );
 }
 
+// Action function
 export async function action({ request }) {
   const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  console.log(data);
 
-  delete data.image;
-  delete data.nidImage;
+  // Debug: check if files and text fields are included
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
 
   try {
-    const response = await createVolunteer(data);
+    const response = await createVolunteer(formData);
     console.log("Backend Response:", response);
 
-    if (!response || !response.id) {
+    if (!response || !response.data?.id) {
       return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
     }
 
-    return redirect(`/volunteer/${response.id}`);
+    return redirect(`/volunteer/${response.data.id}`);
   } catch (err) {
+    console.error("Volunteer submission error:", err);
+
     if (err.message?.toLowerCase().includes("duplicate")) {
       return {
         error: true,
         message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
       };
     }
-    return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+
+    return {
+      error: true,
+      message: "ফর্মে দেওয়া তথ্য সঠিক নয়। অনুগ্রহ করে আবার যাচাই করুন।",
+    };
   }
 }

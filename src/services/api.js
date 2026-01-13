@@ -131,28 +131,26 @@ export async function getVolunteer(id) {
 }
 
 // ---------------- POST / PATCH ----------------
-
-export async function createVolunteer(newVolunteer) {
+export async function createVolunteer(formData) {
   try {
+    // ফাইল + text data সব FormData তে already আছে
     const res = await fetch(`${API_BASE_URL}/register-volunteer`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newVolunteer),
+      body: formData, // ✅ FormData direct
+      // Headers কে সরাসরি না দেওয়াই ভালো, browser automatically multipart/form-data boundary handle করে
     });
 
     if (!res.ok) {
-      const errorText = await res.text(); // backend error text
-      // throw Error with backend message
-      throw new Error(errorText || "Failed creating your data");
+      // Backend থেকে error message
+      const errorText = await res.text();
+      throw new Error(errorText || "Volunteer registration failed");
     }
 
+    // Backend response JSON হিসেবে return করবে
     const json = await res.json();
-    return json?.data ?? null;
+    return json;
   } catch (error) {
     console.error("createVolunteer error:", error);
-    // throw again to handle in action
     throw error;
   }
 }

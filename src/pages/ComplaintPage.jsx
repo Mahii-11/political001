@@ -1,29 +1,32 @@
 /* eslint-disable no-unused-vars */
 import { Navbar } from "../components/layout/Navbar";
-import { useState } from "react";
-import { motion } from "framer-motion";
 import { Footer } from "@/components/layout/Footer";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { storeComplaint } from "../services/api";
 
 export default function ComplaintPage() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    category: "সাধারণ",
+    department: "সাধারণ",
     subject: "",
     message: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState({ success: false, message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const categories = [
+  const departments = [
     "সেবা সমস্যা",
     "দুর্নীতি",
     "অন্য সমস্যা",
     "সাধারণ মন্তব্য",
   ];
 
+  // Validation function
   const validate = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "নাম অবশ্যই প্রয়োজন";
@@ -36,29 +39,46 @@ export default function ComplaintPage() {
     return newErrors;
   };
 
+  // Handle text input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
     setErrors({});
-    // এখানে API বা backend call করা যাবে
-    console.log("Submitted data:", formData);
-    setSubmitted(true);
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      category: "সাধারণ",
-      subject: "",
-      message: "",
-    });
+    setLoading(true);
+    setStatus({ success: false, message: "" });
+
+    try {
+      const data = new FormData(e.target); // capture all form fields + files
+      const response = await storeComplaint(data);
+
+      if (response.success) {
+        setStatus({
+          success: true,
+          message: "আপনার অভিযোগ সফলভাবে সাবমিট হয়েছে। ধন্যবাদ!",
+        });
+        e.target.reset(); // reset form after success
+      } else {
+        setStatus({
+          success: false,
+          message: response.message || "কিছু ভুল হয়েছে।",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus({ success: false, message: "কমপ্লেইন সাবমিট ব্যর্থ হয়েছে।" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,7 +102,6 @@ export default function ComplaintPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
-            data-testid="text-biography-title"
           >
             অভিযোগ জানান এবং আপনার কণ্ঠস্বর শোনা যাক
           </motion.h1>
@@ -97,15 +116,26 @@ export default function ComplaintPage() {
           </motion.p>
         </div>
       </section>
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6 lg:px-8 ">
+
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6 lg:px-8">
         <div className="bg-white shadow-lg rounded-xl w-full max-w-3xl p-8">
-          {submitted && (
-            <div className="bg-green-100 text-green-800 p-4 rounded mb-6 text-center">
-              আপনার অভিযোগ সফলভাবে পাঠানো হয়েছে। ধন্যবাদ!
+          {status.message && (
+            <div
+              className={`p-4 rounded mb-6 text-center ${
+                status.success
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              {status.message}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4"
+            encType="multipart/form-data"
+          >
             {/* Name */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
@@ -158,18 +188,18 @@ export default function ComplaintPage() {
               />
             </div>
 
-            {/* Category */}
+            {/* Department */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 বিভাগ
               </label>
               <select
-                name="category"
-                value={formData.category}
+                name="department"
+                value={formData.department}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
               >
-                {categories.map((cat) => (
+                {departments.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
                   </option>
@@ -210,16 +240,15 @@ export default function ComplaintPage() {
               )}
             </div>
 
-            {/* নতুন Fields: ছবি ও ভিডিও */}
+            {/* Image & Video */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              {/* ছবি */}
               <div>
                 <label className="block text-gray-700 font-medium mb-1">
                   ছবি আপলোড করুন
                 </label>
                 <input
                   type="file"
-                  name="complaintImage"
+                  name="image"
                   accept="image/*"
                   className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
@@ -228,14 +257,13 @@ export default function ComplaintPage() {
                 </p>
               </div>
 
-              {/* ভিডিও */}
               <div>
                 <label className="block text-gray-700 font-medium mb-1">
                   ভিডিও আপলোড করুন
                 </label>
                 <input
                   type="file"
-                  name="complaintVideo"
+                  name="video"
                   accept="video/*"
                   className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
@@ -253,9 +281,10 @@ export default function ComplaintPage() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-colors duration-300"
+              disabled={loading}
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              অভিযোগ পাঠান
+              {loading ? "দয়া করে অপেক্ষা করুন..." : "অভিযোগ পাঠান"}
             </button>
           </form>
         </div>

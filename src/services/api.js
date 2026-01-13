@@ -204,3 +204,43 @@ export async function loginUser(credentials) {
     throw error;
   }
 }
+
+/**
+ * Generic function to handle POST requests with FormData (for files)
+ * @param {string} endpoint - API endpoint (e.g., /store-complain)
+ * @param {FormData} formData - FormData object containing fields & files
+ * @returns {Promise<object>} - JSON response from backend
+ */
+export async function postFormData(endpoint, formData) {
+  try {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: "POST",
+      body: formData, // FormData → browser auto sets multipart/form-data
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message: data?.message || `Request failed (${res.status})`,
+      };
+    }
+
+    return data;
+  } catch (error) {
+    console.error("postFormData error:", error);
+    return {
+      success: false,
+      message: "Network error or server not responding",
+    };
+  }
+}
+
+/**
+ * Complaint submission function
+ * @param {FormData} formData - FormData containing complaint details
+ */
+export async function storeComplaint(formData) {
+  return postFormData("/store-complain", formData);
+}

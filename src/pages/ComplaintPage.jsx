@@ -95,21 +95,6 @@ export default function ComplaintPage() {
           >
             আপনার পরিচয় গোপন রাখা হবে। দয়া করে সঠিক তথ্য দিয়ে অভিযোগ করুন।
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
-          >
-            <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
-
-            <p className="relative text-sm md:text-base text-slate-700">
-              আপনার অভিযোগ আমাদের জন্য গুরুত্বপূর্ণ। আমরা নিশ্চিত করি যে প্রতিটি
-              মতামত ও অভিযোগ মনোযোগ দিয়ে শোনা হবে এবং প্রয়োজনীয় ব্যবস্থা
-              গ্রহণ করা হবে। ন্যায় ও স্বচ্ছতার প্রতিশ্রুতি আমাদের অঙ্গীকার।
-            </p>
-          </motion.div>
         </div>
       </section>
       <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6 lg:px-8 ">

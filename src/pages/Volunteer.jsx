@@ -306,7 +306,7 @@ export function VolunteerForm() {
             </label>
             <input
               type="text"
-              name="nid"
+              name="nid_no"
               required
               onBlur={handleBlur}
               className="w-full rounded-lg border px-4 py-3"
@@ -335,7 +335,7 @@ export function VolunteerForm() {
             <input
               type="file"
               required
-              name="profile_photo_url"
+              name="image"
               accept="image/*"
               className="w-full border rounded-lg p-2"
             />
@@ -345,7 +345,7 @@ export function VolunteerForm() {
             <label className="block font-medium mb-2">NID ছবি</label>
             <input
               type="file"
-              name="nidImage"
+              name="nid_image"
               accept="image/*"
               required
               className="w-full border rounded-lg p-2"

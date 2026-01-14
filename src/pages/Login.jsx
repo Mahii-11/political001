@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,8 +20,7 @@ export default function Login() {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const mobileRegex = /^017\d{8}$/;
-    const passwordRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
     if (!emailRegex.test(email) && !mobileRegex.test(email)) {
       newErrors.email =
@@ -38,11 +38,11 @@ export default function Login() {
 
   // 🔥 Login API Call (on button click)
   const handleSubmit = async (e) => {
-  e.preventDefault(); // 🚫 stop page reload
+    e.preventDefault(); // 🚫 stop page reload
 
-  //if (!validate()) return;
+    if (!validate()) return;
 
-  setLoading(true);
+    setLoading(true);
 
   console.log("Logging in with:", { email, password });
   try {
@@ -65,7 +65,6 @@ export default function Login() {
   }
 };
 
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -82,9 +81,7 @@ export default function Login() {
           className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-slate-200 p-8"
         >
           <h2 className="text-3xl font-bold text-red-700 mb-2">লগইন</h2>
-          <p className="text-slate-600 mb-6">
-            আপনার অ্যাকাউন্টে প্রবেশ করুন
-          </p>
+          <p className="text-slate-600 mb-6">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
 
           {/* API Error */}
           {errors.form && (
@@ -126,9 +123,7 @@ export default function Login() {
                 className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
               {errors.password && (
-                <p className="text-red-600 text-sm mt-1">
-                  {errors.password}
-                </p>
+                <p className="text-red-600 text-sm mt-1">{errors.password}</p>
               )}
             </div>
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
@@ -5,11 +6,9 @@ import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
-import { Form, redirect, useActionData, useNavigate } from "react-router-dom";
-import { createVolunteer, getWards } from "../services/api";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { data, Form, redirect, useActionData } from "react-router-dom";
+import { createVolunteer } from "../services/api";
+import { useEffect, useRef, useState } from "react";
 
 const benefits = [
   {
@@ -55,7 +54,7 @@ export default function Volunteer() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+        <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden mb-0">
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
           <div className="absolute top-24 left-1/2 -translate-x-1/2 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl" />
 
@@ -87,22 +86,6 @@ export default function Volunteer() {
               উন্নত আগামী বিনির্মাণে, হামিদুর রহমান হামিদের নেতৃত্বে ঐক্যবদ্ধ
               হোন!
             </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
-            >
-              <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
-
-              <p className="relative text-sm md:text-base text-slate-700">
-                স্বেচ্ছাসেবক হোন—একটি ছোট উদ্যোগ হলেও এর প্রভাব অসীম। সমাজের
-                প্রয়োজনে হাত বাড়িয়ে দিয়ে আপনি মানুষের জীবনকে আরও সুন্দর ও
-                সহজ করতে পারেন। এটি শুধু সাহায্যের হাত নয়, বরং নিজের ব্যক্তিগত
-                উন্নয়ন ও মানবিক মানসিকতার বিকাশের পথও।
-              </p>
-            </motion.div>
           </div>
         </section>
         <VolunteerForm />
@@ -211,7 +194,6 @@ export function VolunteerForm() {
   const [wards, setWards] = useState([]);
   const [selectedWard, setSelectedWard] = useState("");
   const navigate = useNavigate();
-  const isValid = error === "" && password.length > 0;
 
   useEffect(() => {
     async function fetchData() {
@@ -223,7 +205,11 @@ export function VolunteerForm() {
     []
   );
 
-  const actionData = useActionData();
+
+  // File refs
+  const imageRef = useRef();
+  const nidRef = useRef();
+
   function banglaNumbers(number) {
     const eng = "0123456789";
     const bang = "০১২৩৪৫৬৭৮৯";
@@ -233,8 +219,56 @@ export function VolunteerForm() {
       .join("");
   }
 
+  useEffect(() => {
+    async function fetchWards() {
+      try {
+        const res = await fetch(
+          "https://election-backend.dotzpos.com/api/ward-list"
+        );
+        const json = await res.json();
+        console.log("wards fetched:", json);
+        if (json.success && Array.isArray(json.wardList)) {
+          setWards(json.wardList);
+        } else {
+          setWards([]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch wards:", err);
+        setWards([]);
+      }
+    }
+
+    fetchWards();
+  }, []);
+
+  const validators = {
+    name: (v) => (v.trim().split(" ").length >= 1 ? "" : "পূর্ণ নাম লিখুন"),
+    email: (v) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : "সঠিক ইমেইল লিখুন",
+    phone: (v) =>
+      /^01[3-9]\d{8}$/.test(v.replace(/\D/g, ""))
+        ? ""
+        : "সঠিক বাংলাদেশি ফোন নম্বর লিখুন",
+    nid_no: (v) =>
+      /^(\d{10}|\d{17})$/.test(v) ? "" : "১০ বা ১৭ সংখ্যার সঠিক NID দিন",
+    ward_no: (v) => (v ? "" : "ওয়ার্ড নির্বাচন করুন"),
+    skill: (v) => (v ? "" : "একটি অপশন নির্বাচন করুন"),
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    if (!validators[name]) return;
+
+    const error = validators[name](value);
+    setFormErrors((prev) => {
+      const copy = { ...prev };
+      if (error) copy[name] = error;
+      else delete copy[name];
+      return copy;
+    });
+  };
+
   const validatePassword = (value) => {
-    // Example rules: min 8 chars, at least 1 uppercase, 1 number, 1 special char
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
     if (!regex.test(value)) {
       return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে এবং একটি বড় হাতের অক্ষর, একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে।";
@@ -242,11 +276,18 @@ export function VolunteerForm() {
     return "";
   };
 
-  const handleChange = (e) => {
+  const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setError(validatePassword(value));
+    setPasswordError(validatePassword(value));
   };
+
+  const isValid =
+    Object.keys(formErrors).length === 0 &&
+    password.length > 0 &&
+    passwordError === "" &&
+    imageRef.current?.files[0] &&
+    nidRef.current?.files[0];
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
@@ -254,98 +295,107 @@ export function VolunteerForm() {
         method="post"
         className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
         onSubmit={handleSubmit}
+        encType="multipart/form-data"
       >
         {actionData?.error && (
           <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
             {actionData.message}
           </div>
         )}
+
         <h2 className="text-3xl font-bold text-red-700 mb-8">
           স্বেচ্ছাসেবক <span className="text-gray-900">নিবন্ধন</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              পূর্ণ নাম
-            </label>
+            <label className="block font-medium mb-2">পূর্ণ নাম</label>
             <input
               type="text"
               name="name"
               required
-              placeholder="আপনার পুরো নাম:"
-              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onBlur={handleBlur}
+              className="w-full rounded-lg border px-4 py-3"
             />
+            {formErrors.name && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>
+            )}
           </div>
 
+          {/* Email */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              ইমেইল
-            </label>
+            <label className="block font-medium mb-2">ইমেইল</label>
             <input
               type="email"
               name="email"
               required
-              placeholder="people@example.com"
-              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onBlur={handleBlur}
+              className="w-full rounded-lg border px-4 py-3"
             />
+            {formErrors.email && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+            )}
           </div>
+
+          {/* NID */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              জাতীয় পরিচয়পত্র (NID) নম্বর
+            <label className="block font-medium mb-2">
+              জাতীয় পরিচয়পত্র (NID)
             </label>
             <input
               type="text"
-              name="nid"
+              name="nid_no"
               required
-              placeholder="আপনার ১০ বা ১৭ সংখ্যার NID নম্বর লিখুন"
-              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onBlur={handleBlur}
+              className="w-full rounded-lg border px-4 py-3"
             />
+            {formErrors.nid_no && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.nid_no}</p>
+            )}
           </div>
 
+          {/* Phone */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              ফোন নম্বর
-            </label>
+            <label className="block font-medium mb-2">ফোন নম্বর</label>
             <input
               type="text"
               name="phone"
               required
-              placeholder="+০১৭১ ২৩৪ ৫৬৭৮"
-              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onBlur={handleBlur}
+              className="w-full rounded-lg border px-4 py-3"
             />
+            {formErrors.phone && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
+            )}
           </div>
 
+          {/* Image */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              নিজের ছবি
-            </label>
+            <label className="block font-medium mb-2">নিজের ছবি</label>
             <input
               type="file"
-              name="profile_photo_url"
-              accept="image/*"
-              className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+              name="image"
+              ref={imageRef}
+              accept="image/jpeg,image/jpg,image/png,image/svg+xml,image/gif"
+              className="w-full border rounded-lg p-2"
             />
-            <p className="text-sm text-gray-500 mt-1">
-              নিজের ছবি এখানে আপলোড করুন
-            </p>
           </div>
 
+          {/* NID Image */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              NID ছবি
-            </label>
+            <label className="block font-medium mb-2">NID ছবি</label>
             <input
               type="file"
-              name="nidImage"
-              accept="image/*"
-              className="block w-full text-gray-700 border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+              name="nid_image"
+              ref={nidRef}
+              accept="image/jpeg,image/jpg,image/png,image/svg+xml,image/gif"
+              className="w-full border rounded-lg p-2"
             />
-            <p className="text-sm text-gray-500 mt-1">
-              আপনার NID এর ছবি এখানে আপলোড করুন
-            </p>
           </div>
-
+          {/* Ward */}  
           <div >
             <label className="block text-gray-800 font-medium mb-2">ওয়ার্ড নির্বাচন করুন</label>
             <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)}
@@ -358,62 +408,68 @@ export function VolunteerForm() {
                 </option>
               ))}
             </select>
+            {formErrors.ward_no && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.ward_no}</p>
+            )}
           </div>
 
+          {/* Skill */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              আগ্রহের ক্ষেত্র
-            </label>
+            <label className="block font-medium mb-2">আগ্রহের ক্ষেত্র</label>
             <select
               name="skill"
               required
-              className="w-full rounded-lg border border-blue-300 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onBlur={handleBlur}
+              className="w-full rounded-lg border px-4 py-3"
             >
-              <option value="">আপনি কীভাবে যুক্ত হতে চান?</option>
+              <option value="">নির্বাচন করুন</option>
               <option value="field">মাঠ পর্যায়ে</option>
-              <option value="online">অনলাইন সাপোর্ট</option>
-              <option value="event">ইভেন্ট ব্যবস্থাপনা</option>
+              <option value="online">অনলাইন</option>
+              <option value="event">ইভেন্ট</option>
             </select>
+            {formErrors.skill && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.skill}</p>
+            )}
           </div>
         </div>
 
+        {/* Address */}
         <div className="mt-6">
-          <label className="block text-gray-800 font-medium mb-2">ঠিকানা</label>
+          <label className="block font-medium mb-2">ঠিকানা (ঐচ্ছিক)</label>
           <input
             type="text"
             name="address"
-            required
-            placeholder="আপনার ঠিকানা লিখুন"
-            className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full rounded-lg border px-4 py-3"
           />
         </div>
 
+        {/* Password */}
         <div className="mt-6">
-          <label className="block text-gray-800 font-medium mb-2">পাসওয়ার্ড</label>
+          <label className="block font-medium mb-2">পাসওয়ার্ড</label>
           <input
             type="password"
             name="password"
             value={password}
-            onChange={handleChange}
+            onChange={handlePasswordChange}
             required
-            placeholder="পাসওয়ার্ড দিন (পরবর্তীতে লগইনের জন্য ব্যবহৃত হবে)"
-            className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full rounded-lg border px-4 py-3"
           />
-          {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+          {passwordError && (
+            <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+          )}
         </div>
 
+        {/* Message */}
         <div className="mt-6">
-          <label className="block text-gray-800 font-medium mb-2">
+          <label className="block font-medium mb-2">
             অতিরিক্ত বার্তা (ঐচ্ছিক)
           </label>
           <textarea
             name="message"
             rows="4"
-            placeholder="নিজের সম্পর্কে সংক্ষেপে লিখুন..."
-            className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full rounded-lg border px-4 py-3"
           />
         </div>
-
         <button type="submit" disabled={!isValid} className={`mt-8 w-full ${isValid ? "bg-red-600 hover:bg-red-700" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold py-4 rounded-lg transition`} >
           আবেদন জমা দিন
         </button>
@@ -426,7 +482,6 @@ export function VolunteerForm() {
             লগইন করুন
           </Link>
         </p>
-
       </Form>
     </div>
   );
@@ -469,6 +524,7 @@ export function VolunteerForm() {
   }
 }
 
+// Action function
 export async function action({ request }) {
   // const formData = await request.formData();
   // const data = Object.fromEntries(formData);

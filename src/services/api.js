@@ -56,6 +56,18 @@ export async function getMissionData() {
   }
 }
 
+export async function getBioData() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bio-api-data`);
+    const data = await res.json();
+    console.log("fetched data", data);
+    return data;
+  } catch (error) {
+    console.error("getBioData error:", error);
+    return null;
+  }
+}
+
 export async function getCampaignSchedule() {
   try {
     const res = await fetch(`${API_BASE_URL}/campaign-schedule-data`);
@@ -115,28 +127,26 @@ export async function getWards() {
 }
 
 // ---------------- POST / PATCH ----------------
-
-export async function createVolunteer(newVolunteer) {
+export async function createVolunteer(formData) {
   try {
+    // ফাইল + text data সব FormData তে already আছে
     const res = await fetch(`${API_BASE_URL}/register-volunteer`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newVolunteer),
+      body: formData, // ✅ FormData direct
+      // Headers কে সরাসরি না দেওয়াই ভালো, browser automatically multipart/form-data boundary handle করে
     });
 
     if (!res.ok) {
-      const errorText = await res.text(); // backend error text
-      // throw Error with backend message
-      throw new Error(errorText || "Failed creating your data");
+      // Backend থেকে error message
+      const errorText = await res.text();
+      throw new Error(errorText || "Volunteer registration failed");
     }
 
+    // Backend response JSON হিসেবে return করবে
     const json = await res.json();
-    return json?.data ?? null;
+    return json;
   } catch (error) {
     console.error("createVolunteer error:", error);
-    // throw again to handle in action
     throw error;
   }
 }
@@ -187,4 +197,44 @@ export async function loginUser(credentials) {
     // throw again to handle in Login.jsx
     throw error;
   }
+}
+
+/**
+ * Generic function to handle POST requests with FormData (for files)
+ * @param {string} endpoint - API endpoint (e.g., /store-complain)
+ * @param {FormData} formData - FormData object containing fields & files
+ * @returns {Promise<object>} - JSON response from backend
+ */
+export async function postFormData(endpoint, formData) {
+  try {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: "POST",
+      body: formData, // FormData → browser auto sets multipart/form-data
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message: data?.message || `Request failed (${res.status})`,
+      };
+    }
+
+    return data;
+  } catch (error) {
+    console.error("postFormData error:", error);
+    return {
+      success: false,
+      message: "Network error or server not responding",
+    };
+  }
+}
+
+/**
+ * Complaint submission function
+ * @param {FormData} formData - FormData containing complaint details
+ */
+export async function storeComplaint(formData) {
+  return postFormData("/store-complain", formData);
 }

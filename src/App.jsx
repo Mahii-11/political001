@@ -21,6 +21,7 @@ import VolunteerDetail, {
 } from "./pages/VolunteerDetail";
 import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,8 @@ const router = createBrowserRouter([
         element: <VolunteerDetail />,
         loader: volunteerData,
       },
-      { path: "/login", element: <Login /> }
+      { path: "/login", element: <Login /> },
+      { path: "/dashboard", element: <Dashboard /> }
     ],
   },
 ]);

@@ -1,13 +1,10 @@
-/* eslint-disable react-hooks/refs */
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
-import { data, Form, redirect, useActionData } from "react-router-dom";
-import { createVolunteer } from "../services/api";
+import { Link, Form, useNavigate, useActionData } from "react-router-dom";
+import { createVolunteer, getWards } from "../services/api";
 import { useEffect, useRef, useState } from "react";
 
 const benefits = [
@@ -49,6 +46,7 @@ const roles = [
 ];
 
 export default function Volunteer() {
+  const actionData = useActionData();
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -188,11 +186,25 @@ export default function Volunteer() {
 }
 
 export function VolunteerForm() {
-  const actionData = useActionData();
-  const [formErrors, setFormErrors] = useState({});
   const [password, setPassword] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   const [passwordError, setPasswordError] = useState("");
+  const actionData = useActionData();
+  const [error, setError] = useState("");
   const [wards, setWards] = useState([]);
+  const [selectedWard, setSelectedWard] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchData() {
+      const wardList = await getWards(); // ✅ call the API helper 
+      setWards(wardList);
+    }
+    fetchData();
+  },
+    []
+  );
+
 
   // File refs
   const imageRef = useRef();
@@ -206,28 +218,6 @@ export function VolunteerForm() {
       .map((d) => (eng.includes(d) ? bang[eng.indexOf(d)] : d))
       .join("");
   }
-
-  useEffect(() => {
-    async function fetchWards() {
-      try {
-        const res = await fetch(
-          "https://election-backend.dotzpos.com/api/ward-list"
-        );
-        const json = await res.json();
-        console.log("wards fetched:", json);
-        if (json.success && Array.isArray(json.wardList)) {
-          setWards(json.wardList);
-        } else {
-          setWards([]);
-        }
-      } catch (err) {
-        console.error("Failed to fetch wards:", err);
-        setWards([]);
-      }
-    }
-
-    fetchWards();
-  }, []);
 
   const validators = {
     name: (v) => (v.trim().split(" ").length >= 1 ? "" : "পূর্ণ নাম লিখুন"),
@@ -282,7 +272,8 @@ export function VolunteerForm() {
       <Form
         method="post"
         className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
-        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+        //encType="multipart/form-data"
       >
         {actionData?.error && (
           <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
@@ -382,22 +373,16 @@ export function VolunteerForm() {
               className="w-full border rounded-lg p-2"
             />
           </div>
-
-          {/* Ward No */}
-          <div>
-            <label className="block font-medium mb-2">
-              এলাকা / ওয়ার্ড নম্বর
-            </label>
-            <select
-              name="ward_no"
-              defaultValue=""
-              onBlur={handleBlur}
-              className="w-full rounded-lg border px-4 py-3"
+          {/* Ward */}  
+          <div >
+            <label className="block text-gray-800 font-medium mb-2">ওয়ার্ড নির্বাচন করুন</label>
+            <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)}
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="">ওয়ার্ড নির্বাচন করুন</option>
-              {wards.map((w) => (
-                <option key={w.id} value={w.id}>
-                  ওয়ার্ড–{banglaNumbers(w.name)}
+              <option value="">-- ওয়ার্ড নির্বাচন করুন --</option>
+              {wards.map((ward) => (
+                <option key={ward.id} value={ward.id}>
+                  ওয়ার্ড - {ward.name}
                 </option>
               ))}
             </select>
@@ -463,54 +448,83 @@ export function VolunteerForm() {
             className="w-full rounded-lg border px-4 py-3"
           />
         </div>
-
-        <button
-          type="submit"
-          disabled={!isValid}
-          className={`mt-8 w-full ${
-            isValid
-              ? "bg-red-600 hover:bg-red-700"
-              : "bg-gray-400 cursor-not-allowed"
-          } text-white py-4 rounded-lg`}
-        >
+        <button type="submit" disabled={!isValid} className={`mt-8 w-full ${isValid ? "bg-red-600 hover:bg-red-700" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold py-4 rounded-lg transition`} >
           আবেদন জমা দিন
         </button>
+        <p className="text-center text-sm text-slate-600 mt-6">
+          ইতিমধ্যেই নিবন্ধিত?{" "}
+          <Link
+            to="/login"
+            className="text-red-600 font-medium hover:underline"
+          >
+            লগইন করুন
+          </Link>
+        </p>
       </Form>
     </div>
   );
+
+  async function handleSubmit(event) {
+    if (!isValid) {
+      event.preventDefault();
+    } else {
+      const formData = new FormData(event.target);
+      try {
+        console.log("Submitting volunteer data:", formData);
+        const response = await createVolunteer(formData);
+
+        if (!response || !response.data.id) {
+          return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+        }
+
+        console.log("Volunteer created:", response);
+        alert("স্বেচ্ছাসেবক নিবন্ধন সফল হয়েছে!");
+        navigate("/login",  { replace: true });
+        return {
+          success: true,
+          volunteer: response,
+        };
+      } catch (err) {
+        if (err.message?.toLowerCase().includes("duplicate")) {
+          return {
+            error: true,
+            message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
+          };
+        }
+
+        return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+      }
+    }
+  }
 }
 
 // Action function
 export async function action({ request }) {
-  const formData = await request.formData();
+  // const formData = await request.formData();
+  // const data = Object.fromEntries(formData);
 
-  // Debug: check if files and text fields are included
-  for (let [key, value] of formData.entries()) {
-    console.log(key, value);
-  }
+  // delete data.image;
+  // delete data.nidImage;
 
-  try {
-    const response = await createVolunteer(formData);
-    console.log("Backend Response:", response);
+  // try {
+  //   const response = await createVolunteer(data);
 
-    if (!response || !response.data?.id) {
-      return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
-    }
+  //   if (!response || !response.id) {
+  //     return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+  //   }
 
-    return redirect(`/volunteer/${response.data.id}`);
-  } catch (err) {
-    console.error("Volunteer submission error:", err);
+  //   return {
+  //     success: true,
+  //     volunteer: response,
+  //   };
+  // } catch (err) {
+  //   if (err.message?.toLowerCase().includes("duplicate")) {
+  //     return {
+  //       error: true,
+  //       message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
+  //     };
+  //   }
 
-    if (err.message?.toLowerCase().includes("duplicate")) {
-      return {
-        error: true,
-        message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
-      };
-    }
-
-    return {
-      error: true,
-      message: "ফর্মে দেওয়া তথ্য সঠিক নয়। অনুগ্রহ করে আবার যাচাই করুন।",
-    };
-  }
+  //   return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+  // }
 }

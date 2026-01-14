@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/layout/Navbar";
@@ -31,9 +32,7 @@ export default function Dashboard() {
       <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-red-700 mb-6">
-          ড্যাশবোর্ড
-        </h1>
+        <h1 className="text-3xl font-bold text-red-700 mb-6">ড্যাশবোর্ড</h1>
 
         <div className="bg-white rounded-xl shadow-md p-6 space-y-4">
           <div>

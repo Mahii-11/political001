@@ -144,6 +144,7 @@ export async function createVolunteer(formData) {
 
     // Backend response JSON হিসেবে return করবে
     const json = await res.json();
+    console.log("createVolunteer response:", json);
     return json;
   } catch (error) {
     console.error("createVolunteer error:", error);

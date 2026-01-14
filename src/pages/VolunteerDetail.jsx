@@ -1,6 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useLoaderData } from "react-router-dom";
-import { getVolunteer } from "../services/api";
 
 function banglaNumbers(number) {
   const eng = "0123456789";

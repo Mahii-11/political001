@@ -1,13 +1,10 @@
-/* eslint-disable react-hooks/refs */
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
-import { data, Form, redirect, useActionData } from "react-router-dom";
-import { createVolunteer } from "../services/api";
+import { Link, Form, useNavigate, useActionData } from "react-router-dom";
+import { createVolunteer, getWards } from "../services/api";
 import { useEffect, useRef, useState } from "react";
 
 const benefits = [
@@ -190,6 +187,9 @@ export default function Volunteer() {
 
 export function VolunteerForm() {
   const [password, setPassword] = useState("");
+  const [formErrors, setFormErrors] = useState({});
+  const [passwordError, setPasswordError] = useState("");
+  const actionData = useActionData();
   const [error, setError] = useState("");
   const [wards, setWards] = useState([]);
   const [selectedWard, setSelectedWard] = useState("");
@@ -218,28 +218,6 @@ export function VolunteerForm() {
       .map((d) => (eng.includes(d) ? bang[eng.indexOf(d)] : d))
       .join("");
   }
-
-  useEffect(() => {
-    async function fetchWards() {
-      try {
-        const res = await fetch(
-          "https://election-backend.dotzpos.com/api/ward-list"
-        );
-        const json = await res.json();
-        console.log("wards fetched:", json);
-        if (json.success && Array.isArray(json.wardList)) {
-          setWards(json.wardList);
-        } else {
-          setWards([]);
-        }
-      } catch (err) {
-        console.error("Failed to fetch wards:", err);
-        setWards([]);
-      }
-    }
-
-    fetchWards();
-  }, []);
 
   const validators = {
     name: (v) => (v.trim().split(" ").length >= 1 ? "" : "পূর্ণ নাম লিখুন"),
@@ -295,7 +273,7 @@ export function VolunteerForm() {
         method="post"
         className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
         onSubmit={handleSubmit}
-        encType="multipart/form-data"
+        //encType="multipart/form-data"
       >
         {actionData?.error && (
           <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
@@ -404,7 +382,7 @@ export function VolunteerForm() {
               <option value="">-- ওয়ার্ড নির্বাচন করুন --</option>
               {wards.map((ward) => (
                 <option key={ward.id} value={ward.id}>
-                  {ward.name}
+                  ওয়ার্ড - {ward.name}
                 </option>
               ))}
             </select>
@@ -491,15 +469,11 @@ export function VolunteerForm() {
       event.preventDefault();
     } else {
       const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData);
-
-      delete data.image;
-      delete data.nidImage;
-
       try {
-        const response = await createVolunteer(data);
+        console.log("Submitting volunteer data:", formData);
+        const response = await createVolunteer(formData);
 
-        if (!response || !response.id) {
+        if (!response || !response.data.id) {
           return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
         }
 

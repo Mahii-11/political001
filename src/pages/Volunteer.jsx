@@ -5,9 +5,11 @@ import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { Heart, Users, Calendar, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
-import { Form, redirect, useActionData } from "react-router-dom";
-import { createVolunteer } from "../services/api";
-import { useState } from "react";
+import { Form, redirect, useActionData, useNavigate } from "react-router-dom";
+import { createVolunteer, getWards } from "../services/api";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 
 const benefits = [
   {
@@ -48,6 +50,7 @@ const roles = [
 ];
 
 export default function Volunteer() {
+  const actionData = useActionData();
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -205,7 +208,20 @@ export default function Volunteer() {
 export function VolunteerForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [wards, setWards] = useState([]);
+  const [selectedWard, setSelectedWard] = useState("");
+  const navigate = useNavigate();
   const isValid = error === "" && password.length > 0;
+
+  useEffect(() => {
+    async function fetchData() {
+      const wardList = await getWards(); // ✅ call the API helper 
+      setWards(wardList);
+    }
+    fetchData();
+  },
+    []
+  );
 
   const actionData = useActionData();
   function banglaNumbers(number) {
@@ -237,6 +253,7 @@ export function VolunteerForm() {
       <Form
         method="post"
         className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
+        onSubmit={handleSubmit}
       >
         {actionData?.error && (
           <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
@@ -329,23 +346,17 @@ export function VolunteerForm() {
             </p>
           </div>
 
-          <div>
-            <label className="block text-gray-800 font-medium mb-2">
-              এলাকা / ওয়ার্ড নম্বর
-            </label>
-            <select
-              name="ward_no"
-              className="w-full rounded-lg border border-blue-300 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-              defaultValue=""
+          <div >
+            <label className="block text-gray-800 font-medium mb-2">ওয়ার্ড নির্বাচন করুন</label>
+            <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)}
+              className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="">ওয়ার্ড নির্বাচন করুন</option>
-              {[23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 56, 57].map(
-                (w) => (
-                  <option key={w} value={w}>
-                    ওয়ার্ড–{banglaNumbers(w)}
-                  </option>
-                )
-              )}
+              <option value="">-- ওয়ার্ড নির্বাচন করুন --</option>
+              {wards.map((ward) => (
+                <option key={ward.id} value={ward.id}>
+                  {ward.name}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -403,38 +414,87 @@ export function VolunteerForm() {
           />
         </div>
 
-        <button type="submit" disabled={!isValid} className={`mt-8 w-full ${ isValid ? "bg-red-600 hover:bg-red-700" : "bg-gray-400 cursor-not-allowed" } text-white font-semibold py-4 rounded-lg transition`} >
-        আবেদন জমা দিন
-      </button>
+        <button type="submit" disabled={!isValid} className={`mt-8 w-full ${isValid ? "bg-red-600 hover:bg-red-700" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold py-4 rounded-lg transition`} >
+          আবেদন জমা দিন
+        </button>
+        <p className="text-center text-sm text-slate-600 mt-6">
+          ইতিমধ্যেই নিবন্ধিত?{" "}
+          <Link
+            to="/login"
+            className="text-red-600 font-medium hover:underline"
+          >
+            লগইন করুন
+          </Link>
+        </p>
+
       </Form>
     </div>
   );
+
+  async function handleSubmit(event) {
+    if (!isValid) {
+      event.preventDefault();
+    } else {
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+
+      delete data.image;
+      delete data.nidImage;
+
+      try {
+        const response = await createVolunteer(data);
+
+        if (!response || !response.id) {
+          return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+        }
+
+        console.log("Volunteer created:", response);
+        alert("স্বেচ্ছাসেবক নিবন্ধন সফল হয়েছে!");
+        navigate("/login",  { replace: true });
+        return {
+          success: true,
+          volunteer: response,
+        };
+      } catch (err) {
+        if (err.message?.toLowerCase().includes("duplicate")) {
+          return {
+            error: true,
+            message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
+          };
+        }
+
+        return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+      }
+    }
+  }
 }
 
 export async function action({ request }) {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  console.log(data);
+  // const formData = await request.formData();
+  // const data = Object.fromEntries(formData);
 
-  delete data.image;
-  delete data.nidImage;
+  // delete data.image;
+  // delete data.nidImage;
 
-  try {
-    const response = await createVolunteer(data);
-    console.log("Backend Response:", response);
+  // try {
+  //   const response = await createVolunteer(data);
 
-    if (!response || !response.id) {
-      return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
-    }
+  //   if (!response || !response.id) {
+  //     return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+  //   }
 
-    return redirect(`/volunteer/${response.id}`);
-  } catch (err) {
-    if (err.message?.toLowerCase().includes("duplicate")) {
-      return {
-        error: true,
-        message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
-      };
-    }
-    return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
-  }
+  //   return {
+  //     success: true,
+  //     volunteer: response,
+  //   };
+  // } catch (err) {
+  //   if (err.message?.toLowerCase().includes("duplicate")) {
+  //     return {
+  //       error: true,
+  //       message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
+  //     };
+  //   }
+
+  //   return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+  // }
 }

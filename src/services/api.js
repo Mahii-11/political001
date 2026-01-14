@@ -100,21 +100,17 @@ export async function getLeaderMessage() {
   }
 }
 
-export async function getVolunteer(id) {
+export async function getWards() {
   try {
-    const res = await fetch(`${API_BASE_URL}/register-volunteer/${id}`);
+    const res = await fetch(`${API_BASE_URL}/ward-list`);
     if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(
-        `Couldn't find volunteer #${id}: ${res.status} - ${errorText}`
-      );
-    }
-
-    const json = await res.json();
-    return json?.data ?? null;
+      throw new Error(`Failed to fetch wards: ${res.status}`);
+    } const data = await res.json();
+    // ✅ Extract wardList from response 
+    return data?.wardList ?? [];
   } catch (error) {
-    console.error(`getVolunteer error (id: ${id}):`, error);
-    return null;
+    console.error("getWards error:", error);
+    return [];
   }
 }
 
@@ -185,7 +181,7 @@ export async function loginUser(credentials) {
     }
 
     const json = await res.json();
-    return json?.data ?? null;
+    return json;
   } catch (error) {
     console.error("loginUser error:", error);
     // throw again to handle in Login.jsx

@@ -114,7 +114,7 @@ export function HeroSection3() {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="flex flex-wrap gap-4"
               >
-                <Link to="/voter-locator">
+                <Link to="/volunteer/new">
                   <Button className="h-[56px] px-8 rounded-full bg-emerald-800 hover:bg-emerald-600 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
                     স্বেচ্ছাসেবক হোন
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

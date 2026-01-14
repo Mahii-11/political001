@@ -25,7 +25,7 @@ export function HeroSection() {
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
-      <div className="absolute inset-0 bg-black/40 z-10" />
+      <div className="absolute inset-0 bg-black/60 z-10" />
       <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-32 w-full flex flex-col lg:flex-row items-center gap-10">
         <motion.div
           variants={containerVariants}
@@ -50,17 +50,34 @@ export function HeroSection() {
             মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।
           </motion.p>
 
-          <motion.div
-            variants={lineVariants}
-            className="flex justify-center lg:justify-start gap-4 mt-4"
-          >
-            <Link to="/voter-locator">
-              <Button className="h-[56px] px-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
-                ভোট কেন্দ্র খুঁজুন
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </motion.div>
+          <div className="flex flex-col md:flex-row gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex flex-wrap gap-4"
+            >
+              <Link to="/voter-locator">
+                <Button className="h-[56px] px-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
+                  ভোট কেন্দ্র খুঁজুন
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex flex-wrap gap-4"
+            >
+              <Link to="/volunteer/new">
+                <Button className="h-[56px] px-8 rounded-full bg-emerald-800 hover:bg-emerald-600 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
+                  স্বেচ্ছাসেবক হোন
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

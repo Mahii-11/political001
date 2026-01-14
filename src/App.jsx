@@ -1,14 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "./components/ui/toaster";
 import { TooltipProvider } from "./components/ui/tooltip";
+
 import Home from "./pages/Home";
 import Biography from "./pages/Biography";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Campaign from "./pages/Campaign";
-import Volunteer from "./pages/Volunteer";
+import Volunteer, { action as volunteerAction } from "./pages/Volunteer";
 import About from "./pages/About";
 import ComplaintPage from "./pages/ComplaintPage";
 import VoterLocator from "./pages/VoterLocator";
@@ -28,7 +30,11 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/complaint", element: <ComplaintPage /> },
       { path: "/promise", element: <Campaign /> },
-      { path: "/volunteer/new", element: <Volunteer /> },
+      {
+        path: "/volunteer/new",
+        element: <Volunteer />,
+        action: volunteerAction,
+      },
       { path: "/about", element: <About /> },
       { path: "/voter-locator", element: <VoterLocator /> },
       { path: "/our-dhaka", element: <Dhaka7Page /> },

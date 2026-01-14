@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
@@ -510,30 +509,4 @@ export function VolunteerForm() {
       }
     }
   }
-}
-
-// Action function
-export async function action({ request }) {
-  // const formData = await request.formData();
-  // const data = Object.fromEntries(formData);
-  // delete data.image;
-  // delete data.nidImage;
-  // try {
-  //   const response = await createVolunteer(data);
-  //   if (!response || !response.id) {
-  //     return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
-  //   }
-  //   return {
-  //     success: true,
-  //     volunteer: response,
-  //   };
-  // } catch (err) {
-  //   if (err.message?.toLowerCase().includes("duplicate")) {
-  //     return {
-  //       error: true,
-  //       message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
-  //     };
-  //   }
-  //   return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
-  // }
 }

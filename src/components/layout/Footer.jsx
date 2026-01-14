@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FaFacebookF, FaYoutube, FaInstagram } from "react-icons/fa";
 import { FiLink } from "react-icons/fi";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Ribbon } from "lucide-react";
 
 const socialLinks = [
   {
@@ -24,6 +24,10 @@ const socialLinks = [
     label: "Instagram",
     hoverBg:
       "hover:bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600",
+  },
+  {
+    icon: Ribbon,
+    label: "Ribbon",
   },
 ];
 
@@ -89,12 +93,6 @@ export function Footer() {
                   <Mail className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
                     contact@netacampaign.com
-                  </span>
-                </li>
-                <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <Clock className="w-5 h-5 text-emerald-700 flex-shrink-0" />
-                  <span className="text-gray-800 text-sm">
-                    সোমবার - শনিবার: সকাল ৯টা - বিকেল ৬টা
                   </span>
                 </li>
               </ul>

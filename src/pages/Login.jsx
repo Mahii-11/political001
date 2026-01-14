@@ -44,26 +44,26 @@ export default function Login() {
 
     setLoading(true);
 
-  console.log("Logging in with:", { email, password });
-  try {
-    // 🔥 THIS is the call you asked for
-    const response = await loginUser({
-      email,
-      password,
-    });
-    console.log("Response from loginUser:", response);
-    console.log("Login successful:", response.user);
-    localStorage.setItem("accessToken", response.token);
-    localStorage.setItem("user", JSON.stringify(response.user));
-    navigate("/dashboard");
-  } catch (err) {
-    setErrors({
-      form: err.message,
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+    console.log("Logging in with:", { email, password });
+    try {
+      // 🔥 THIS is the call you asked for
+      const response = await loginUser({
+        email,
+        password,
+      });
+      console.log("Response from loginUser:", response);
+      console.log("Login successful:", response.user);
+      localStorage.setItem("accessToken", response.token);
+      localStorage.setItem("user", JSON.stringify(response.user));
+      navigate("/dashboard");
+    } catch (err) {
+      setErrors({
+        form: err.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -78,7 +78,7 @@ export default function Login() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-slate-200 p-8"
+          className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-slate-200 p-8 mt-9"
         >
           <h2 className="text-3xl font-bold text-red-700 mb-2">লগইন</h2>
           <p className="text-slate-600 mb-6">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
@@ -104,9 +104,7 @@ export default function Login() {
                 className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
               {errors.email && (
-                <p className="text-red-600 text-sm mt-1">
-                  {errors.email}
-                </p>
+                <p className="text-red-600 text-sm mt-1">{errors.email}</p>
               )}
             </div>
 

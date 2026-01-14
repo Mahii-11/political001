@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { FaRibbon } from "react-icons/fa";
 
 const navItems = [
   { label: "হোম", href: "/" },
@@ -19,7 +20,6 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  // react-router-dom থেকে current location
   const location = window.location.pathname;
 
   return (
@@ -37,6 +37,12 @@ export function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <div className="flex items-center gap-3 mr-8">
+              <img
+                src="/images/image42.png"
+                alt="Campaign Logo"
+                className="h-14 w-14 rounded-full shadow-lg hover:scale-105 transition-transform object-fill
+                hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
+              />
               <div className="flex flex-col justify-center">
                 <div className="text-green-700 font-extrabold text-2xl md:text-2xl lg:text-3xl  tracking-wider leading-tight font-bangla  mt-6">
                   হামিদুর <span className="text-political-red">রহমান</span>
@@ -123,6 +129,10 @@ export function Navbar() {
                 </AnimatePresence>
               </div>
             ))}
+            <FaRibbon
+              className="text-black w-6 h-6 ml-2"
+              title="Mourning Ribbon"
+            />
           </div>
 
           {/* Mobile Menu Button */}

@@ -44,7 +44,7 @@ export function Navbar() {
                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
               />
               <div className="flex flex-col justify-center">
-                <div className="text-green-700 font-extrabold text-2xl md:text-2xl lg:text-3xl  tracking-wider leading-tight font-bangla  mt-6">
+                <div className="text-green-700 font-extrabold text-2xl md:text-2xl lg:text-3xl  tracking-wider leading-tight font-bangla mt-4">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
               </div>

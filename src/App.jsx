@@ -10,7 +10,7 @@ import Biography from "./pages/Biography";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Campaign from "./pages/Campaign";
-import Volunteer, { action as volunteerAction } from "./pages/Volunteer";
+import Volunteer from "./pages/Volunteer";
 import About from "./pages/About";
 import ComplaintPage from "./pages/ComplaintPage";
 import VoterLocator from "./pages/VoterLocator";
@@ -30,11 +30,7 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/complaint", element: <ComplaintPage /> },
       { path: "/promise", element: <Campaign /> },
-      {
-        path: "/volunteer/new",
-        element: <Volunteer />,
-        action: volunteerAction,
-      },
+      { path: "/volunteer/new", element: <Volunteer /> },
       { path: "/about", element: <About /> },
       { path: "/voter-locator", element: <VoterLocator /> },
       { path: "/our-dhaka", element: <Dhaka7Page /> },

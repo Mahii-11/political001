@@ -1,3 +1,5 @@
+import { string } from "zod";
+
 const API_BASE_URL = "https://election-backend.dotzpos.com/api";
 
 // 🔹 Shared fetch helper with error handling
@@ -121,6 +123,25 @@ export async function getWards() {
     const data = await res.json();
     // ✅ Extract wardList from response
     return data?.wardList ?? [];
+  } catch (error) {
+    console.error("getWards error:", error);
+    return [];
+  }
+}
+
+export async function getVoteCenter(params) {
+  try {
+    const name = params.name? params.name : null;
+    const ward_no = params.ward_no? params.ward_no : null;
+    const date_of_birth = params.dob? params.dob : null;
+    console.log("API call params:", { name, ward_no, date_of_birth });
+    const res = await fetch(`${API_BASE_URL}/voter-list?name=${name}&ward_no=${ward_no}&date_of_birth=${date_of_birth}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch wards: ${res.status}`);
+    } const data = await res.json();
+    // ✅ Extract wardList from response 
+    console.log("Vote Center API response data:", data);
+    return data ?? [];
   } catch (error) {
     console.error("getWards error:", error);
     return [];

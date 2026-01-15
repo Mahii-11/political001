@@ -16,9 +16,6 @@ import ComplaintPage from "./pages/ComplaintPage";
 import VoterLocator from "./pages/VoterLocator";
 import Dhaka7Page from "./pages/Dhaka7page";
 import VisionSlider from "./pages/VisionSlider";
-import VolunteerDetail, {
-  loader as volunteerData,
-} from "./pages/VolunteerDetail";
 import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -42,13 +39,8 @@ const router = createBrowserRouter([
       { path: "/voter-locator", element: <VoterLocator /> },
       { path: "/our-dhaka", element: <Dhaka7Page /> },
       { path: "/31-points", element: <VisionSlider /> },
-      {
-        path: "/volunteer/:volunteerId",
-        element: <VolunteerDetail />,
-        loader: volunteerData,
-      },
       { path: "/login", element: <Login /> },
-      { path: "/dashboard", element: <Dashboard /> }
+      { path: "/dashboard", element: <Dashboard /> },
     ],
   },
 ]);

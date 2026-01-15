@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -28,24 +28,31 @@ const lineVariants = {
   },
 };
 
-const candidateImages = ["/images/", "/images/", "/images/", "/images/"];
+const fallbackTop = [
+  {
+    description:
+      "গণতন্ত্রের পথেই মুক্তি—যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।",
+  },
+];
 
 export function HeroSection3() {
-  const [top, setTop] = useState([]);
-  const [currentCandidate, setCurrentCandidate] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentCandidate((prev) => (prev + 1) % candidateImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
+  const [top, setTop] = useState(fallbackTop);
   useEffect(() => {
     async function loadTopSection() {
-      const res = await getTopSection();
-      console.log("API response:", res);
-      setTop(Array.isArray(res.data) ? res.data : []);
+      try {
+        const res = await getTopSection();
+        console.log("API response:", res);
+        if (res && Array.isArray(res.data) && res.data.length > 0) {
+          setTop(res.data);
+        } else {
+          console.warn("API returned empty, using fallback content.");
+        }
+      } catch (error) {
+        console.warn(
+          "Error fetching top section, using fallback content.",
+          error
+        );
+      }
     }
     loadTopSection();
   }, []);
@@ -114,7 +121,7 @@ export function HeroSection3() {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="flex flex-wrap gap-4"
               >
-                <Link to="/voter-locator">
+                <Link to="/volunteer/new">
                   <Button className="h-[56px] px-8 rounded-full bg-emerald-800 hover:bg-emerald-600 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
                     স্বেচ্ছাসেবক হোন
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -124,34 +131,6 @@ export function HeroSection3() {
             </div>
           </div>
         </div>
-
-        {/* Candidate Image */}
-        <motion.div
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="hidden lg:block absolute right-0 bottom-0 h-full w-[45%]"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentCandidate}
-              className="absolute inset-0 bg-no-repeat"
-              style={{
-                backgroundImage: `url('${candidateImages[currentCandidate]}')`,
-                backgroundSize: "contain",
-                backgroundPosition: "right bottom",
-                maskImage:
-                  "linear-gradient(to left, black 60%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to left, black 60%, transparent 100%)",
-              }}
-              initial={{ opacity: 0, x: 100, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -100, scale: 0.95 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-            />
-          </AnimatePresence>
-        </motion.div>
       </section>
     </>
   );

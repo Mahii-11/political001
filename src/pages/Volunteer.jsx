@@ -348,20 +348,6 @@ export function VolunteerForm() {
             )}
           </div>
 
-          <div>
-            <label className="block font-medium mb-2">ফোন নম্বর</label>
-            <input
-              type="text"
-              name="phone"
-              required
-              onBlur={handleBlur}
-              className="w-full rounded-lg border px-4 py-3"
-            />
-            {formErrors.phone && (
-              <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
-            )}
-          </div>
-
           {/* Image */}
           <div>
             <label className="block font-medium mb-2">নিজের ছবি</label>

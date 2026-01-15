@@ -9,7 +9,7 @@ import { Footer } from "../components/layout/Footer";
 export default function Login() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -22,8 +22,8 @@ export default function Login() {
     const mobileRegex = /^017\d{8}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
-    if (!emailRegex.test(email) && !mobileRegex.test(email)) {
-      newErrors.email =
+    if (!emailRegex.test(username) && !mobileRegex.test(username)) {
+      newErrors.username =
         "ইমেইল অথবা 017 দিয়ে শুরু হওয়া ১১ সংখ্যার মোবাইল নম্বর দিন";
     }
 
@@ -44,17 +44,17 @@ export default function Login() {
 
     setLoading(true);
 
-    console.log("Logging in with:", { email, password });
+    console.log("Logging in with:", { username, password });
     try {
       // 🔥 THIS is the call you asked for
       const response = await loginUser({
-        email,
+        username,
         password,
       });
-      console.log("Response from loginUser:", response);
-      console.log("Login successful:", response.user);
-      localStorage.setItem("accessToken", response.token);
+
+      localStorage.setItem("accessToken", response.accessToken);
       localStorage.setItem("user", JSON.stringify(response.user));
+
       navigate("/dashboard");
     } catch (err) {
       setErrors({
@@ -78,7 +78,7 @@ export default function Login() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-slate-200 p-8 mt-9"
+          className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-slate-200 p-8"
         >
           <h2 className="text-3xl font-bold text-red-700 mb-2">লগইন</h2>
           <p className="text-slate-600 mb-6">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
@@ -91,7 +91,7 @@ export default function Login() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* email */}
+            {/* Username */}
             <div>
               <label className="block text-gray-800 font-medium mb-2">
                 ইমেইল বা মোবাইল নম্বর
@@ -99,12 +99,12 @@ export default function Login() {
               <input
                 type="text"
                 placeholder="example@email.com অথবা 017xxxxxxxx"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              {errors.email && (
-                <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+              {errors.username && (
+                <p className="text-red-600 text-sm mt-1">{errors.username}</p>
               )}
             </div>
 

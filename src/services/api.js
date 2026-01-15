@@ -192,7 +192,11 @@ export async function loginUser(credentials) {
     }
 
     const json = await res.json();
+<<<<<<< HEAD
     return json;
+=======
+    return json?.data ?? null;
+>>>>>>> 74d411fbd43d3c20377e09eeab86012173959a75
   } catch (error) {
     console.error("loginUser error:", error);
     // throw again to handle in Login.jsx

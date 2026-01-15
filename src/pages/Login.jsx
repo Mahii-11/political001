@@ -9,7 +9,7 @@ import { Footer } from "../components/layout/Footer";
 export default function Login() {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -22,8 +22,8 @@ export default function Login() {
     const mobileRegex = /^017\d{8}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
-    if (!emailRegex.test(username) && !mobileRegex.test(username)) {
-      newErrors.username =
+    if (!emailRegex.test(email) && !mobileRegex.test(email)) {
+      newErrors.email =
         "ইমেইল অথবা 017 দিয়ে শুরু হওয়া ১১ সংখ্যার মোবাইল নম্বর দিন";
     }
 
@@ -44,11 +44,11 @@ export default function Login() {
 
     setLoading(true);
 
-    console.log("Logging in with:", { username, password });
+    console.log("Logging in with:", { email, password });
     try {
       // 🔥 THIS is the call you asked for
       const response = await loginUser({
-        username,
+        email,
         password,
       });
 
@@ -91,7 +91,7 @@ export default function Login() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Username */}
+            {/* email */}
             <div>
               <label className="block text-gray-800 font-medium mb-2">
                 ইমেইল বা মোবাইল নম্বর
@@ -99,12 +99,12 @@ export default function Login() {
               <input
                 type="text"
                 placeholder="example@email.com অথবা 017xxxxxxxx"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              {errors.username && (
-                <p className="text-red-600 text-sm mt-1">{errors.username}</p>
+              {errors.email && (
+                <p className="text-red-600 text-sm mt-1">{errors.email}</p>
               )}
             </div>
 

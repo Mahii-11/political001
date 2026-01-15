@@ -36,22 +36,148 @@ export default function VoterLocator() {
     fetchWards();
   }, []);
 
-  const handleBanglaInput = (e) => {
-    const regex = /^[\u0980-\u09FF\s]*$/;
-    if (!regex.test(e.target.value)) {
-      e.preventDefault();
-      return false;
-    }
-    handleChange(e);
+  // =========================
+  // Bangla Mapping
+  // =========================
+  const englishToBanglaMap = {
+    a: "া",
+    b: "ব",
+    c: "চ",
+    d: "দ",
+    e: "ে",
+    f: "ফ",
+    g: "গ",
+    h: "হ",
+    i: "ি",
+    j: "জ",
+    k: "ক",
+    l: "ল",
+    m: "ম",
+    n: "ন",
+    o: "ো",
+    p: "প",
+    q: "ক",
+    r: "র",
+    s: "স",
+    t: "ত",
+    u: "ু",
+    v: "ভ",
+    w: "ও",
+    x: "ক্স",
+    y: "য",
+    z: "জ",
+    " ": " ",
   };
 
-  const handleBanglaDateInput = (e) => {
-    const regex = /^[\u09E6-\u09EF\/]*$/;
-    if (!regex.test(e.target.value)) {
-      e.preventDefault();
-      return false;
-    }
-    handleChange(e);
+  const enToBnNumberMap = {
+    0: "০",
+    1: "১",
+    2: "২",
+    3: "৩",
+    4: "৪",
+    5: "৫",
+    6: "৬",
+    7: "৭",
+    8: "৮",
+    9: "৯",
+  };
+  const bnToEnNumberMap = {
+    "০": "0",
+    "১": "1",
+    "২": "2",
+    "৩": "3",
+    "৪": "4",
+    "৫": "5",
+    "৬": "6",
+    "৭": "7",
+    "৮": "8",
+    "৯": "9",
+  };
+
+  const convertToBangla = (text) =>
+    text
+      .split("")
+      .map((c) => englishToBanglaMap[c.toLowerCase()] || c)
+      .join("");
+
+  const convertToBanglaNumber = (text) =>
+    text
+      .split("")
+      .map((c) => enToBnNumberMap[c] || c)
+      .join("");
+
+  const convertToEnglishNumber = (text) =>
+    text
+      .split("")
+      .map((c) => bnToEnNumberMap[c] || c)
+      .join("");
+
+  // =========================
+  // Name field handler → English/Bangla → Bangla
+  // =========================
+  const handleNameInput = (e) => {
+    const banglaText = convertToBangla(e.target.value);
+    setFormData((prev) => ({ ...prev, name: banglaText }));
+  };
+
+  // =========================
+  // DOB field handler → smart, auto /, auto 0
+  // =========================
+  const handleDOBInput = (e) => {
+    let raw = e.target.value;
+
+    // Convert Bangla digits to English for processing
+    raw = convertToEnglishNumber(raw);
+
+    // Remove invalid characters (allow only digits & slash)
+    raw = raw.replace(/[^0-9/]/g, "");
+
+    // Remove extra slashes at the end
+    raw = raw.replace(/\/+$/, "");
+
+    // Split by slash
+    let parts = raw.split("/");
+
+    // Auto 0 for single-digit day/month
+    parts = parts.map((p, i) => {
+      if (i < 2) {
+        if (p.length === 1) p = "0" + p;
+        if (p.length > 2) p = p.slice(0, 2);
+      }
+      if (i === 2 && p.length > 4) p = p.slice(0, 4); // max 4 digits for year
+      return p;
+    });
+
+    // Auto-add slash after day/month if user types continuous digits
+    let finalValue = "";
+    if (parts.length === 1) {
+      finalValue = parts[0];
+      if (parts[0].length === 2) finalValue += "/";
+    } else if (parts.length === 2) {
+      finalValue = parts[0] + "/" + parts[1];
+      if (parts[1].length === 2) finalValue += "/";
+    } else finalValue = parts.join("/");
+
+    // Convert to Bangla digits
+    const bangla = convertToBanglaNumber(finalValue);
+
+    setFormData((prev) => ({ ...prev, date_of_birth: bangla }));
+  };
+
+  const handleDOBBlur = () => {
+    // Final formatting on blur
+    let raw = convertToEnglishNumber(formData.date_of_birth);
+    raw = raw.replace(/[^0-9/]/g, "");
+    let parts = raw.split("/");
+    parts = parts.map((p, i) => {
+      if (i < 2 && p.length === 1) p = "0" + p;
+      if (i === 2 && p.length > 4) p = p.slice(0, 4);
+      return p;
+    });
+    setFormData((prev) => ({
+      ...prev,
+      date_of_birth: convertToBanglaNumber(parts.join("/")),
+    }));
   };
 
   const handleChange = (e) => {
@@ -78,9 +204,16 @@ export default function VoterLocator() {
       return;
     }
 
+    const finalDOB = convertToEnglishNumber(formData.date_of_birth);
+    const formattedDOB = finalDOB
+      .split("/")
+      .map((p, i) => (i < 2 && p.length === 1 ? "0" + p : p))
+      .join("/");
+    const banglaDOB = convertToBanglaNumber(formattedDOB);
+
     const params = {
       ward_no: formData.ward_no,
-      date_of_birth: formData.date_of_birth,
+      date_of_birth: banglaDOB,
       name: formData.name,
     };
 
@@ -97,7 +230,7 @@ export default function VoterLocator() {
         const filtered = response.data.filter(
           (voter) =>
             voter.ward_no === formData.ward_no &&
-            voter.date_of_birth === formData.date_of_birth &&
+            voter.date_of_birth === banglaDOB &&
             voter.name.includes(formData.name)
         );
 
@@ -138,7 +271,7 @@ export default function VoterLocator() {
             name="name"
             placeholder="নাম (শুধু বাংলা)"
             value={formData.name}
-            onChange={handleBanglaInput}
+            onChange={handleNameInput}
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
 
@@ -147,7 +280,8 @@ export default function VoterLocator() {
             name="date_of_birth"
             placeholder="জন্ম তারিখ (শুধু বাংলা সংখ্যা)"
             value={formData.date_of_birth}
-            onChange={handleBanglaDateInput}
+            onChange={handleDOBInput}
+            onBlur={handleDOBBlur}
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
 

@@ -200,7 +200,7 @@ export function VolunteerForm() {
 
   useEffect(() => {
     async function fetchData() {
-      const wardList = await getWards(); // ✅ call the API helper
+      const wardList = await getWards();
       setWards(wardList);
     }
     fetchData();

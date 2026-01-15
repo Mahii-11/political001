@@ -1,144 +1,249 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
+import { FaFilePdf, FaSms } from "react-icons/fa";
+import { getWards, getVoters } from "../services/voterapi";
 import { Navbar } from "@/components/layout/Navbar";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import DatePicker, { registerLocale } from "react-datepicker";
-import bn from "date-fns/locale/bn"; // Bengali locale
-import "react-datepicker/dist/react-datepicker.css";
-
-registerLocale("bn", bn);
+import { Footer } from "@/components/layout/Footer";
 
 export default function VoterLocator() {
+  const [wards, setWards] = useState([]);
+  const [voters, setVoters] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
-    birthDate: null, // date picker use korar jonno null
-    voterId: "",
+    date_of_birth: "",
+    ward_no: "",
   });
-  const [result, setResult] = useState(null);
+
+  useEffect(() => {
+    const fetchWards = async () => {
+      try {
+        const data = await getWards();
+
+        if (data?.success) {
+          setWards(data.wardList || []);
+        } else {
+          console.error("❌ Ward API success false:", data);
+        }
+      } catch (err) {
+        setError("ওয়ার্ড লিস্ট লোড করতে সমস্যা হয়েছে");
+      }
+    };
+
+    fetchWards();
+  }, []);
+
+  const handleBanglaInput = (e) => {
+    const regex = /^[\u0980-\u09FF\s]*$/;
+    if (!regex.test(e.target.value)) {
+      e.preventDefault();
+      return false;
+    }
+    handleChange(e);
+  };
+
+  const handleBanglaDateInput = (e) => {
+    const regex = /^[\u09E6-\u09EF\/]*$/;
+    if (!regex.test(e.target.value)) {
+      e.preventDefault();
+      return false;
+    }
+    handleChange(e);
+  };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleDateChange = (date) => {
-    setFormData({ ...formData, birthDate: date });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // demo purpose
-    setResult({
-      center: "কেন্দ্র-১২, ঢাকা জেলা",
-      address: "রাজধানী কেন্দ্র, ঢাকা",
-      booth: "বুথ ৫",
-    });
-  };
 
-  // Optional: Bangla digits function
-  const toBanglaNumber = (num) => {
-    if (!num) return "";
-    const bnNums = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-    return num
-      .toLocaleDateString("en-GB")
-      .split("")
-      .map((n) => (/\d/.test(n) ? bnNums[n] : n))
-      .join("");
+    setError("");
+    setVoters([]);
+
+    if (!formData.ward_no) {
+      setError("অনুগ্রহ করে ওয়ার্ড নির্বাচন করুন");
+      return;
+    }
+
+    if (!formData.date_of_birth) {
+      setError("অনুগ্রহ করে জন্ম তারিখ লিখুন");
+      return;
+    }
+
+    const params = {
+      ward_no: formData.ward_no,
+      date_of_birth: formData.date_of_birth,
+      name: formData.name,
+    };
+
+    console.log("📤 Sending params:", params);
+
+    setLoading(true);
+
+    try {
+      const response = await getVoters(params);
+
+      console.log(" Voter API full response:", response);
+      if (response?.success && Array.isArray(response.data)) {
+        // Filter client-side to ensure exact match
+        const filtered = response.data.filter(
+          (voter) =>
+            voter.ward_no === formData.ward_no &&
+            voter.date_of_birth === formData.date_of_birth &&
+            voter.name.includes(formData.name)
+        );
+
+        {
+          /*&&
+            // voter.date_of_birth === formData.date_of_birth &&
+            voter.name.includes(formData.name) */
+        }
+
+        if (filtered.length > 0) {
+          setVoters(filtered);
+        } else {
+          setError("কোনো ভোটার পাওয়া যায়নি");
+        }
+      } else {
+        console.error("❌ Unexpected API structure:", response);
+        setError("ডাটা ফরম্যাট সঠিক নয়");
+      }
+    } catch (err) {
+      console.error("❌ Voter fetch error:", err);
+      setError("ভোটার তথ্য আনতে সমস্যা হয়েছে");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <Navbar />
-      <section className="relative py-32 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(18, 42, 110, 0.95) 0%, rgba(18, 42, 110, 0.85) 45%, rgba(18, 42, 110, 0.25) 100%), url('/images/bgimage.png')`,
-          }}
-        />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold text-white mb-4"
+      <div className="max-w-5xl mx-auto p-6">
+        <h1 className="text-2xl font-bold mb-6">ভোটার অনুসন্ধান</h1>
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white p-6 rounded-xl shadow-md"
+        >
+          <input
+            type="text"
+            name="name"
+            placeholder="নাম (শুধু বাংলা)"
+            value={formData.name}
+            onChange={handleBanglaInput}
+            className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+
+          <input
+            type="text"
+            name="date_of_birth"
+            placeholder="জন্ম তারিখ (শুধু বাংলা সংখ্যা)"
+            value={formData.date_of_birth}
+            onChange={handleBanglaDateInput}
+            className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+
+          <select
+            name="ward_no"
+            value={formData.ward_no}
+            onChange={handleChange}
+            className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           >
-            আপনার ভোট কেন্দ্র খুঁজুন
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/80 text-lg"
-          >
-            নাম, জন্ম তারিখ বা ভোটার আইডি দিয়ে আপনার ভোট কেন্দ্র বের করুন
-          </motion.p>
-        </div>
-      </section>
+            <option value="">ওয়ার্ড নির্বাচন করুন</option>
+            {wards.map((ward) => (
+              <option key={ward.id} value={ward.name}>
+                ওয়ার্ড {ward.name}
+              </option>
+            ))}
+          </select>
 
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 md:px-6">
-        <div className="max-w-2xl w-full bg-white shadow-lg rounded-xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-gray-700 mb-1">নাম</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 mb-1">জন্ম তারিখ</label>
-              <DatePicker
-                selected={formData.birthDate}
-                onChange={handleDateChange}
-                locale="bn"
-                dateFormat="dd/MM/yyyy"
-                placeholderText="DD/MM/YYYY"
-                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                showYearDropdown
-                scrollableYearDropdown
-                yearDropdownItemNumber={100} // ড্রপডাউন দেখাবে
-                maxDate={new Date(2005, 11, 31)} // ডিসেম্বর ৩১, 2005 পর্যন্ত
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 mb-1">
-                ভোটার আইডি (ঐচ্ছিক)
-              </label>
-              <input
-                type="text"
-                name="voterId"
-                value={formData.voterId}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-            </div>
-
+          <div className="md:col-span-3">
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg mt-4 transition-colors"
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              disabled={loading}
             >
-              কেন্দ্র খুঁজুন
+              {loading ? "অনুসন্ধান চলছে..." : "অনুসন্ধান করুন"}
             </button>
-          </form>
+          </div>
+        </form>
 
-          {result && (
-            <div className="mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
-              <h2 className="text-green-800 font-semibold mb-2">
-                আপনার ভোট কেন্দ্র:
-              </h2>
-              <p>কেন্দ্র: {result.center}</p>
-              <p>ঠিকানা: {result.address}</p>
-              <p>বুথ: {result.booth}</p>
-              <p>জন্ম তারিখ: {toBanglaNumber(formData.birthDate)}</p>
+        {error && <p className="text-red-600 mt-4 font-medium">{error}</p>}
+
+        {voters.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+              ভোটার তালিকা ({voters.length})
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {voters.map((voter) => (
+                <div
+                  key={voter.id}
+                  className="bg-white rounded-xl shadow-md hover:shadow-lg border border-gray-200 transition duration-300"
+                >
+                  {/* Header */}
+                  <div className="p-4 bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-t-xl border-b border-gray-100">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {voter.name}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1">
+                      ওয়ার্ড {voter.ward_no}
+                    </p>
+                  </div>
+
+                  {/* Body */}
+                  <div className="p-4 space-y-2 text-gray-700 text-sm">
+                    <p>
+                      <span className="font-medium text-gray-900">
+                        জন্ম তারিখ:
+                      </span>{" "}
+                      {voter.date_of_birth}
+                    </p>
+                    <p>
+                      <span className="font-medium text-gray-900">
+                        ভোট কেন্দ্র:
+                      </span>{" "}
+                      {voter.center_name}
+                    </p>
+                    <p>
+                      <span className="font-medium text-gray-900">পিতা:</span>{" "}
+                      {voter.father}
+                    </p>
+                    <p>
+                      <span className="font-medium text-gray-900">মাতা:</span>{" "}
+                      {voter.mother}
+                    </p>
+                    <p className="text-gray-600 text-xs leading-relaxed">
+                      <span className="font-medium text-gray-900">ঠিকানা:</span>{" "}
+                      {voter.address}
+                    </p>
+
+                    {/* Buttons */}
+                    <div className="mt-4 flex gap-3">
+                      <button className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-md text-sm hover:bg-red-700 transition hover:scale-105">
+                        <FaFilePdf size={14} /> PDF ডাউনলোড
+                      </button>
+                      <button className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-md text-sm hover:bg-green-700 transition hover:scale-105">
+                        <FaSms size={14} /> SMS পাঠান
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+      <Footer />
     </>
   );
 }

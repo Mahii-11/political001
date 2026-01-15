@@ -36,25 +36,27 @@ export function Navbar() {
             data-testid="link-home-logo"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <div className="flex items-center gap-2 mr-8">
+            <div className="flex items-center gap-2 md:gap-4 mr-4 md:mr-8">
               <img
                 src="/images/image42.png"
                 alt="Campaign Logo"
                 className="h-14 w-14 rounded-full shadow-lg hover:scale-105 transition-transform
-             object-cover object-top
-             hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
+                 object-cover object-top
+                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
               />
 
-              <div className="flex flex-col justify-center">
-                <div className="text-green-700 font-extrabold text-xl md:text-2xl lg:text-3xl  tracking-wider leading-tight font-bangla mt-4">
+              <div className="flex flex-col justify-center mt-4">
+                <div className="text-green-700 font-extrabold md:text-3xl text-2xl tracking-wider leading-tight font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
               </div>
+
+              {/* Secondary logo */}
               <img
                 src="/images/logo-1.jpg"
                 alt="Campaign Logo"
-                className="h-20 w-20 object-contain  hover:scale-105
-                hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
+                className="h-14 w-14 md:h-20 md:w-20 object-contain hover:scale-105
+                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
               />
             </div>
           </Link>

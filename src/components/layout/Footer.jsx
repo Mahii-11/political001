@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaFacebookF, FaYoutube, FaInstagram } from "react-icons/fa";
 import { FiLink } from "react-icons/fi";
 import { MapPin, Phone, Mail, Ribbon } from "lucide-react";
+import { Shield } from "lucide-react";
 
 const socialLinks = [
   {
@@ -134,6 +135,15 @@ export function Footer() {
                       বিএনপি অফিসিয়াল ওয়েবসাইট
                     </a>
                   </span>
+                </li>
+                <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <a
+                    href="/privacy-policy"
+                    className="flex items-center gap-2 text-gray-700 hover:text-political-red"
+                  >
+                    <Shield size={18} className="text-green-700" />
+                    Privacy & Policy
+                  </a>
                 </li>
               </ul>
 

@@ -19,6 +19,7 @@ import VisionSlider from "./pages/VisionSlider";
 import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
       { path: "/31-points", element: <VisionSlider /> },
       { path: "/login", element: <Login /> },
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/privacy-policy", element: <PrivacyPolicy /> },
     ],
   },
 ]);

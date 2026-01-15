@@ -117,8 +117,9 @@ export async function getWards() {
     const res = await fetch(`${API_BASE_URL}/ward-list`);
     if (!res.ok) {
       throw new Error(`Failed to fetch wards: ${res.status}`);
-    } const data = await res.json();
-    // ✅ Extract wardList from response 
+    }
+    const data = await res.json();
+    // ✅ Extract wardList from response
     return data?.wardList ?? [];
   } catch (error) {
     console.error("getWards error:", error);
@@ -192,11 +193,7 @@ export async function loginUser(credentials) {
     }
 
     const json = await res.json();
-<<<<<<< HEAD
     return json;
-=======
-    return json?.data ?? null;
->>>>>>> 74d411fbd43d3c20377e09eeab86012173959a75
   } catch (error) {
     console.error("loginUser error:", error);
     // throw again to handle in Login.jsx

@@ -50,7 +50,6 @@ export function HeroSection() {
             মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।
           </motion.p>
 
-<<<<<<< HEAD
           <div className="flex flex-col md:flex-row gap-4">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -79,19 +78,6 @@ export function HeroSection() {
               </Link>
             </motion.div>
           </div>
-=======
-          <motion.div
-            variants={lineVariants}
-            className="flex justify-center lg:justify-start gap-4 mt-4"
-          >
-            <Link to="/voter-locator">
-              <Button className="h-[56px] px-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg hover:shadow-emerald-600/30 flex items-center gap-3 transition-all">
-                ভোট কেন্দ্র খুঁজুন
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </motion.div>
->>>>>>> 74d411fbd43d3c20377e09eeab86012173959a75
         </motion.div>
       </div>
     </section>

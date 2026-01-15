@@ -5,7 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { FaRibbon } from "react-icons/fa";
 
-const navItems = [
+export function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+  !!localStorage.getItem("accessToken")
+  );
+  const location = window.location.pathname;
+
+  const navItems = [
   { label: "হোম", href: "/" },
   { label: "আমাদের সম্পর্কে", href: "/about" },
   { label: "জীবনী", href: "/biography" },
@@ -13,14 +21,9 @@ const navItems = [
   { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer/new" },
   { label: "যোগাযোগ", href: "/contact" },
   { label: "অভিযোগ", href: "/complaint" },
-  { label: "লগইন", href: "/login" },
-];
-
-export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
-
-  const location = window.location.pathname;
+  !isLoggedIn && { label: "লগইন", href: "/login" },
+  isLoggedIn && { label: "ড্যাশবোর্ড", href: "/dashboard" },
+].filter(Boolean);
 
   return (
     <motion.nav

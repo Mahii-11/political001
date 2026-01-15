@@ -399,7 +399,7 @@ export function VolunteerForm() {
             >
               <option value="">-- ওয়ার্ড নির্বাচন করুন --</option>
               {wards.map((ward) => (
-                <option key={ward.id} value={ward.id}>
+                <option key={ward.id} value={ward.name}>
                   ওয়ার্ড - {ward.name}
                 </option>
               ))}

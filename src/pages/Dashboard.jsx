@@ -18,10 +18,10 @@ export const IDCard = forwardRef(({ user }, ref) => {
 
     const pdf = new jsPDF({
       unit: "mm",
-      format: [60, 65], // ID card size
+      format: [80, 100], // ID card size
     });
 
-    pdf.addImage(imgData, "JPEG", 0, 0, 60, canvas.height * (65 / canvas.width));
+    pdf.addImage(imgData, "JPEG", 0, 0, 80, 100);
     pdf.save("voter-id-card.pdf");
   };
 
@@ -52,15 +52,72 @@ export const IDCard = forwardRef(({ user }, ref) => {
   </div>
 
   {/* DETAILS */}
-  <div className="text-sm space-y-1">
-    <p><strong>নাম:</strong> {user.name}</p>
-    <p><strong>ভোটার নং:</strong> {user.nid_no}</p>
-    <p><strong>পিতা/স্বামী:</strong> {user.guardian || "—"}</p>
-    <p><strong>জন্ম তারিখ:</strong> {user.created_at?.split("T")[0]}</p>
-    <p><strong>ঠিকানা:</strong> {user.present_address}</p>
-    <p><strong>ভোট কেন্দ্র:</strong> {user.center || "—"}</p>
-    <p><strong>কক্ষ নং:</strong> {user.room || "—"}</p>
-  </div>
+  <table className="w-full text-sm border border-black border-collapse">
+  <tbody>
+    <tr>
+      <td className="border border-black px-2 py-1 font-semibold w-32">
+        নাম
+      </td>
+      <td className="border border-black px-2 py-1">
+        {user.name}
+      </td>
+    </tr>
+
+    <tr>
+      <td className="border border-black px-2 py-1 font-semibold">
+        ভোটার নং
+      </td>
+      <td className="border border-black px-2 py-1">
+        {user.nid_no}
+      </td>
+    </tr>
+
+    <tr>
+      <td className="border border-black px-2 py-1 font-semibold">
+        পিতা/স্বামী
+      </td>
+      <td className="border border-black px-2 py-1">
+        {user.guardian || "—"}
+      </td>
+    </tr>
+
+    <tr>
+      <td className="border border-black px-2 py-1 font-semibold">
+        জন্ম তারিখ
+      </td>
+      <td className="border border-black px-2 py-1">
+        {user.created_at?.split("T")[0]}
+      </td>
+    </tr>
+
+    <tr>
+      <td className="border border-black px-2 py-1 font-semibold">
+        ঠিকানা
+      </td>
+      <td className="border border-black px-2 py-1">
+        {user.present_address}
+      </td>
+    </tr>
+
+    <tr>
+      <td className="border border-black px-2 py-1 font-semibold">
+        ভোট কেন্দ্র
+      </td>
+      <td className="border border-black px-2 py-1">
+        {user.center || "—"}
+      </td>
+    </tr>
+
+    <tr>
+      <td className="border border-black px-2 py-1 font-semibold">
+        কক্ষ নং
+      </td>
+      <td className="border border-black px-2 py-1">
+        {user.room || "—"}
+      </td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
   );
@@ -70,6 +127,9 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const idCardRef = useRef();
+  const [isLoggedIn, setIsLoggedIn] = useState(
+  !!localStorage.getItem("accessToken")
+  );
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -92,6 +152,7 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold text-red-700">ড্যাশবোর্ড</h1>
           <button
             onClick={() => {
+              setIsLoggedIn(false);
               localStorage.clear();
               navigate("/login");
             }}

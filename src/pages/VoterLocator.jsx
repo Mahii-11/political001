@@ -48,51 +48,64 @@ export default function VoterLocator() {
 
 
 
+ 
+
 // ------------------ DOB Input ------------------
-  const handleDOBChange = (e) => {
-    let raw = toEnglish(e.target.value);
+const handleDOBChange = (e) => {
+  let raw = toEnglish(e.target.value);
 
-    // allow only digits & /
-    raw = raw.replace(/[^0-9/]/g,"");
-    raw = raw.replace(/\/{2,}/g,"/");
+  // allow only digits & /
+  raw = raw.replace(/[^0-9/]/g,"");
+  raw = raw.replace(/\/{2,}/g,"/");
 
-    // limit each part length
-    let parts = raw.split("/");
-    if(parts[0]) parts[0] = parts[0].slice(0,2); // day
-    if(parts[1]) parts[1] = parts[1].slice(0,2); // month
-    if(parts[2]) parts[2] = parts[2].slice(0,4); // year
+  let parts = raw.split("/");
 
-    setFormData(prev => ({
-      ...prev,
-      date_of_birth: toBangla(parts.join("/"))
-    }));
-  };
+  // limit each part length
+  if(parts[0]) parts[0] = parts[0].slice(0,2); // day
+  if(parts[1]) parts[1] = parts[1].slice(0,2); // month
+  if(parts[2]) parts[2] = parts[2].slice(0,4); // year
 
-  // ------------------ Enter Key → Auto 0 / Slash ------------------
-  const handleDOBKeyDown = (e) => {
-    if(e.key !== "Enter") return;
-    e.preventDefault();
+  // ✅ Auto slash logic for double digit (first digit != 0)
+  if(parts.length === 1 && parts[0].length === 2 && parts[0][0] !== "0") {
+    if(!raw.includes("/")) parts[0] = parts[0] + "/";
+  }
+  if(parts.length === 2 && parts[1].length === 2 && parts[1][0] !== "0") {
+    if(!raw.includes(parts[1] + "/")) parts[1] = parts[1] + "/";
+  }
 
-    let raw = toEnglish(formData.date_of_birth);
-    let parts = raw.split("/");
+  setFormData(prev => ({
+    ...prev,
+    date_of_birth: toBangla(parts.join("/"))
+  }));
+};
 
-    // Day
-    if(parts.length === 1){
-      if(parts[0].length === 1) parts[0] = "0"+parts[0];
-      raw = parts[0] + "/";
-    }
+// ------------------ Enter Key → Auto 0 / Slash ------------------
+const handleDOBKeyDown = (e) => {
+  if(e.key !== "Enter") return;
+  e.preventDefault();
 
-    // Month
-    else if(parts.length === 2){
-      if(parts[1].length === 1) parts[1] = "0"+parts[1];
-      raw = parts[0] + "/" + parts[1] + "/";
-    }
+  let raw = toEnglish(formData.date_of_birth);
+  let parts = raw.split("/");
 
-    setFormData(prev => ({
-      ...prev,
-      date_of_birth: toBangla(raw)
-    }));
-  };
+  // Day
+  if(parts.length === 1){
+    if(parts[0].length === 1) parts[0] = "0"+parts[0]; // leading 0
+    if(!parts[0].includes("/")) parts[0] = parts[0] + "/"; // ensure slash
+    raw = parts[0];
+  }
+
+  // Month
+  else if(parts.length === 2){
+    if(parts[1].length === 1) parts[1] = "0"+parts[1]; // leading 0
+    if(!parts[1].includes("/")) parts[1] = parts[1] + "/"; // ensure slash
+    raw = parts[0] + "/" + parts[1];
+  }
+
+  setFormData(prev => ({
+    ...prev,
+    date_of_birth: toBangla(raw)
+  }));
+};
 
 
 

@@ -108,7 +108,7 @@ export default function Campaign() {
     
     {/* Left Image */}
     <img
-      src="/images/leader1.jpg"
+      src="/images/familyimage.png"
       alt="নেত্রী"
       className="hidden md:block absolute left-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl border-4 border-emerald-300 object-cover"
     />
@@ -163,7 +163,7 @@ export default function Campaign() {
 
    
     <img
-      src="/images/ziaur.jpg"
+      src="/images/neta2.jpeg"
       alt="জিয়াউর রহমান"
       className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl border-4 border-rose-300 object-cover"
     />

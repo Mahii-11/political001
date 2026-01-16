@@ -338,7 +338,7 @@ export function VolunteerForm() {
             <label className="block font-medium mb-2">ফোন নম্বর</label>
             <input
               type="text"
-              name="nid_no"
+              name="phone"
               required
               onBlur={handleBlur}
               className="w-full rounded-lg border px-4 py-3"

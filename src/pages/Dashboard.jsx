@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/layout/Navbar";
@@ -136,6 +137,7 @@ export default function Dashboard() {
     if (!storedUser) {
       navigate("/login");
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUser(JSON.parse(storedUser));
     }
   }, [navigate]);

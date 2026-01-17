@@ -1,10 +1,13 @@
-/* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { FaFilePdf, FaSms } from "react-icons/fa";
 import { getWards, getVoters } from "../services/voterapi";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import headerImage from "../assets/thumbnails/neta-1.jpeg"; 
+
+
+
 
 const enToBn = {0:"০",1:"১",2:"২",3:"৩",4:"৪",5:"৫",6:"৬",7:"৭",8:"৮",9:"৯"};
 const bnToEn = {"০":"0","১":"1","২":"2","৩":"3","৪":"4","৫":"5","৬":"6","৭":"7","৮":"8","৯":"9"};
@@ -41,8 +44,89 @@ export default function VoterLocator() {
 
     fetchWards();
   }, []);
+  
+const printOrDownloadVoter = (voter) => {
+  const printContent = `
+   <div style="
+  width: 700px;
+  margin: auto;
+  border: 4px double #000;
+  padding: 15px;
+  font-family: 'Noto Sans Bengali', sans-serif;
+  color: #000;
+  background: #fff;
+">
 
+  <!-- Top Header -->
+  <div style="text-align:center; border-bottom:2px solid #000; padding-bottom:10px;">
+    <h2 style="margin:0; font-size:20px;">আমার প্রিয় ভোটারগণ</h2>
+    <p style="margin:5px 0; font-size:14px;">
+      আসন্ন <b>জাতীয় সংসদ নির্বাচন</b> উপলক্ষে
+    </p>
+    <h3 style="margin:5px 0; font-size:18px; font-weight:bold;">
+      আপনার মূল্যবান ভোট দিয়ে
+    </h3>
+    <h2 style="margin:5px 0; font-size:22px; font-weight:bold;">
+      সৎ ও যোগ্য প্রার্থী নির্বাচন করুন
+    </h2>
+  </div>
 
+  <!-- Middle Section -->
+  <div style="display:flex; margin-top:15px; align-items:center;">
+    
+    <!-- Image -->
+    <div style="width:40%; text-align:center;">
+      <img src="${headerImage}" alt="Candidate"
+        style="width:180px; border:2px solid #000;" />
+    </div>
+    <div style="width:60%; padding-left:15px;">
+      <h3 style="margin:0; font-size:18px;">আপনার প্রার্থী</h3>
+      <h2 style="margin:5px 0; font-size:22px; font-weight:bold;">
+        হামিদুর রহমান
+      </h2>
+      <tr><td style="font-size: 16px; font-weight:bold; padding:5px; border:1px solid #ccc;">ওয়ার্ড: </td><td style="padding:5px; border:1px solid #ccc;">ওয়ার্ড ${voter.ward_no || "-"}</td></tr>
+      <br/>
+      <tr><td style="font-size: 16px; font-weight:bold; padding:5px; border:1px solid #ccc;">ভোট কেন্দ্র: </td><td style="padding:5px; border:1px solid #ccc;">${voter.center_name || "-"}</td></tr>
+    </div>
+  </div>
+      <!-- Voter Info Table -->
+      <h2 style="text-align:center; margin:20px 0 10px 0; font-weight:bold;">ভোটার তথ্য</h2>
+      <table style="width:100%; border-collapse: collapse; margin-top:10px;">
+        <tr><td style="font-weight:bold; padding:5px; border:1px solid #ccc;">নাম</td><td style="padding:5px; border:1px solid #ccc;">${voter.name || "-"}</td></tr>
+        <tr><td style="font-weight:bold; padding:5px; border:1px solid #ccc;">ওয়ার্ড</td><td style="padding:5px; border:1px solid #ccc;">ওয়ার্ড ${voter.ward_no || "-"}</td></tr>
+        <tr><td style="font-weight:bold; padding:5px; border:1px solid #ccc;">জন্ম তারিখ</td><td style="padding:5px; border:1px solid #ccc;">${voter.date_of_birth || "-"}</td></tr>
+        <tr><td style="font-weight:bold; padding:5px; border:1px solid #ccc;">ভোট কেন্দ্র</td><td style="padding:5px; border:1px solid #ccc;">${voter.center_name || "-"}</td></tr>
+        <tr><td style="font-weight:bold; padding:5px; border:1px solid #ccc;">পিতা</td><td style="padding:5px; border:1px solid #ccc;">${voter.father || "-"}</td></tr>
+        <tr><td style="font-weight:bold; padding:5px; border:1px solid #ccc;">মাতা</td><td style="padding:5px; border:1px solid #ccc;">${voter.mother || "-"}</td></tr>
+        <tr><td style="font-weight:bold; padding:5px; border:1px solid #ccc;">ঠিকানা</td><td style="padding:5px; border:1px solid #ccc;">${voter.address || "-"}</td></tr>
+      </table>
+
+      <!-- Footer / Call to Action -->
+      <div style="margin-top:30px; text-align:center; font-size:14px; font-weight:bold; color:#0066cc;">
+        আপনার ভোট মূল্যবান। নিরাপদে ভোট দিন এবং প্রিয় প্রার্থীকে সমর্থন করুন!
+      </div>
+    </div>
+  `;
+
+  const iframe = document.createElement("iframe");
+  iframe.style.position = "absolute";
+  iframe.style.width = "0px";
+  iframe.style.height = "0px";
+  iframe.style.border = "0";
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(printContent);
+  doc.close();
+
+  iframe.contentWindow.focus();
+  iframe.contentWindow.print();
+
+  setTimeout(() => {
+    document.body.removeChild(iframe);
+  }, 1000);
+};
 
 
 
@@ -258,62 +342,69 @@ const handleDOBKeyDown = (e) => {
               ভোটার তালিকা ({voters.length})
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {voters.map((voter) => (
-                <div
-                  key={voter.id}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg border border-gray-200 transition duration-300"
-                >
-                  {/* Header */}
-                  <div className="p-4 bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-t-xl border-b border-gray-100">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {voter.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 mt-1">
-                      ওয়ার্ড {voter.ward_no}
-                    </p>
-                  </div>
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+         {voters.map((voter) => (
+    <div
+      key={voter.id}
+      className="flex flex-col bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
+    >
+      {/* Header */}
+      <div className="p-4 bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-t-2xl border-b">
+        <h3 className="text-lg font-semibold text-gray-900 truncate">
+          {voter.name}
+        </h3>
+        <p className="text-sm text-gray-500 mt-1">
+          ওয়ার্ড {voter.ward_no}
+        </p>
+      </div>
 
-                  {/* Body */}
-                  <div className="p-4 space-y-2 text-gray-700 text-sm">
-                    <p>
-                      <span className="font-medium text-gray-900">
-                        জন্ম তারিখ:
-                      </span>{" "}
-                      {voter.date_of_birth}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">
-                        ভোট কেন্দ্র:
-                      </span>{" "}
-                      {voter.center_name}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">পিতা:</span>{" "}
-                      {voter.father}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">মাতা:</span>{" "}
-                      {voter.mother}
-                    </p>
-                    <p className="text-gray-600 text-xs leading-relaxed">
-                      <span className="font-medium text-gray-900">ঠিকানা:</span>{" "}
-                      {voter.address}
-                    </p>
+      {/* Body */}
+      <div className="p-4 flex-1 space-y-2 text-sm text-gray-700">
+        <p>
+          <span className="font-medium text-gray-900">জন্ম তারিখ:</span>{" "}
+          {voter.date_of_birth}
+        </p>
 
-                    {/* Buttons */}
-                    <div className="mt-4 flex gap-3">
-                      <button className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-md text-sm hover:bg-red-700 transition hover:scale-105">
-                        <FaFilePdf size={14} /> PDF ডাউনলোড
-                      </button>
-                      <button className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-md text-sm hover:bg-green-700 transition hover:scale-105">
-                        <FaSms size={14} /> SMS পাঠান
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <p>
+          <span className="font-medium text-gray-900">ভোট কেন্দ্র:</span>{" "}
+          {voter.center_name}
+        </p>
+
+        <p>
+          <span className="font-medium text-gray-900">পিতা:</span>{" "}
+          {voter.father}
+        </p>
+
+        <p>
+          <span className="font-medium text-gray-900">মাতা:</span>{" "}
+          {voter.mother}
+        </p>
+
+        <p className="text-xs text-gray-600 leading-relaxed">
+          <span className="font-medium text-gray-900">ঠিকানা:</span>{" "}
+          {voter.address}
+        </p>
+      </div>
+
+      {/* Buttons */}
+      <div className="p-4 pt-0 flex gap-3">
+       <button  onClick={() => printOrDownloadVoter(voter)}
+  
+  className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition"
+>
+  <FaFilePdf size={14} /> PDF
+</button>
+
+
+
+        <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-transform duration-200 hover:scale-[1.02] active:scale-95">
+          <FaSms size={14} /> SMS
+        </button>
+      </div>
+    </div>
+  ))}
+        </div>
+
           </div>
         )}
       </div>

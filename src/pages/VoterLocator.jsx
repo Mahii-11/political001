@@ -249,10 +249,11 @@ const handleDOBChange = (e) => {
           <input
             type="text"
             name="date_of_birth"
-            placeholder="জন্ম তারিখ (শুধু বাংলা সংখ্যা)"
+            placeholder="তারিখ/মাস/বছর"
             value={formData.date_of_birth}
             onChange={handleDOBChange}
             onKeyDown={handleDOBKeyDown}
+            inputMode="numeric"
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
 

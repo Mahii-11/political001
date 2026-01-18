@@ -26,6 +26,8 @@ export default function VoterLocator() {
   });
 
    const pdfRefs = useRef({}); 
+   const isDeletingRef = useRef(false);
+
    
   useEffect(() => {
     const fetchWards = async () => {
@@ -70,59 +72,76 @@ const downloadVoterPDF = (voter) => {
 };
 
 
-const handleDOBChange = (e) => {
-  let raw = toEnglish(e.target.value);
-
-  
-  raw = raw.replace(/[^0-9/]/g,"");
-  raw = raw.replace(/\/{2,}/g,"/");
-
-  let parts = raw.split("/");
-
-  if(parts[0]) parts[0] = parts[0].slice(0,2); // day
-  if(parts[1]) parts[1] = parts[1].slice(0,2); // month
-  if(parts[2]) parts[2] = parts[2].slice(0,4); // year
-
-  if(parts.length === 1 && parts[0].length === 2 && parts[0][0] !== "0") {
-    if(!raw.includes("/")) parts[0] = parts[0] + "/";
-  }
-  if(parts.length === 2 && parts[1].length === 2 && parts[1][0] !== "0") {
-    if(!raw.includes(parts[1] + "/")) parts[1] = parts[1] + "/";
-  }
-
-  setFormData(prev => ({
-    ...prev,
-    date_of_birth: toBangla(parts.join("/"))
-  }));
-};
-
-
 const handleDOBKeyDown = (e) => {
-  if(e.key !== "Enter") return;
-  e.preventDefault();
+  if (e.key === "Backspace") {
+    isDeletingRef.current = true;
+  }
+};
 
-  let raw = toEnglish(formData.date_of_birth);
-  let parts = raw.split("/");
 
 
-  if(parts.length === 1){
-    if(parts[0].length === 1) parts[0] = "0"+parts[0]; 
-    if(!parts[0].includes("/")) parts[0] = parts[0] + "/"; 
-    raw = parts[0];
+const handleDOBChange = (e) => {
+  const input = e.target;
+  const cursor = input.selectionStart;
+
+  let raw = toEnglish(input.value);
+
+  // 🔴 যদি delete চলাকালীন হয়
+  if (isDeletingRef.current) {
+    isDeletingRef.current = false;
+
+    setFormData(prev => ({
+      ...prev,
+      date_of_birth: toBangla(raw)
+    }));
+
+    requestAnimationFrame(() => {
+      input.setSelectionRange(cursor, cursor);
+    });
+
+    return;
   }
 
+  // 🟢 Normal typing logic
+  raw = raw.replace(/\D/g, "");
+  raw = raw.slice(0, 8);
 
-  else if(parts.length === 2){
-    if(parts[1].length === 1) parts[1] = "0"+parts[1]; 
-    if(!parts[1].includes("/")) parts[1] = parts[1] + "/"; 
-    raw = parts[0] + "/" + parts[1];
+  let formatted = "";
+
+  if (raw.length >= 2) {
+    formatted += raw.slice(0, 2) + "/";
+  } else {
+    formatted += raw;
   }
+
+  if (raw.length >= 4) {
+    formatted += raw.slice(2, 4) + "/";
+  } else if (raw.length > 2) {
+    formatted += raw.slice(2);
+  }
+
+  if (raw.length > 4) {
+    formatted += raw.slice(4);
+  }
+
+  const banglaValue = toBangla(formatted);
 
   setFormData(prev => ({
     ...prev,
-    date_of_birth: toBangla(raw)
+    date_of_birth: banglaValue
   }));
+
+  requestAnimationFrame(() => {
+    let newCursor = cursor;
+
+    if (formatted.endsWith("/") && cursor === formatted.length - 1) {
+      newCursor += 1;
+    }
+
+    input.setSelectionRange(newCursor, newCursor);
+  });
 };
+
 
 
   const handleNameInput = (e) => {
@@ -234,6 +253,7 @@ const handleDOBKeyDown = (e) => {
             value={formData.date_of_birth}
             onChange={handleDOBChange}
             onKeyDown={handleDOBKeyDown}
+            inputMode="numeric"
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
 
@@ -281,22 +301,35 @@ const handleDOBKeyDown = (e) => {
         <h3 className="text-lg font-semibold text-gray-900 truncate">
           {voter.name}
         </h3>
+         <p>
+          <span className="font-medium text-gray-900">জন্ম তারিখ:</span>{" "}
+          {voter.date_of_birth}
+        </p>
         <p className="text-sm text-gray-500 mt-1">
           ওয়ার্ড {voter.ward_no}
+        </p>
+        <br />
+        <p>
+          <span className="text-gray-900 font-semibold">ভোট কেন্দ্র:</span>{" "}
+           <span className="font-semibold">{voter.center_name}</span>
         </p>
       </div>
 
       {/* Body */}
       <div className="p-4 flex-1 space-y-2 text-sm text-gray-700">
-        <p>
-          <span className="font-medium text-gray-900">জন্ম তারিখ:</span>{" "}
-          {voter.date_of_birth}
+       
+
+         <p>
+          <span className="font-medium text-gray-900">ক্রমিক নম্বর:</span>{" "}
+          {voter.id}
         </p>
 
-        <p>
-          <span className="font-medium text-gray-900">ভোট কেন্দ্র:</span>{" "}
-          {voter.center_name}
+         <p>
+          <span className="font-medium text-gray-900">ভোটার নম্বর:</span>{" "}
+          {voter.voter_no}
         </p>
+
+       
 
         <p>
           <span className="font-medium text-gray-900">পিতা:</span>{" "}

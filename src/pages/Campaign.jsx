@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
+//import { FaBriefcase,  FaUsers } from "react-icons/fa";
+//import { GiFarmer, GiSoccerBall, GiTempleGate } from "react-icons/gi";
 import {
   Shield,
   Heart,
@@ -52,41 +54,7 @@ const policies = [
     description:
       "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
   },
-
-   {
-    icon: Users,
-    title: "সামাজিক ন্যায়",
-    description:
-      "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
-  },
-
-   {
-    icon: Users,
-    title: "সামাজিক ন্যায়",
-    description:
-      "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
-  },
-
-   {
-    icon: Users,
-    title: "সামাজিক ন্যায়",
-    description:
-      "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
-  },
-
-   {
-    icon: Users,
-    title: "সামাজিক ন্যায়",
-    description:
-      "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
-  },
-
-   {
-    icon: Users,
-    title: "সামাজিক ন্যায়",
-    description:
-      "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
-  },
+ 
 ];
 
 export default function Campaign() {
@@ -108,7 +76,7 @@ export default function Campaign() {
     
     {/* Left Image */}
     <img
-      src="/images/familyimage.png"
+      src="/images/tariqueimage-7.jpg"
       alt="নেত্রী"
       className="hidden md:block absolute left-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl border-4 border-emerald-300 object-cover"
     />
@@ -153,10 +121,7 @@ export default function Campaign() {
       >
         <div className="absolute -inset-x-10 top-0 h-28 rounded-full bg-rose-300/20 blur-3xl" />
         <p className="relative text-sm md:text-base text-slate-800 leading-relaxed">
-          আমার নির্বাচনী প্রতিশ্রুতি জনগণের সেবা ও কল্যাণকে কেন্দ্র করে
-          গঠিত। প্রতিটি উদ্যোগ, নীতি ও কর্মপরিকল্পনা মানুষের জীবন মান
-          উন্নয়ন এবং সমাজে ন্যায় ও সমতার নিশ্চয়তা দেওয়ার লক্ষ্য নিয়ে
-          গ্রহণ করা হবে।
+          দীর্ঘ ৩৯ বৎসর আপনাদের সন্তান হিসাবে পুরাতন ঢাকার রাজনীতির সাথে জড়িত। জাতীয় স্বার্থে সক্রিয় রাজনীতি করেছি। গণতান্ত্রিক বাংলাদেশ প্রতিষ্ঠায় সকল আন্দোলনে যুক্ত থেকে তৃনমূল থেকে রাজনীতি করেছি বিধায় এলাকার সকলের সাথে আমার আত্মিক সম্পর্ক। কেউ ভাই, কেউ বন্ধু, কেউবা সুহৃদ। আমি আপনাদের পুরাতন ঢাকার সন্তান, তাই আপনাদের প্রতিনিধিত্ব করবো এটাই ন্যায্য।
         </p>
       </motion.div>
     </div>

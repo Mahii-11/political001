@@ -23,6 +23,7 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.26",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.14.0",
     "jspdf": "^4.0.0",
     "jspdf-autotable": "^5.0.7",
     "leaflet": "^1.9.4",

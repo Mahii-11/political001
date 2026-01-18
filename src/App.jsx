@@ -20,6 +20,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import VoterSlip from "./pages/VoterSlip";
+
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,8 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      {path: "/voter-slip", element: <VoterSlip/>}
+      
     ],
   },
 ]);

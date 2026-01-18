@@ -26,7 +26,9 @@ export default function VoterLocator() {
   });
 
    const pdfRefs = useRef({}); 
-   const isDeletingRef = useRef(false);
+   //const isDeletingRef = useRef(false);
+   const prevDobRef = useRef("");
+
 
    
   useEffect(() => {
@@ -72,11 +74,6 @@ const downloadVoterPDF = (voter) => {
 };
 
 
-const handleDOBKeyDown = (e) => {
-  if (e.key === "Backspace") {
-    isDeletingRef.current = true;
-  }
-};
 
 
 const handleDOBChange = (e) => {
@@ -84,15 +81,25 @@ const handleDOBChange = (e) => {
   const cursor = input.selectionStart;
 
   let raw = toEnglish(input.value);
+  const prev = prevDobRef.current;
 
-  // 🔴 যদি delete চলাকালীন হয়
-  if (isDeletingRef.current) {
-    isDeletingRef.current = false;
+  // 🔴 Mobile + PC friendly delete detect
+  const isDeleting = raw.length < toEnglish(prev).length;
+
+  if (isDeleting) {
+    // যদি শেষে "/" থাকে, সেটাও কেটে দাও
+    if (raw.endsWith("/")) {
+      raw = raw.slice(0, -1);
+    }
+
+    const bangla = toBangla(raw);
 
     setFormData(prev => ({
       ...prev,
-      date_of_birth: toBangla(raw)
+      date_of_birth: bangla
     }));
+
+    prevDobRef.current = bangla;
 
     requestAnimationFrame(() => {
       input.setSelectionRange(cursor, cursor);
@@ -101,7 +108,7 @@ const handleDOBChange = (e) => {
     return;
   }
 
-  // 🟢 Normal typing logic
+  // 🟢 Normal typing logic (আগের মতোই)
   raw = raw.replace(/\D/g, "");
   raw = raw.slice(0, 8);
 
@@ -129,6 +136,8 @@ const handleDOBChange = (e) => {
     ...prev,
     date_of_birth: banglaValue
   }));
+
+  prevDobRef.current = banglaValue;
 
   requestAnimationFrame(() => {
     let newCursor = cursor;
@@ -252,7 +261,6 @@ const handleDOBChange = (e) => {
             placeholder="তারিখ/মাস/বছর"
             value={formData.date_of_birth}
             onChange={handleDOBChange}
-            onKeyDown={handleDOBKeyDown}
             inputMode="numeric"
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />

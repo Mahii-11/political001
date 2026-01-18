@@ -79,7 +79,6 @@ const handleDOBKeyDown = (e) => {
 };
 
 
-
 const handleDOBChange = (e) => {
   const input = e.target;
   const cursor = input.selectionStart;
@@ -141,6 +140,7 @@ const handleDOBChange = (e) => {
     input.setSelectionRange(newCursor, newCursor);
   });
 };
+
 
 
 
@@ -253,7 +253,6 @@ const handleDOBChange = (e) => {
             value={formData.date_of_birth}
             onChange={handleDOBChange}
             onKeyDown={handleDOBKeyDown}
-            inputMode="numeric"
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
 

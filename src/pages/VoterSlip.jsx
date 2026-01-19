@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import candidateImage from "../assets/thumbnails/hamidbw.png";
-import symbolImage from "../assets/thumbnails/logobw.jpg"; 
+import symbolImage from "../assets/thumbnails/bnplogo.png"; 
 import { FaCut } from "react-icons/fa";
 
 
@@ -12,36 +12,36 @@ const VoterSlip = forwardRef(({ voter }, ref) => {
           <div className="rounded-full px-4 py-0.5 mb-2 items-center ">
             <span className="text-sm font-semibold">আল্লাহ সর্বশক্তিমান</span>
           </div>
-          <p className="font-semibold">সবার আগে বাংলাদেশ</p>
-          <h1 className="text-xl sm:text-2xl font-bold text-center leading-tight mb-1">
+          <p className="font-semibold font-bangla">--- সবার আগে বাংলাদেশ ---</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-center leading-tight mb-1 font-bangla">
            তারুণ্যের প্রথম ভোট, ধানের শীষের জন্য হোক
           </h1>
-          <h2 className="text-sm sm:text-base font-semibold text-center mb-3">
+          <h2 className="text-sm sm:text-base font-semibold text-center mb-3 font-bangla">
           আগামী ১২ ফেব্রুয়ারী ২০২৬ ইং, রোজ বৃহস্পতিবার আসন্ন ঢাকা-৭ সংসদ সদস্য নির্বাচনে 
           </h2>
           <div className="flex items-center gap-2 mb-3 w-full justify-center px-4">
            
       <div className="text-black px-4 py-0.5 transform -skew-x-12">
-        <span className="font-bold text-lg inline-block transform skew-x-12 px-2">
+        <span className="font-bold text-lg inline-block transform skew-x-12 px-2 font-bangla">
          সংসদ সদস্য
          </span>
-         <p className="ml-9">পদপ্রার্থী</p>
+         <p className="ml-9 font-bangla">পদপ্রার্থী</p>
        </div>
           </div>
           <div className="w-full mb-4 relative flex justify-center">
              <div className="text-black py-1 px-8 rounded-full w-[95%] text-center">
-               <h2 className="text-2xl font-bold">
-               আলহাজ্ব হামিদুর রহমান ভাই কে 
+               <h2 className="text-2xl font-bold font-bangla">
+               হামিদুর রহমান ভাই কে 
                </h2>
              </div>
           </div>
           <div className="flex w-full px-2 mb-8 relative">
             <div className="w-7/12 flex flex-col items-center justify-center">
               <div className="text-center w-full flex flex-col items-center">
-                <h3 className="text-xl font-bold mb-0 leading-none">ধানের শীষে</h3>
-                <h4 className="text-lg font-medium">ভোট দিয়ে </h4>
-                <div className="w-32 h-32 relative"> <img src={symbolImage} alt="Symbol" className="w-full h-full object-contain grayscale" /> </div>
-                <h4 className="text-xl font-bold">জয়যুক্ত করুন</h4>
+                <h3 className="text-xl font-bold  leading-none font-bangla">ধানের শীষে</h3>
+                <h4 className="text-lg font-medium font-bangla">ভোট দিয়ে </h4>
+                <div className="w-36 h-36 relative -mt-2"> <img src={symbolImage} alt="Symbol" className="w-36 h-36 object-contain grayscale" /></div>
+                <h4 className="text-xl font-bold -mt-3 font-bangla">জয়যুক্ত করুন</h4>
               </div>
             </div>
               <div className="w-5/12 relative z-10 pl-2">
@@ -74,7 +74,7 @@ const VoterSlip = forwardRef(({ voter }, ref) => {
     {/* Title */}
     <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2 z-10">
       <div className="rounded-full px-3 py-0.5">
-        <span className="font-bold text-xs">ভোটারের তথ্য</span>
+        <span className="font-bold text-xs font-bangla">ভোটারের তথ্য</span>
       </div>
     </div>
     {/* Main Box */}

@@ -11,22 +11,31 @@ const categories = ["সকল", "মিছিল", "মিটিং", "কম�
 
 const videos = [
   {
-    title: "জনসভায় গুরুত্বপূর্ণ বক্তব্য",
-    description: "জনগণের অধিকার ও উন্নয়ন নিয়ে আমাদের সাম্প্রতিক জনসভা।",
-    src: "/videos/hamidvideo.mp4",
-    poster: "/images/image3.jpg",
+    id: 1,
+    title: "শীতের কনকনে বাতাসে মানুষের পাশে হামিদুর রহমান | ঢাকা–৭ |",
+    description: "শীতের কনকনে বাতাস উপেক্ষা করে মানুষের পাশে হামিদুর রহমান | ঢাকা–৭",
+    src: "https://www.youtube.com/embed/YRGP80dgM6M",
+    type: "youtube",
+    date: "১২ জানুয়ারি ২০২6",
+    thumbnail: "/images/thum3.jpg",
   },
   {
-    title: "উন্নয়ন প্রকল্প পরিদর্শন",
-    description: "চলমান উন্নয়ন প্রকল্প সরেজমিনে পরিদর্শনের দৃশ্য।",
-    src: "/videos/js-advanced.mp4",
-    poster: "/images/image4.jpg",
+    id: 2,
+    title: "লালবাগে যানজট নিরসনে সড়ক প্রশস্তকরণ",
+    description: "হামিদুর রহমান হামিদ লালবাগের রহমতুল্লাহ উচ্চ বিদ্যালয়ের পাশের রাস্তা যানজট নিরসনে ৪ফুট প্রস্থ বড় করে",
+    src: "https://www.youtube.com/embed/gFDX81j5mgE",
+    type: "youtube",
+    date: "১০ জানুয়ারি ২০২6",
+    thumbnail: "/images/",
   },
   {
-    title: "স্বেচ্ছাসেবকদের সাথে মতবিনিময়",
-    description: "স্বেচ্ছাসেবকদের সাথে গুরুত্বপূর্ণ আলোচনা ও দিকনির্দেশনা।",
-    src: "/videos/css-animations.mp4",
-    poster: "/images/image5.jpg",
+    id: 3,
+    title: "লালবাগে গণসংযোগ ও নামাজ আদায়",
+    description: "ঢাকা-৭ এর জননেতা জনাব হামিদুর রহমান হামিদের সমর্থনে লালবাগে গণসংযোগ এবং মসজিদে নূরে আসরের নামাজ আদায়",
+     src: "https://www.youtube.com/embed/tpC-q9ikdto", 
+    type: "youtube",
+    date: "৮ জানুয়ারি ২০২6",
+    thumbnail: "/images/",
   },
 ];
 
@@ -231,35 +240,48 @@ function VideoGallery() {
     <section className="w-full bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-red-800 mb-10 text-center">
-          দেশের রাজনৈতিক <span className="text-gray-800">র‍্যালি ও সভা</span>
+          ঢাকা–৭ আসনে  <span className="text-gray-800">জনসম্পৃক্ততা</span>
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {videos.map((video, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
-            >
-              <video
-                controls
-                poster={video.poster}
-                className="w-full h-52 object-cover"
-              >
-                <source src={video.src} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div className="p-5">
-                <h3 className="text-lg font-semibold mb-2 text-gray-800">
-                  {video.title}
-                </h3>
-                <p className="text-gray-600 text-sm">{video.description}</p>
-              </div>
-            </motion.div>
-          ))}
+         {videos.map((video, index) => (
+  <motion.div
+    key={video.id}
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+  >
+    {/* YouTube Video */}
+    <div className="w-full h-52 bg-black">
+      <iframe
+        className="w-full h-full"
+        src={video.src}
+        title={video.title}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
+
+    {/* Content */}
+    <div className="p-5">
+      <h3 className="text-lg font-semibold mb-2 text-gray-800">
+        {video.title}
+      </h3>
+
+      <p className="text-gray-600 text-sm mb-2">
+        {video.description}
+      </p>
+
+      <p className="text-xs text-gray-500">
+        {video.date}
+      </p>
+    </div>
+  </motion.div>
+        ))}
+
         </div>
       </div>
     </section>

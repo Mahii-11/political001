@@ -48,15 +48,6 @@ export default function VoterLocator() {
     fetchWards();
   }, []);
   
-  const normalizeBangla = (str = "") =>
-  str
-    .normalize("NFC")
-    .replace(/[\u200B-\u200D\uFEFF]/g, "") // invisible unicode remove
-    .replace(/\s+/g, " ") // extra space fix
-    .trim();
-
-
-
 const downloadVoterPDF = (voter) => {
   if (!voter || !voter.id) return;
 
@@ -159,11 +150,25 @@ const handleDOBChange = (e) => {
 };
 
 
+// typing-এর সময় (space allow করবে)
+const normalizeBanglaTyping = (str = "") =>
+  str
+    .normalize("NFC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, ""); // invisible unicode remove
+
+// search / submit-এর সময় (final clean)
+const normalizeBanglaFinal = (str = "") =>
+  str
+    .normalize("NFC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
 
 
 const handleNameInput = (e) => {
   const raw = e.target.value.replace(/[^\u0980-\u09FF\s]/g, "");
-  const clean = normalizeBangla(raw);
+  const clean = normalizeBanglaTyping(raw);
 
   setFormData((prev) => ({
     ...prev,
@@ -222,15 +227,15 @@ const handleNameInput = (e) => {
       if (response?.success && Array.isArray(response.data)) {
         // Filter client-side to ensure exact match
          const filtered = response.data.filter((voter) => {
-  const apiName = normalizeBangla(voter.name);
-  const inputName = normalizeBangla(formData.name);
+           const apiName = normalizeBanglaFinal(voter.name);
+           const inputName = normalizeBanglaFinal(formData.name);
 
-  return (
-    voter.ward_no === formData.ward_no &&
-    voter.date_of_birth === banglaDOB &&
-    (inputName ? apiName.includes(inputName) : true)
-  );
-});
+           return (
+            voter.ward_no === formData.ward_no &&
+            voter.date_of_birth === banglaDOB &&
+          (inputName ? apiName.includes(inputName) : true)
+             );
+            });
 
 
         {

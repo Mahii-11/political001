@@ -216,7 +216,7 @@ export default function Contact() {
                                 <FormLabel>আপনার নাম</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="জন ডো"
+                                    placeholder="আপনার পূর্ণ নাম লিখুন"
                                     {...field}
                                     data-testid="input-contact-name"
                                   />
@@ -233,7 +233,7 @@ export default function Contact() {
                                 <FormLabel>ইমেইল</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="john@example.com"
+                                    placeholder="আপনার ইমেইল টি লিখুন"
                                     {...field}
                                     data-testid="input-contact-email"
                                   />
@@ -251,7 +251,7 @@ export default function Contact() {
                               <FormLabel>বিষয়</FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="আপনার কীভাবে সাহায্য করতে পারি?"
+                                  placeholder="আপনাকে কীভাবে সাহায্য করতে পারি?"
                                   {...field}
                                   data-testid="input-contact-subject"
                                 />

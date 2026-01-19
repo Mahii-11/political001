@@ -1,5 +1,6 @@
-import { getBioData } from "@/services/api";
-import { useEffect, useState } from "react";
+//import { getBioData } from "@/services/api";
+//import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaUserGraduate,
   FaUsers,
@@ -18,10 +19,41 @@ const contributionIcon = {
   "তরুণ ও ব্যবসায়ীদের প্রতি বার্তা": FaBullhorn,
 };
 
-const BiographySection = () => {
-  const [contribution, setContribution] = useState([]);
 
-  useEffect(() => {
+const contribution = [
+  {
+    id: 1,
+    name: "শিক্ষা ও ছাত্র রাজনীতি",
+    description: "স্কুল জীবন থেকেই তিনি রাজনীতির সাথে যুক্ত....",
+    link: "/biography/contribution-1",
+  },
+  {
+    id: 2,
+    name: "যুব রাজনীতিতে অবদান",
+    description: "যুব সমাজকে সংগঠিত করার ক্ষেত্রে তাঁর ভূমিকা....",
+    link: "/biography/contribution-2",
+  },
+  {
+    id: 3,
+    name: "একজন সফল উদ্যোক্তা",
+    description: "ব্যবসা ও কর্মসংস্থানে তাঁর অবদান....",
+    link: "/biography/contribution-3",
+  },
+  {
+    id: 4,
+    name: "সমাজসেবায় নিবেদিত প্রাণ",
+    description: "মানবতার সেবায় তিনি নিবেদিত....",
+    link: "/biography/contribution-4",
+  },
+];
+
+
+
+const BiographySection = () => {
+ // const [contribution, setContribution] = useState([]);
+
+ {/*    
+   useEffect(() => {
     let isMounted = true;
 
     async function loadBiography() {
@@ -44,11 +76,14 @@ const BiographySection = () => {
       isMounted = false;
     };
   }, []);
+  */}
 
   const uiContribution = contribution.map((item) => ({
     ...item,
     icon: contributionIcon[item.name] || FaUserGraduate,
   }));
+
+
   return (
     <section className="bg-gray-50 py-16">
       <div className="max-w-6xl mx-auto px-4">
@@ -79,7 +114,13 @@ const BiographySection = () => {
                   </h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed">
-                  {item.description}
+                  { item.description }
+                  <Link
+                   to={item.link}
+                    className="text-green-700 font-medium ml-1 hover:underline"
+                  >
+                   আরও পড়ুন
+                 </Link>
                 </p>
               </div>
             );

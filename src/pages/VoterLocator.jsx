@@ -26,7 +26,6 @@ export default function VoterLocator() {
   });
 
    const pdfRefs = useRef({}); 
-   //const isDeletingRef = useRef(false);
    const prevDobRef = useRef("");
 
 

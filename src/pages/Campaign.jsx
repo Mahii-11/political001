@@ -76,9 +76,9 @@ export default function Campaign() {
     
     {/* Left Image */}
     <img
-      src="/images/tariqueimage-7.jpg"
+      src="/images/tarique-1.png"
       alt="নেত্রী"
-      className="hidden md:block absolute left-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl border-4 border-emerald-300 object-cover"
+      className="hidden md:block absolute left-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl  object-cover"
     />
 
     {/* Main Content */}
@@ -128,9 +128,9 @@ export default function Campaign() {
 
    
     <img
-      src="/images/neta2.jpeg"
+      src="/images/hamid04.jpg"
       alt="জিয়াউর রহমান"
-      className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl border-4 border-rose-300 object-cover"
+      className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl  object-cover"
     />
       </div>
       </div>

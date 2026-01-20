@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { string } from "zod";
+//import { string } from "zod";
+import axios from "axios";
 
 const API_BASE_URL = "https://election-backend.dotzpos.com/api";
 
@@ -262,3 +262,17 @@ export async function postFormData(endpoint, formData) {
 export async function storeComplaint(formData) {
   return postFormData("/store-complain", formData);
 }
+
+export const storeContact = async (data) => {
+  const response = await axios.post(
+    `${API_BASE_URL}/store-contact`,
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.data;
+};

@@ -3,8 +3,10 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FaFacebookF, FaYoutube, FaInstagram } from "react-icons/fa";
 import { FiLink } from "react-icons/fi";
-import { MapPin, Phone, Mail, Ribbon } from "lucide-react";
+import {  Phone, Mail, Ribbon } from "lucide-react";
 import { Shield } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+
 
 const socialLinks = [
   {
@@ -41,8 +43,9 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* White Card Footer */}
         <div className="bg-white shadow-2xl rounded-2xl p-12">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-16">
-            <motion.div
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-16">
+
+              <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -66,7 +69,6 @@ export function Footer() {
                 ইতিবাচক প্রভাব সৃষ্টি করতে পারি।
               </p>
             </motion.div>
-
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -74,20 +76,20 @@ export function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900">
-                যোগাযোগের তথ্য
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900 font-bangla">
+                 প্রধান সমন্বয়কারী 
               </h3>
               <ul className="space-y-4">
-                <li className="flex items-start gap-3 hover:translate-x-1 transition-transform duration-300">
-                  <MapPin className="w-5 h-5 text-emerald-700 flex-shrink-0 mt-0.5" />
+                <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <FaWhatsapp className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
-                    ১২৩ প্রগতি সরণি, মতিঝিল, ঢাকা ১০০০
+                   +৩৪ ৬৫৩ ৩৪ ৫২৩৭
                   </span>
                 </li>
-                <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
                   <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
-                    +৮৮ ০১৭১ ২৩৪ ৫৬৭৮
+                    +৮৮০১৬০৩৪৪৩২৭৮
                   </span>
                 </li>
                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
@@ -99,14 +101,101 @@ export function Footer() {
               </ul>
             </motion.div>
 
-            {/* Important Links */}
+               <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900 font-bangla">
+                 তথ্য ও প্রযুক্তি সহযোগিতা
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                  +৮৮০ ১৭১১-৮৭৩৮৯৩
+                  </span>
+                </li>
+                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <FaWhatsapp className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                  +১ ৫১৪ ৬৬০-৫১০৮
+                  </span>
+                </li>
+                <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                  +৮৮০ ১৯৯১-৬৪৬২৫৪
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
+
+             <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900 font-bangla">
+              মিডিয়া সেল
+              </h3>
+              <ul className="space-y-4">
+                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                   +৮৮০১৬৮৩-৪২৬৬৫৭
+                  </span>
+                </li>
+                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                   +৮৮০ ১৩০৪-০৬৩৪৩৩
+                  </span>
+                </li>
+                <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                  +৮৮০ ১৭১৬-১০৮৪০২
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
+
+              <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900 font-bangla">
+              সার্বিক সহযোগিতা
+              </h3>
+              <ul className="space-y-4">
+                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                  +৮৮০ ১৭১১-৫৩০৬৭০
+                  </span>
+                </li>
+                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
+                  <Phone className="w-5 h-5 text-emerald-700 flex-shrink-0" />
+                  <span className="text-gray-800 text-sm">
+                  +৮৮০ ১৭১২৯২৭০৪৫
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Important Links  */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900">
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900 font-bangla">
                 গুরুত্বপূর্ণ লিংক
               </h3>
               <ul className="space-y-4">
@@ -146,7 +235,17 @@ export function Footer() {
                   </a>
                 </li>
               </ul>
+            </motion.div>
 
+                  <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="text-lg md:text-xl font-semibold mb-6 text-green-900 font-bangla">
+                সোশ্যাল মিডিয়া লিঙ্ক
+              </h3>
               {/* Social Links */}
               <div className="flex gap-3 mt-6">
                 {socialLinks.map((social) => (
@@ -176,3 +275,7 @@ export function Footer() {
 }
 
 //#f8fafc
+
+ 
+
+

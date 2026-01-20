@@ -394,9 +394,9 @@ const handleSubmit = async (e) => {
 
          <p>
           <span className="font-medium text-gray-900">ক্রমিক নম্বর:</span>{" "}
-          {voter.id}
+          {voter.pdf_serial}
         </p>
-
+         
          <p>
           <span className="font-medium text-gray-900">ভোটার নম্বর:</span>{" "}
           {voter.voter_no}

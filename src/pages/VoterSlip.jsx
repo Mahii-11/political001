@@ -93,17 +93,17 @@ const VoterSlip = forwardRef(({ voter }, ref) => {
           </p>
           <p>জন্ম তারিখ: {voter?.date_of_birth || "-"}</p>
           <p>ওয়ার্ড: {voter?.ward_no || "-"}</p>
+          <p>লিঙ্গ: {voter?.voter_type || "-"}</p>
           <p>পিতা: {voter?.father || "-"}</p>
-          <p>মাতা: {voter?.mother || "-"}</p>
+          <p>মাতা: {voter?.mother || "-"}</p>     
           <p className="leading-snug">
-            ঠিকানা: {voter?.address || "-"}
+          ঠিকানা: {voter?.address || "-"}
           </p>
         </div>
-      </div>
-
+        </div>
     </div>
   </div>
-</div>
+  </div>
 
         </div>
       </div>

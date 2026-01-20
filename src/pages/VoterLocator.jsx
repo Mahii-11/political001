@@ -9,26 +9,33 @@ import VoterSlip from "./VoterSlip";
 
 const enToBn = {0:"০",1:"১",2:"২",3:"৩",4:"৪",5:"৫",6:"৬",7:"৭",8:"৮",9:"৯"};
 const bnToEn = {"০":"0","১":"1","২":"2","৩":"3","৪":"4","৫":"5","৬":"6","৭":"7","৮":"8","৯":"9"};
-
 const toBangla = (v="") => v.replace(/[0-9]/g, (d)=>enToBn[d]);
 const toEnglish = (v="") => v.replace(/[০-৯]/g, (d)=>bnToEn[d]);
+const isValidBDNumber = (num) => /^01[3-9]\d{8}$/.test(num);
+const normalizeBanglaTyping = (str = "") =>
+  str
+    .normalize("NFC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, ""); 
+
+const normalizeBanglaFinal = (str = "") =>
+  str
+    .normalize("NFC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+
 
 export default function VoterLocator() {
   const [wards, setWards] = useState([]);
   const [voters, setVoters] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    date_of_birth: "",
-    ward_no: "",
-  });
-
-   const pdfRefs = useRef({}); 
-   const prevDobRef = useRef("");
-
-
+  const [smsOpen, setSmsOpen] = useState(false);
+  const [smsPhone, setSmsPhone] = useState("");
+  const [smsLoading, setSmsLoading] = useState(false);
+  const [smsStatus, setSmsStatus] = useState("");
+  const [selectedVoter, setSelectedVoter] = useState(null);
    
   useEffect(() => {
     const fetchWards = async () => {
@@ -47,7 +54,61 @@ export default function VoterLocator() {
 
     fetchWards();
   }, []);
+
+
   
+  const [formData, setFormData] = useState({
+    name: "",
+    date_of_birth: "",
+    ward_no: "",
+  });
+
+   const pdfRefs = useRef({}); 
+   const prevDobRef = useRef("");
+
+
+
+const sendSMS = async () => {
+  if (!isValidBDNumber(smsPhone)) {
+    setSmsStatus("❌ সঠিক মোবাইল নম্বর দিন");
+    return;
+  }
+
+  setSmsLoading(true);
+  setSmsStatus("");
+
+  const payload = {
+    phone: smsPhone,
+    message: `
+ভোটার তথ্য:
+নাম: ${selectedVoter.name}
+ভোটার নং: ${selectedVoter.voter_no}
+কেন্দ্র: ${selectedVoter.center_name}
+ওয়ার্ড: ${selectedVoter.ward_no}
+`,
+  };
+
+  try {
+    const res = await fetch("/api/send-sms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setSmsStatus("✅ SMS সফলভাবে পাঠানো হয়েছে");
+    } else {
+      setSmsStatus("❌ SMS পাঠানো যায়নি");
+    }
+  } catch (err) {
+    setSmsStatus("❌ সার্ভার সমস্যা হয়েছে");
+  } finally {
+    setSmsLoading(false);
+  }
+};
+
 const downloadVoterPDF = (voter) => {
   if (!voter || !voter.id) return;
 
@@ -71,9 +132,6 @@ const downloadVoterPDF = (voter) => {
   };  
     html2pdf().set(opt).from(element).save();
 };
-
-
-
 
 const handleDOBChange = (e) => {
   const input = e.target;
@@ -149,23 +207,6 @@ const handleDOBChange = (e) => {
   });
 };
 
-
-// typing-এর সময় (space allow করবে)
-const normalizeBanglaTyping = (str = "") =>
-  str
-    .normalize("NFC")
-    .replace(/[\u200B-\u200D\uFEFF]/g, ""); // invisible unicode remove
-
-// search / submit-এর সময় (final clean)
-const normalizeBanglaFinal = (str = "") =>
-  str
-    .normalize("NFC")
-    .replace(/[\u200B-\u200D\uFEFF]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-
-
 const handleNameInput = (e) => {
   const raw = e.target.value.replace(/[^\u0980-\u09FF\s]/g, "");
   const clean = normalizeBanglaTyping(raw);
@@ -175,9 +216,7 @@ const handleNameInput = (e) => {
     name: clean,
   }));
 };
-
-
-  const handleChange = (e) => {
+ const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -185,7 +224,7 @@ const handleNameInput = (e) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
@@ -260,6 +299,8 @@ const handleNameInput = (e) => {
       setLoading(false);
     }
   };
+
+
 
   return (
     <>
@@ -361,8 +402,10 @@ const handleNameInput = (e) => {
           {voter.voter_no}
         </p>
 
-       
-
+         <p>
+          <span className="font-medium text-gray-900">লিঙ্গ :</span>{" "}
+          {voter.voter_type}
+        </p>                                                                          
         <p>
           <span className="font-medium text-gray-900">পিতা:</span>{" "}
           {voter.father}
@@ -385,7 +428,14 @@ const handleNameInput = (e) => {
       >
       <FaFilePdf size={14} /> PDF
       </button>
-        <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-transform duration-200 hover:scale-[1.02] active:scale-95">
+        <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-transform duration-200 hover:scale-[1.02] active:scale-95"
+        onClick={() => {
+          setSelectedVoter(voter);
+          setSmsOpen(true);
+          setSmsStatus("");
+          setSmsPhone("");
+        }}
+        >
           <FaSms size={14} /> SMS
         </button>
       <div style={{ position: 'absolute', left: '-9999px', top: 0 }}>
@@ -398,6 +448,57 @@ const handleNameInput = (e) => {
          </div>
         )}
       </div>
+      {smsOpen && (  
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="bg-white w-full max-w-md rounded-xl p-6 shadow-lg animate-fadeIn">
+
+      <h3 className="text-lg font-bold mb-4">SMS পাঠান</h3>
+
+      <input
+        type="text"
+        placeholder="মোবাইল নম্বর (01XXXXXXXXX)"
+        value={smsPhone}
+        maxLength={11}
+        onChange={(e) => setSmsPhone(e.target.value.replace(/\D/g, ""))}
+         className={`w-full border p-2 pr-10 rounded focus:ring-2 focus:outline-none
+      ${
+        isValidBDNumber(smsPhone)
+          ? "border-green-500 focus:ring-green-500"
+          : "focus:ring-green-500"
+      }
+    `}
+      />
+
+       {isValidBDNumber(smsPhone) && (
+    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 text-lg font-bold pointer-events-none">
+      ✔
+    </span>
+  )}
+
+      {smsStatus && (
+        <p className="mt-3 text-sm font-medium">{smsStatus}</p>
+      )}
+
+      <div className="flex justify-end gap-3 mt-6">
+        <button
+          onClick={() => setSmsOpen(false)}
+          className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+        >
+          বাতিল
+        </button>
+
+        <button
+          onClick={sendSMS}
+           disabled={smsLoading || !isValidBDNumber(smsPhone)}
+          className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-60"
+        >
+          {smsLoading ? "পাঠানো হচ্ছে..." : "Send SMS"}
+        </button>
+      </div>
+
+    </div>
+  </div>
+      )}
       <Footer />
     </>
   );

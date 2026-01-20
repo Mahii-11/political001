@@ -208,7 +208,7 @@ const handleDOBChange = (e) => {
 };
 
 const handleNameInput = (e) => {
-  const raw = e.target.value.replace(/[^\u0980-\u09FF\s]/g, "");
+  const raw = e.target.value;
   const clean = normalizeBanglaTyping(raw);
 
   setFormData((prev) => ({
@@ -314,7 +314,7 @@ const handleSubmit = async (e) => {
           <input
             type="text"
             name="name"
-            placeholder="নাম (শুধু বাংলা)"
+            placeholder="আপনার নাম শুধুমাত্র বাংলায় লিখুন"
             value={formData.name}
             onChange={handleNameInput}
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"

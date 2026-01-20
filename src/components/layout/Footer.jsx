@@ -43,7 +43,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* White Card Footer */}
         <div className="bg-white shadow-2xl rounded-2xl p-12">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-9">
 
               <motion.div
               initial={{ opacity: 0, y: 20 }}

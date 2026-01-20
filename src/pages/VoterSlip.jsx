@@ -78,7 +78,7 @@ const VoterSlip = forwardRef(({ voter }, ref) => {
       </div>
     </div>
     {/* Main Box */}
-    <div className="border border-black w-full h-full text-[11px] mt-2 flex flex-col">
+    <div className="border border-black w-full h-full text-[11px] mt-0 flex flex-col">
 
       {/* Header */}
       <div className="border-b border-black p-1 text-center font-semibold leading-tight pt-3 text-base">
@@ -92,12 +92,14 @@ const VoterSlip = forwardRef(({ voter }, ref) => {
             নাম: <span className="font-bold">{voter?.name || "-"}</span>
           </p>
           <p>জন্ম তারিখ: {voter?.date_of_birth || "-"}</p>
+          <p>ভোটার নম্বর: {voter?.voter_no || "-"}</p>
+          <p>ক্রমিক নম্বর: {voter?.pdf_serial || "-"}</p>
           <p>ওয়ার্ড: {voter?.ward_no || "-"}</p>
           <p>লিঙ্গ: {voter?.voter_type || "-"}</p>
           <p>পিতা: {voter?.father || "-"}</p>
           <p>মাতা: {voter?.mother || "-"}</p>     
           <p className="leading-snug">
-          ঠিকানা: {voter?.address || "-"}
+          ঠিকানা: {voter?.address || "-"}   
           </p>
         </div>
         </div>

@@ -16,7 +16,7 @@ export default function ContributionPageTwo() {
           alt="Youth Politics"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r  to-transparent"></div>
       </div>
       <div className="p-8 md:p-14">
         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-8 tracking-tight">

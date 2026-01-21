@@ -6,17 +6,17 @@ import {
   FaUsers,
   FaBriefcase,
   FaHandsHelping,
-  FaLandmark,
-  FaBullhorn,
+  HiOutlineChatAlt2 ,
+  FaTasks ,
 } from "react-icons/fa";
 
 const contributionIcon = {
   "শিক্ষা ও ছাত্র রাজনীতি": FaUserGraduate,
-  "যুব রাজনীতিতে অবদান": FaUsers,
-  "একজন সফল উদ্যোক্তা": FaBriefcase,
+  "ভোটারদের প্রতি আহবান": FaUsers,
+  "ব্যবসা ও সামাজিক কর্মকান্ড": FaBriefcase,
   "সমাজসেবায় নিবেদিত প্রাণ": FaHandsHelping,
-  "বর্তমান রাজনৈতিক অবস্থান": FaLandmark,
-  "তরুণ ও ব্যবসায়ীদের প্রতি বার্তা": FaBullhorn,
+  "গুরুত্বপূর্ণ কর্মপরিকল্পনা": FaTasks,
+  "জনাব হামিদুর রহমানের মন্তব্য": HiOutlineChatAlt2,
 };
 
 

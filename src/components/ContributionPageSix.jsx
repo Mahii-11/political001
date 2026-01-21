@@ -10,11 +10,11 @@ export default function ContributionPageSix() {
     <div className="grid grid-cols-1 md:grid-cols-2">
       <div className="relative">
         <img
-          src="/images/hamid04.jpg"
+          src="/images/hamid07.png"
           alt="Youth Politics"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r to-transparent"></div>
       </div>
       <div className="p-8 md:p-14">
         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-8 tracking-tight">

@@ -6,12 +6,12 @@ const ContributionPage = () => {
    <>
    <Navbar/>
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 md:px-8">
-  <div className="max-w-6xl w-full bg-white rounded-3xl shadow-2xl border-t-4 border-green-600 overflow-hidden">
+    <div className="max-w-6xl w-full bg-white rounded-3xl shadow-2xl border-t-4 border-green-600 overflow-hidden">
     
     <div className="grid grid-cols-1 md:grid-cols-2">
       <div className="relative">
         <img
-          src="/images/hamid03.jpg"
+          src="/images/hamid08.png"
           alt="Youth Politics"
           className="h-full w-full object-cover"
         />
@@ -29,7 +29,7 @@ const ContributionPage = () => {
 
     </div>
   </div>
-</div>
+    </div>
    <Footer/>
    </>
   );

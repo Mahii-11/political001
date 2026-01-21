@@ -10,15 +10,15 @@ export default function ContributionPageFive() {
     <div className="grid grid-cols-1 md:grid-cols-2">
       <div className="relative">
         <img
-          src="/images/hamid04.jpg"
+          src="/images/hamid09.png"
           alt="Youth Politics"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r to-transparent"></div>
       </div>
       <div className="p-8 md:p-14">
         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-8 tracking-tight">
-         গুরুত্বপূর্ণ <span className="block mt-2">কর্মপরিকল্পনা</span>
+         গুরুত্বপূর্ণ <span className="block mt-6">কর্মপরিকল্পনা</span>
         </h1>
 
         <p className="text-gray-700 text-justify text-lg md:text-xl leading-relaxed md:leading-loose whitespace-pre-line">

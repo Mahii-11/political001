@@ -62,12 +62,6 @@ export function Footer() {
                   className="h-24 w-24 object-contain  hover:scale-105
                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
                 />
-                  <img
-                  src="/images/bnplogo.png"
-                  alt="Campaign Logo"
-                  className="h-24 w-24 object-contain  hover:scale-105
-                hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
-                />
                </div>
                 <div className="text-2xl md:text-3xl font-extrabold tracking-tight  text-green-700 font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>

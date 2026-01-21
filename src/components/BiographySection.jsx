@@ -6,9 +6,9 @@ import {
   FaUsers,
   FaBriefcase,
   FaHandsHelping,
-  HiOutlineChatAlt2 ,
   FaTasks ,
 } from "react-icons/fa";
+import { HiOutlineChatAlt2 } from "react-icons/hi";
 
 const contributionIcon = {
   "শিক্ষা ও ছাত্র রাজনীতি": FaUserGraduate,

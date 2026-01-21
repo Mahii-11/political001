@@ -227,8 +227,8 @@ export function VolunteerForm() {
       /^01[3-9]\d{8}$/.test(v.replace(/\D/g, ""))
         ? ""
         : "সঠিক বাংলাদেশি ফোন নম্বর লিখুন",
-    nid_no: (v) =>
-      /^(\d{10}|\d{17})$/.test(v) ? "" : "১০ বা ১৭ সংখ্যার সঠিক NID দিন",
+   // nid_no: (v) =>
+   //   /^(\d{10}|\d{17})$/.test(v) ? "" : "১০ বা ১৭ সংখ্যার সঠিক NID দিন",
     ward_no: (v) => (v ? "" : "ওয়ার্ড নির্বাচন করুন"),
     skill: (v) => (v ? "" : "একটি অপশন নির্বাচন করুন"),
   };
@@ -246,26 +246,30 @@ export function VolunteerForm() {
     });
   };
 
-  const validatePassword = (value) => {
+  
+{/* 
+  
+ const validatePassword = (value) => {
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
     if (!regex.test(value)) {
       return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে এবং একটি বড় হাতের অক্ষর, একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে।";
     }
     return "";
-  };
-
+  }; 
+  
+*/}
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setPasswordError(validatePassword(value));
+    setPasswordError();
   };
 
-  const isValid =
-    Object.keys(formErrors).length === 0 &&
-    password.length > 0 &&
-    passwordError === "" &&
-    imageRef.current?.files[0] &&
-    nidRef.current?.files[0];
+  const isValid = true;
+   // Object.keys(formErrors).length === 0 &&
+  //  password.length > 0 &&
+  //  passwordError === "" &&
+  //  imageRef.current?.files[0] &&
+ //   nidRef.current?.files[0];
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">

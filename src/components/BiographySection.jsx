@@ -23,27 +23,42 @@ const contributionIcon = {
 const contribution = [
   {
     id: 1,
-    name: "শিক্ষা ও ছাত্র রাজনীতি",
+    name: "শিক্ষা ও রাজনীতি",
     description: "স্কুল জীবন থেকেই তিনি রাজনীতির সাথে যুক্ত....",
     link: "/biography/contribution-1",
   },
-  {
+   {
     id: 2,
-    name: "যুব রাজনীতিতে অবদান",
-    description: "যুব সমাজকে সংগঠিত করার ক্ষেত্রে তাঁর ভূমিকা....",
-    link: "/biography/contribution-2",
-  },
-  {
-    id: 3,
-    name: "একজন সফল উদ্যোক্তা",
+    name: "ব্যবসা ও সামাজিক কর্মকান্ড",
     description: "ব্যবসা ও কর্মসংস্থানে তাঁর অবদান....",
     link: "/biography/contribution-3",
   },
   {
+    id: 3,
+    name: "ভোটারদের প্রতি আহবান",
+    description: "দীর্ঘ ৩৯ বৎসর আপনাদের সন্তান হিসাবে পুরাতন ঢাকার রাজনীতির সাথে....",
+    link: "/biography/contribution-2",
+  },
+ 
+  {
     id: 4,
     name: "সমাজসেবায় নিবেদিত প্রাণ",
-    description: "মানবতার সেবায় তিনি নিবেদিত....",
+    description: "সমাজের প্রতি গভীর দায়বদ্ধতা ও মানুষের কল্যাণে নিরলস প্রচেষ্টাই...",
     link: "/biography/contribution-4",
+  },
+
+   {
+    id: 5,
+    name: "গুরুত্বপূর্ণ কর্মপরিকল্পনা",
+    description: "যানজট, জলাবদ্ধতা, পয়ঃনিষ্কাশনের স্থায়ী সমাধান করার লক্ষে",
+    link: "/biography/contribution-5",
+  },
+
+   {
+    id: 6,
+    name: "জনাব হামিদুর রহমানের মন্তব্য",
+    description: "আসন্ন ১২ ফেব্রুয়ারী জাতীয় নির্বাচনে আমি ও আমার দল প্রার্থী হিসাবে, ....",
+    link: "/biography/contribution-6",
   },
 ];
 

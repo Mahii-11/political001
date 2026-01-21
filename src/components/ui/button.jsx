@@ -11,7 +11,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground border border-primary-border",
+          "bg-primary text-primary-foreground",
         destructive:
           "bg-destructive text-destructive-foreground border border-destructive-border",
         outline:
@@ -34,7 +34,6 @@ const buttonVariants = cva(
   }
 );
 
-// removed ButtonProps interface
 const Button = React.forwardRef(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
@@ -51,3 +50,6 @@ const Button = React.forwardRef(
 Button.displayName = "Button";
 
 export { Button, buttonVariants };
+
+
+//border-primary-border

@@ -6,6 +6,8 @@ import { FiLink } from "react-icons/fi";
 import {  Phone, Mail, Ribbon } from "lucide-react";
 import { Shield } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { MdLocationOn } from "react-icons/md";
+
 
 
 const socialLinks = [
@@ -53,12 +55,20 @@ export function Footer() {
             >
               <div className="mt-0"></div>
               <div className="mb-6 mt-0">
-                <img
+               <div className="flex">
+                 <img
+                  src="/images/hamidlogo.png"
+                  alt="Campaign Logo"
+                  className="h-24 w-24 object-contain  hover:scale-105
+                hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
+                />
+                  <img
                   src="/images/bnplogo.png"
                   alt="Campaign Logo"
                   className="h-24 w-24 object-contain  hover:scale-105
                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
                 />
+               </div>
                 <div className="text-2xl md:text-3xl font-extrabold tracking-tight  text-green-700 font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
@@ -266,6 +276,12 @@ export function Footer() {
           <div className="border-t border-gray-200/50 mt-10 pt-6">
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-gray-600">
               <p>© 2025 Hamidur Rahman Hamid</p>
+             <div className="flex items-center gap-1 text-gray-700">
+               <MdLocationOn className="text-base -mt-[1px]" />
+                <span className="leading-tight">
+                 ১৯/১, ২০/১, বি.সি.সি রোড, ওয়ারী, ঢাকা -১২০৩
+                 </span>
+                </div>
             </div>
           </div>
         </div>
@@ -277,5 +293,4 @@ export function Footer() {
 //#f8fafc
 
  
-
 

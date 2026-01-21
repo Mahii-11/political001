@@ -123,9 +123,9 @@ export default function About() {
                 transition={{ duration: 0.5 }}
               >
                 <img
-                  src="images/hamid05.jpg"
+                  src="images/hamid06.jpg"
                   alt="Team Meeting"
-                  className="rounded-lg shadow-xl w-full"
+                  className="rounded-lg shadow-xl w-full bg-cover h-full"
                 />
               </motion.div>
 

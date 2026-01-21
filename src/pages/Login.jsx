@@ -27,10 +27,10 @@ export default function Login() {
         "ইমেইল অথবা 017 দিয়ে শুরু হওয়া ১১ সংখ্যার মোবাইল নম্বর দিন";
     }
 
-    if (!passwordRegex.test(password)) {
+   {/* if (!passwordRegex.test(password)) {
       newErrors.password =
         "পাসওয়ার্ড কমপক্ষে ৮ অক্ষর এবং একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে";
-    }
+    }*/}
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -120,9 +120,11 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              {errors.password && (
+             
+                {errors.password && (
                 <p className="text-red-600 text-sm mt-1">{errors.password}</p>
               )}
+              
             </div>
 
             {/* Forgot Password */}

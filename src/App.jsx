@@ -23,6 +23,8 @@ import ContributionPage from "./components/ContributionPage ";
 import ContributionPageTwo from "./components/ContributionPageTwo";
 import ContributionPageThree from "./components/ContributionPageThree";
 import ContributionPageFour from "./components/ContributionPageFour";
+import ContributionPageSix from "./components/ContributionPageSix";
+import ContributionPageFive from "./components/ContributionPageFive";
 
 
 const router = createBrowserRouter([
@@ -52,6 +54,8 @@ const router = createBrowserRouter([
       { path: "/biography/contribution-2", element: <ContributionPageTwo /> },
       { path: "/biography/contribution-3", element: <ContributionPageThree /> },
       { path: "/biography/contribution-4", element: <ContributionPageFour /> },
+      { path: "/biography/contribution-5", element: <ContributionPageFive /> },
+      { path: "/biography/contribution-6", element: <ContributionPageSix /> },
       
     ],
   },

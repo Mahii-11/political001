@@ -383,13 +383,14 @@ export function VolunteerForm() {
               ওয়ার্ড নির্বাচন করুন
             </label>
             <select
+              name="ward_no"
               value={selectedWard}
               onChange={(e) => setSelectedWard(e.target.value)}
               className="w-full rounded-lg border border-blue-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               <option value="">-- ওয়ার্ড নির্বাচন করুন --</option>
               {wards.map((ward) => (
-                <option key={ward.id} value={ward.name}>
+                <option key={ward.id} value={ward.id}>
                   ওয়ার্ড - {ward.name}
                 </option>
               ))}

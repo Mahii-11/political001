@@ -32,7 +32,7 @@ export function Navbar() {
       transition={{ duration: 0.5 }}
       className="bg-white shadow-sm sticky top-0 z-50"
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-1 lg:px-4">
         <div className="flex items-center justify-between h-20">
           <Link
             to="/"
@@ -50,7 +50,7 @@ export function Navbar() {
               <div className="flex flex-col justify-center mt-4">
                 <div className="text-green-700 font-extrabold md:text-3xl text-2xl tracking-wider leading-tight font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
-                  <p className="text-xs hidden md:block"> ঢাকা-৭ আসনে বিএনপি মনোনীত প্রার্থী।</p>
+                   <p className="text-xs hidden md:block font-bangla text-black"> ঢাকা-৭ আসনে বিএনপি মনোনীত প্রার্থী।</p>
                 </div>
               </div>
               <img

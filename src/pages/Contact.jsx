@@ -20,7 +20,7 @@ import {
 } from "../components/ui/form";
 import { useToast } from "../hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "../lib/queryClient";
+import { storeContact } from "@/services/api";
 
 // Schema remains same (JS compatible)
 const contactSchema = z.object({
@@ -68,20 +68,30 @@ export default function Contact() {
   });
 
   const contactMutation = useMutation({
-    mutationFn: (data) => apiRequest("POST", "/api/contact", data),
-    onSuccess: () => {
-      toast({
-        title: "Message Sent!",
-        description: "We'll get back to you as soon as possible.",
+    mutationFn: storeContact,
+    onSuccess: (res) => {
+      console.log("SUCCESS RES ===>", res);
+      if (res.success) {
+         toast({
+        title: "বার্তা পাঠানো হয়েছে ✅",
+        description: res.message || "আমরা শীঘ্রই আপনার সাথে যোগাযোগ করবো।",
       });
       form.reset();
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
+      } else {
+        toast({
+        title: "সমস্যা হয়েছে",
+        description: "দয়া করে আবার চেষ্টা করুন",
         variant: "destructive",
-      });
+        })
+      }
+    },
+    onError: (error) => {
+     toast({
+      title: "Server Error ❌",
+      description: "এই মুহূর্তে বার্তা পাঠানো যাচ্ছে না",
+      variant: "destructive",
+    });
+     console.error(error);
     },
   });
 
@@ -216,7 +226,7 @@ export default function Contact() {
                                 <FormLabel>আপনার নাম</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="জন ডো"
+                                    placeholder="আপনার পূর্ণ নাম লিখুন"
                                     {...field}
                                     data-testid="input-contact-name"
                                   />
@@ -233,7 +243,7 @@ export default function Contact() {
                                 <FormLabel>ইমেইল</FormLabel>
                                 <FormControl>
                                   <Input
-                                    placeholder="john@example.com"
+                                    placeholder="আপনার ইমেইল টি লিখুন"
                                     {...field}
                                     data-testid="input-contact-email"
                                   />
@@ -251,7 +261,7 @@ export default function Contact() {
                               <FormLabel>বিষয়</FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="আপনার কীভাবে সাহায্য করতে পারি?"
+                                  placeholder="আপনাকে কীভাবে সাহায্য করতে পারি?"
                                   {...field}
                                   data-testid="input-contact-subject"
                                 />

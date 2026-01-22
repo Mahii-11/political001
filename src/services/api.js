@@ -1,4 +1,5 @@
-import { string } from "zod";
+//import { string } from "zod";
+import axios from "axios";
 
 const API_BASE_URL = "https://election-backend.dotzpos.com/api";
 
@@ -179,8 +180,8 @@ export async function getVolunteerAssignList() {
       {
         method: "GET",
         headers: {
-          //"Authorization": `Bearer ${token}`,
-          "Authorization": `Bearer 102|q61fs6tSAIJTBCehaSyr8Cm0Hjt8Fu6G0bHRYpDWdbd991e5`,
+          "Authorization": `Bearer ${token}`,
+          //"Authorization": `Bearer 102|q61fs6tSAIJTBCehaSyr8Cm0Hjt8Fu6G0bHRYpDWdbd991e5`,
           "Accept": "application/json",
         },
       }
@@ -314,3 +315,17 @@ export async function postFormData(endpoint, formData) {
 export async function storeComplaint(formData) {
   return postFormData("/store-complain", formData);
 }
+
+export const storeContact = async (data) => {
+  const response = await axios.post(
+    `${API_BASE_URL}/store-contact`,
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.data;
+};

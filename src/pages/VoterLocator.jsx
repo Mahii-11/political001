@@ -1,23 +1,42 @@
-/* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef  } from "react";
 import { FaFilePdf, FaSms } from "react-icons/fa";
+import html2pdf from "html2pdf.js";
 import { getWards, getVoters } from "../services/voterapi";
 import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { Footer } from "@/components/layout/Footer"; 
+import VoterSlip from "./VoterSlip";
+
+const enToBn = {0:"০",1:"১",2:"২",3:"৩",4:"৪",5:"৫",6:"৬",7:"৭",8:"৮",9:"৯"};
+const bnToEn = {"০":"0","১":"1","২":"2","৩":"3","৪":"4","৫":"5","৬":"6","৭":"7","৮":"8","৯":"9"};
+const toBangla = (v="") => v.replace(/[0-9]/g, (d)=>enToBn[d]);
+const toEnglish = (v="") => v.replace(/[০-৯]/g, (d)=>bnToEn[d]);
+const isValidBDNumber = (num) => /^01[3-9]\d{8}$/.test(num);
+const normalizeBanglaTyping = (str = "") =>
+  str
+    .normalize("NFC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, ""); 
+
+const normalizeBanglaFinal = (str = "") =>
+  str
+    .normalize("NFC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+
 
 export default function VoterLocator() {
   const [wards, setWards] = useState([]);
   const [voters, setVoters] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    date_of_birth: "",
-    ward_no: "",
-  });
-
+  const [smsOpen, setSmsOpen] = useState(false);
+  const [smsPhone, setSmsPhone] = useState("");
+  const [smsLoading, setSmsLoading] = useState(false);
+  const [smsStatus, setSmsStatus] = useState("");
+  const [selectedVoter, setSelectedVoter] = useState(null);
+   
   useEffect(() => {
     const fetchWards = async () => {
       try {
@@ -36,151 +55,168 @@ export default function VoterLocator() {
     fetchWards();
   }, []);
 
-  // =========================
-  // Bangla Mapping
-  // =========================
-  const englishToBanglaMap = {
-    a: "া",
-    b: "ব",
-    c: "চ",
-    d: "দ",
-    e: "ে",
-    f: "ফ",
-    g: "গ",
-    h: "হ",
-    i: "ি",
-    j: "জ",
-    k: "ক",
-    l: "ল",
-    m: "ম",
-    n: "ন",
-    o: "ো",
-    p: "প",
-    q: "ক",
-    r: "র",
-    s: "স",
-    t: "ত",
-    u: "ু",
-    v: "ভ",
-    w: "ও",
-    x: "ক্স",
-    y: "য",
-    z: "জ",
-    " ": " ",
+
+  
+  const [formData, setFormData] = useState({
+    name: "",
+    date_of_birth: "",
+    ward_no: "",
+  });
+
+   const pdfRefs = useRef({}); 
+   const prevDobRef = useRef("");
+
+
+
+const sendSMS = async () => {
+  if (!isValidBDNumber(smsPhone)) {
+    setSmsStatus("❌ সঠিক মোবাইল নম্বর দিন");
+    return;
+  }
+
+  setSmsLoading(true);
+  setSmsStatus("");
+
+  const payload = {
+    phone: smsPhone,
+    message: `
+ভোটার তথ্য:
+নাম: ${selectedVoter.name}
+ভোটার নং: ${selectedVoter.voter_no}
+কেন্দ্র: ${selectedVoter.center_name}
+ওয়ার্ড: ${selectedVoter.ward_no}
+`,
   };
 
-  const enToBnNumberMap = {
-    0: "০",
-    1: "১",
-    2: "২",
-    3: "৩",
-    4: "৪",
-    5: "৫",
-    6: "৬",
-    7: "৭",
-    8: "৮",
-    9: "৯",
-  };
-  const bnToEnNumberMap = {
-    "০": "0",
-    "১": "1",
-    "২": "2",
-    "৩": "3",
-    "৪": "4",
-    "৫": "5",
-    "৬": "6",
-    "৭": "7",
-    "৮": "8",
-    "৯": "9",
-  };
-
-  const convertToBangla = (text) =>
-    text
-      .split("")
-      .map((c) => englishToBanglaMap[c.toLowerCase()] || c)
-      .join("");
-
-  const convertToBanglaNumber = (text) =>
-    text
-      .split("")
-      .map((c) => enToBnNumberMap[c] || c)
-      .join("");
-
-  const convertToEnglishNumber = (text) =>
-    text
-      .split("")
-      .map((c) => bnToEnNumberMap[c] || c)
-      .join("");
-
-  // =========================
-  // Name field handler → English/Bangla → Bangla
-  // =========================
-  const handleNameInput = (e) => {
-    const banglaText = convertToBangla(e.target.value);
-    setFormData((prev) => ({ ...prev, name: banglaText }));
-  };
-
-  // =========================
-  // DOB field handler → smart, auto /, auto 0
-  // =========================
-  const handleDOBInput = (e) => {
-    let raw = e.target.value;
-
-    // Convert Bangla digits to English for processing
-    raw = convertToEnglishNumber(raw);
-
-    // Remove invalid characters (allow only digits & slash)
-    raw = raw.replace(/[^0-9/]/g, "");
-
-    // Remove extra slashes at the end
-    raw = raw.replace(/\/+$/, "");
-
-    // Split by slash
-    let parts = raw.split("/");
-
-    // Auto 0 for single-digit day/month
-    parts = parts.map((p, i) => {
-      if (i < 2) {
-        if (p.length === 1) p = "0" + p;
-        if (p.length > 2) p = p.slice(0, 2);
-      }
-      if (i === 2 && p.length > 4) p = p.slice(0, 4); // max 4 digits for year
-      return p;
+  try {
+    const res = await fetch("/api/send-sms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
 
-    // Auto-add slash after day/month if user types continuous digits
-    let finalValue = "";
-    if (parts.length === 1) {
-      finalValue = parts[0];
-      if (parts[0].length === 2) finalValue += "/";
-    } else if (parts.length === 2) {
-      finalValue = parts[0] + "/" + parts[1];
-      if (parts[1].length === 2) finalValue += "/";
-    } else finalValue = parts.join("/");
+    const data = await res.json();
 
-    // Convert to Bangla digits
-    const bangla = convertToBanglaNumber(finalValue);
+    if (data.success) {
+      setSmsStatus("✅ SMS সফলভাবে পাঠানো হয়েছে");
+    } else {
+      setSmsStatus("❌ SMS পাঠানো যায়নি");
+    }
+  } catch (err) {
+    setSmsStatus("❌ সার্ভার সমস্যা হয়েছে");
+  } finally {
+    setSmsLoading(false);
+  }
+};
 
-    setFormData((prev) => ({ ...prev, date_of_birth: bangla }));
-  };
+const downloadVoterPDF = (voter) => {
+  if (!voter || !voter.id) return;
 
-  const handleDOBBlur = () => {
-    // Final formatting on blur
-    let raw = convertToEnglishNumber(formData.date_of_birth);
-    raw = raw.replace(/[^0-9/]/g, "");
-    let parts = raw.split("/");
-    parts = parts.map((p, i) => {
-      if (i < 2 && p.length === 1) p = "0" + p;
-      if (i === 2 && p.length > 4) p = p.slice(0, 4);
-      return p;
-    });
-    setFormData((prev) => ({
+  const element = pdfRefs.current[voter.id];
+  if (!element) return;
+
+  const opt = {
+    margin: 5, 
+    filename: `${voter.name || "voter"}-card.pdf`,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      scrollY: 0,
+    },
+    jsPDF: {
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait",
+    },
+  };  
+    html2pdf().set(opt).from(element).save();
+};
+
+const handleDOBChange = (e) => {
+  const input = e.target;
+  const cursor = input.selectionStart;
+
+  let raw = toEnglish(input.value);
+  const prev = prevDobRef.current;
+
+  // 🔴 Mobile + PC friendly delete detect
+  const isDeleting = raw.length < toEnglish(prev).length;
+
+  if (isDeleting) {
+    // যদি শেষে "/" থাকে, সেটাও কেটে দাও
+    if (raw.endsWith("/")) {
+      raw = raw.slice(0, -1);
+    }
+
+    const bangla = toBangla(raw);
+
+    setFormData(prev => ({
       ...prev,
-      date_of_birth: convertToBanglaNumber(parts.join("/")),
+      date_of_birth: bangla
     }));
-  };
 
-  const handleChange = (e) => {
+    prevDobRef.current = bangla;
+
+    requestAnimationFrame(() => {
+      input.setSelectionRange(cursor, cursor);
+    });
+
+    return;
+  }
+
+  // 🟢 Normal typing logic (আগের মতোই)
+  raw = raw.replace(/\D/g, "");
+  raw = raw.slice(0, 8);
+
+  let formatted = "";
+
+  if (raw.length >= 2) {
+    formatted += raw.slice(0, 2) + "/";
+  } else {
+    formatted += raw;
+  }
+
+  if (raw.length >= 4) {
+    formatted += raw.slice(2, 4) + "/";
+  } else if (raw.length > 2) {
+    formatted += raw.slice(2);
+  }
+
+  if (raw.length > 4) {
+    formatted += raw.slice(4);
+  }
+
+  const banglaValue = toBangla(formatted);
+
+  setFormData(prev => ({
+    ...prev,
+    date_of_birth: banglaValue
+  }));
+
+  prevDobRef.current = banglaValue;
+
+  requestAnimationFrame(() => {
+    let newCursor = cursor;
+
+    if (formatted.endsWith("/") && cursor === formatted.length - 1) {
+      newCursor += 1;
+    }
+
+    input.setSelectionRange(newCursor, newCursor);
+  });
+};
+
+const handleNameInput = (e) => {
+  const raw = e.target.value;
+  const clean = normalizeBanglaTyping(raw);
+
+  setFormData((prev) => ({
+    ...prev,
+    name: clean,
+  }));
+};
+ const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -188,7 +224,7 @@ export default function VoterLocator() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
@@ -204,12 +240,14 @@ export default function VoterLocator() {
       return;
     }
 
-    const finalDOB = convertToEnglishNumber(formData.date_of_birth);
-    const formattedDOB = finalDOB
-      .split("/")
-      .map((p, i) => (i < 2 && p.length === 1 ? "0" + p : p))
-      .join("/");
-    const banglaDOB = convertToBanglaNumber(formattedDOB);
+    let raw = toEnglish(formData.date_of_birth);
+    let parts = raw.split("/");
+
+    if(parts[0]?.length===1) parts[0]="0"+parts[0];
+    if(parts[1]?.length===1) parts[1]="0"+parts[1];
+    if(parts[2]) parts[2] = parts[2].slice(0,4);
+
+    const banglaDOB = toBangla(parts.join("/"));
 
     const params = {
       ward_no: formData.ward_no,
@@ -227,12 +265,17 @@ export default function VoterLocator() {
       console.log(" Voter API full response:", response);
       if (response?.success && Array.isArray(response.data)) {
         // Filter client-side to ensure exact match
-        const filtered = response.data.filter(
-          (voter) =>
+         const filtered = response.data.filter((voter) => {
+           const apiName = normalizeBanglaFinal(voter.name);
+           const inputName = normalizeBanglaFinal(formData.name);
+
+           return (
             voter.ward_no === formData.ward_no &&
             voter.date_of_birth === banglaDOB &&
-            voter.name.includes(formData.name)
-        );
+          (inputName ? apiName.includes(inputName) : true)
+             );
+            });
+
 
         {
           /*&&
@@ -257,6 +300,8 @@ export default function VoterLocator() {
     }
   };
 
+
+
   return (
     <>
       <Navbar />
@@ -269,7 +314,7 @@ export default function VoterLocator() {
           <input
             type="text"
             name="name"
-            placeholder="নাম (শুধু বাংলা)"
+            placeholder="আপনার নাম শুধুমাত্র বাংলায় লিখুন"
             value={formData.name}
             onChange={handleNameInput}
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
@@ -278,10 +323,10 @@ export default function VoterLocator() {
           <input
             type="text"
             name="date_of_birth"
-            placeholder="জন্ম তারিখ (শুধু বাংলা সংখ্যা)"
+            placeholder="তারিখ/মাস/বছর"
             value={formData.date_of_birth}
-            onChange={handleDOBInput}
-            onBlur={handleDOBBlur}
+            onChange={handleDOBChange}
+            inputMode="numeric"
             className="border p-2 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
 
@@ -318,65 +363,142 @@ export default function VoterLocator() {
               ভোটার তালিকা ({voters.length})
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {voters.map((voter) => (
-                <div
-                  key={voter.id}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg border border-gray-200 transition duration-300"
-                >
-                  {/* Header */}
-                  <div className="p-4 bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-t-xl border-b border-gray-100">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {voter.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 mt-1">
-                      ওয়ার্ড {voter.ward_no}
-                    </p>
-                  </div>
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+         {voters.map((voter) => (
+        <div
+           key={voter.id}
+           className="flex flex-col bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
+       >
+      {/* Header */}
+      <div className="p-4 bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-t-2xl border-b">
+        <h3 className="text-lg font-semibold text-gray-900 truncate">
+          {voter.name}
+        </h3>
+         <p>
+          <span className="font-medium text-gray-900">জন্ম তারিখ:</span>{" "}
+          {voter.date_of_birth}
+        </p>
+        <p className="text-sm text-gray-500 mt-1">
+          ওয়ার্ড {voter.ward_no}
+        </p>
+        <br />
+        <p>
+          <span className="text-gray-900 font-semibold">ভোট কেন্দ্র:</span>{" "}
+           <span className="font-semibold">{voter.center_name}</span>
+        </p>
+      </div>
 
-                  {/* Body */}
-                  <div className="p-4 space-y-2 text-gray-700 text-sm">
-                    <p>
-                      <span className="font-medium text-gray-900">
-                        জন্ম তারিখ:
-                      </span>{" "}
-                      {voter.date_of_birth}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">
-                        ভোট কেন্দ্র:
-                      </span>{" "}
-                      {voter.center_name}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">পিতা:</span>{" "}
-                      {voter.father}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">মাতা:</span>{" "}
-                      {voter.mother}
-                    </p>
-                    <p className="text-gray-600 text-xs leading-relaxed">
-                      <span className="font-medium text-gray-900">ঠিকানা:</span>{" "}
-                      {voter.address}
-                    </p>
+      {/* Body */}
+      <div className="p-4 flex-1 space-y-2 text-sm text-gray-700">
+       
 
-                    {/* Buttons */}
-                    <div className="mt-4 flex gap-3">
-                      <button className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-md text-sm hover:bg-red-700 transition hover:scale-105">
-                        <FaFilePdf size={14} /> PDF ডাউনলোড
-                      </button>
-                      <button className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-md text-sm hover:bg-green-700 transition hover:scale-105">
-                        <FaSms size={14} /> SMS পাঠান
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+         <p>
+          <span className="font-medium text-gray-900">ক্রমিক নম্বর:</span>{" "}
+          {voter.pdf_serial}
+        </p>
+         
+         <p>
+          <span className="font-medium text-gray-900">ভোটার নম্বর:</span>{" "}
+          {voter.voter_no}
+        </p>
+
+         <p>
+          <span className="font-medium text-gray-900">লিঙ্গ :</span>{" "}
+          {voter.voter_type}
+        </p>                                                                          
+        <p>
+          <span className="font-medium text-gray-900">পিতা:</span>{" "}
+          {voter.father}
+        </p>
+
+        <p>
+          <span className="font-medium text-gray-900">মাতা:</span>{" "}
+          {voter.mother}
+        </p>
+
+        <p className="text-xs text-gray-600 leading-relaxed">
+          <span className="font-medium text-gray-900">ঠিকানা:</span>{" "}
+          {voter.address}
+        </p>
+      </div>
+
+      <div className="p-4 pt-0 flex gap-3">
+       <button  onClick={() => downloadVoterPDF(voter)}
+          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition"
+      >
+      <FaFilePdf size={14} /> PDF
+      </button>
+        <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-transform duration-200 hover:scale-[1.02] active:scale-95"
+        onClick={() => {
+          setSelectedVoter(voter);
+          setSmsOpen(true);
+          setSmsStatus("");
+          setSmsPhone("");
+        }}
+        >
+          <FaSms size={14} /> SMS
+        </button>
+      <div style={{ position: 'absolute', left: '-9999px', top: 0 }}>
+        <VoterSlip ref={(el) => (pdfRefs.current[voter.id] = el)} voter={voter} />
+     </div>
+      </div> 
+      </div>
+       ))}
+        </div>
+         </div>
         )}
       </div>
+      {smsOpen && (  
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="bg-white w-full max-w-md rounded-xl p-6 shadow-lg animate-fadeIn">
+
+      <h3 className="text-lg font-bold mb-4">SMS পাঠান</h3>
+
+      <input
+        type="text"
+        placeholder="মোবাইল নম্বর (01XXXXXXXXX)"
+        value={smsPhone}
+        maxLength={11}
+        onChange={(e) => setSmsPhone(e.target.value.replace(/\D/g, ""))}
+         className={`w-full border p-2 pr-10 rounded focus:ring-2 focus:outline-none
+      ${
+        isValidBDNumber(smsPhone)
+          ? "border-green-500 focus:ring-green-500"
+          : "focus:ring-green-500"
+      }
+    `}
+      />
+
+       {isValidBDNumber(smsPhone) && (
+    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 text-lg font-bold pointer-events-none">
+      ✔
+    </span>
+  )}
+
+      {smsStatus && (
+        <p className="mt-3 text-sm font-medium">{smsStatus}</p>
+      )}
+
+      <div className="flex justify-end gap-3 mt-6">
+        <button
+          onClick={() => setSmsOpen(false)}
+          className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+        >
+          বাতিল
+        </button>
+
+        <button
+          onClick={sendSMS}
+           disabled={smsLoading || !isValidBDNumber(smsPhone)}
+          className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-60"
+        >
+          {smsLoading ? "পাঠানো হচ্ছে..." : "Send SMS"}
+        </button>
+      </div>
+
+    </div>
+  </div>
+      )}
       <Footer />
     </>
   );

@@ -114,7 +114,7 @@ export default function Dhaka7Page() {
               transition={{ delay: i * 0.1 }}
               className="bg-gray-50 p-6 rounded-2xl shadow hover:shadow-xl text-center"
             >
-              <div className="text-blue-500 text-4xl mb-4">{item.icon}</div>
+              <div className="text-green-700 text-4xl mb-4">{item.icon}</div>
               <h3 className="text-xl font-semibold mb-2">{item.label}</h3>
               <p className="text-gray-600">{item.value}</p>
             </motion.div>
@@ -139,7 +139,7 @@ export default function Dhaka7Page() {
               whileHover={{ y: -6 }}
               className="bg-gray-50 p-6 rounded-2xl shadow text-center"
             >
-              <div className="text-blue-500 text-4xl mb-4">{issue.icon}</div>
+              <div className="text-green-700 text-4xl mb-4">{issue.icon}</div>
               <h3 className="text-xl font-semibold mb-2">{issue.title}</h3>
               <p className="text-gray-600">{issue.desc}</p>
             </motion.div>
@@ -167,7 +167,7 @@ export default function Dhaka7Page() {
         >
           কোন সমস্যাটি সবচেয়ে বেশি গুরুত্বপূর্ণ মনে করেন? আমাদের জানান।
         </motion.p>
-        <button className="bg-blue-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-blue-700 transition">
+        <button className="bg-green-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-green-700 transition">
           <Link to="/contact">মতামত পাঠান</Link>
         </button>
       </section>

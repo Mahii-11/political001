@@ -42,33 +42,12 @@ const accordionData = [
   {
     title: "জন্ম ও পারিবারিক পরিচিতি",
     content:
-      "জনাব হামিদুর রহমান হামিদ ১৯৬৫ সালের ১ জানুয়ারি ঢাকায় জন্মগ্রহণ করেন। তাঁর পরিবার রাজনৈতিকভাবে সক্রিয় এবং সমাজসেবামূলক কাজে দীর্ঘদিন জড়িত রয়েছে।",
+      "১৯৬৭ সালের ২০শে জানুয়ারি পুরান ঢাকার এক সম্ভ্রান্ত রক্ষণশীল মুসলিম পরিবারে জন্মগ্রহণ করেন। তাঁর পিতার নাম মরহুম গোলাপ রহমান এবং মাতার নাম মরহুমা মরিয়ম বেগম। তিনি বিবাহিত, স্ত্রী শামীমা পারভীন ও একমাত্র ছেলে শাফি ইসমাম ইফতি।",
     color: "bg-green-600",
   },
 ];
 
-const teamMembers = [
-  {
-    name: "হামিদুর রহমান হামিদ",
-    role: "",
-    image: "images/hamidbhai.jpg",
-  },
-  {
-    name: "হামিদুর রহমান হামিদ",
-    role: "",
-    image: "images/hamidbhai.jpg",
-  },
-  {
-    name: "হামিদুর রহমান হামিদ",
-    role: "",
-    image: "images/bnp neta.jpg",
-  },
-  {
-    name: "হামিদুর রহমান হামিদ",
-    role: "",
-    image: "images/bnp neta.jpg",
-  },
-];
+
 
 const milestones = [
   { year: "২০১৯", event: "প্রচারণার সূচনা" },
@@ -144,9 +123,9 @@ export default function About() {
                 transition={{ duration: 0.5 }}
               >
                 <img
-                  src="images/Hamid.jpg"
+                  src="images/hamid06.jpg"
                   alt="Team Meeting"
-                  className="rounded-lg shadow-xl w-full"
+                  className="rounded-lg shadow-xl w-full bg-cover h-full"
                 />
               </motion.div>
 

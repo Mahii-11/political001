@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
+//import { FaBriefcase,  FaUsers } from "react-icons/fa";
+//import { GiFarmer, GiSoccerBall, GiTempleGate } from "react-icons/gi";
 import {
   Shield,
   Heart,
@@ -52,6 +54,7 @@ const policies = [
     description:
       "সমতার প্রচার, নাগরিক অধিকার রক্ষা এবং আমাদের বৈচিত্র্যময় সমাজের সকলের জন্য ন্যায় নিশ্চিত করা।",
   },
+ 
 ];
 
 export default function Campaign() {
@@ -63,52 +66,75 @@ export default function Campaign() {
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
           <div className="absolute top-24 left-1/2 -translate-x-1/2 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl" />
 
-          <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-block mb-6 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700"
-            >
-              প্রতিশ্রুতি
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
-              data-testid="text-biography-title"
-            >
-              আমার নির্বাচনী প্রতিশ্রুতি
-            </motion.h1>
+         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 flex flex-col items-center justify-center">
+  {/* Background Gradient + Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r from-emerald-100 via-white to-rose-100 opacity-40 -z-10"></div>
+  <div className="absolute inset-0 bg-white/20 backdrop-blur-xl -z-10"></div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              className="mx-auto max-w-2xl text-base md:text-lg text-slate-600 leading-relaxed"
-            >
-              আমি প্রতিশ্রুতি দিচ্ছি স্বচ্ছতা, ন্যায়পরায়ণতা এবং জনগণের
-              কণ্ঠস্বরকে সর্বোচ্চ গুরুত্ব দেওয়ার। আপনার আস্থা ও সমর্থন আমাদেরকে
-              এক শক্তিশালী ও সমৃদ্ধ সমাজ গঠনের পথে এগিয়ে নিয়ে যাবে।
-            </motion.p>
+  {/* Main Wrapper */}
+  <div className="relative w-full flex items-center justify-center">
+    
+    {/* Left Image */}
+    <img
+      src="/images/tarique-1.png"
+      alt="নেত্রী"
+      className="hidden md:block absolute left-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl  object-cover"
+    />
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
-            >
-              <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
+    {/* Main Content */}
+    <div className="text-center max-w-2xl mx-4 md:mx-0">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="inline-block mb-6 rounded-full border border-emerald-300 bg-emerald-100 px-6 py-2 text-sm font-semibold text-emerald-800 shadow-sm"
+      >
+        প্রতিশ্রুতি
+      </motion.div>
 
-              <p className="relative text-sm md:text-base text-slate-700">
-                আমার নির্বাচনী প্রতিশ্রুতি জনগণের সেবা ও কল্যাণকে কেন্দ্র করে
-                গঠিত। প্রতিটি উদ্যোগ, নীতি ও কর্মপরিকল্পনা মানুষের জীবন মান
-                উন্নয়ন এবং সমাজে ন্যায় ও সমতার নিশ্চয়তা দেওয়ার লক্ষ্য নিয়ে
-                গ্রহণ করা হবে।
-              </p>
-            </motion.div>
-          </div>
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight"
+        data-testid="text-biography-title"
+      >
+        আমার নির্বাচনী প্রতিশ্রুতি
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className="mx-auto text-base md:text-lg text-slate-700 leading-relaxed"
+      >
+        আমি প্রতিশ্রুতি দিচ্ছি স্বচ্ছতা, ন্যায়পরায়ণতা এবং জনগণের
+        কণ্ঠস্বরকে সর্বোচ্চ গুরুত্ব দেওয়ার। আপনার আস্থা ও সমর্থন আমাদেরকে
+        এক শক্তিশালী ও সমৃদ্ধ সমাজ গঠনের পথে এগিয়ে নিয়ে যাবে।
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="mt-10 mx-auto rounded-3xl border border-slate-200 bg-white/60 backdrop-blur-xl p-6 shadow-xl relative overflow-hidden"
+      >
+        <div className="absolute -inset-x-10 top-0 h-28 rounded-full bg-rose-300/20 blur-3xl" />
+        <p className="relative text-sm md:text-base text-slate-800 leading-relaxed">
+          দীর্ঘ ৩৯ বৎসর আপনাদের সন্তান হিসাবে পুরাতন ঢাকার রাজনীতির সাথে জড়িত। জাতীয় স্বার্থে সক্রিয় রাজনীতি করেছি। গণতান্ত্রিক বাংলাদেশ প্রতিষ্ঠায় সকল আন্দোলনে যুক্ত থেকে তৃনমূল থেকে রাজনীতি করেছি বিধায় এলাকার সকলের সাথে আমার আত্মিক সম্পর্ক। কেউ ভাই, কেউ বন্ধু, কেউবা সুহৃদ। আমি আপনাদের পুরাতন ঢাকার সন্তান, তাই আপনাদের প্রতিনিধিত্ব করবো এটাই ন্যায্য।
+        </p>
+      </motion.div>
+    </div>
+
+   
+    <img
+      src="/images/hamid04.jpg"
+      alt="জিয়াউর রহমান"
+      className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl  object-cover"
+    />
+      </div>
+      </div>
+
         </section>
         <section className="py-20 bg-political-light">
           <div className="max-w-7xl mx-auto px-4 md:px-8">

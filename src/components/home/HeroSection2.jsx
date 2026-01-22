@@ -73,16 +73,13 @@ export function HeroSection2() {
                   className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 flex flex-col gap-2 font-bangla"
                 >
                   <motion.span variants={lineVariants}>
-                    একটি সুন্দর ও
+                   সবার আগে
                   </motion.span>
                   <motion.span
                     variants={lineVariants}
                     className="text-green-700"
                   >
-                    ঐক্যবদ্ধ আগামী
-                  </motion.span>
-                  <motion.span variants={lineVariants}>
-                    গড়ার প্রত্যয়ে
+                     বাংলাদেশ
                   </motion.span>
                 </motion.h1>
 
@@ -92,7 +89,7 @@ export function HeroSection2() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="text-white/85 text-base md:text-lg leading-relaxed mb-10"
                 >
-                  {topdata.description}
+                  সবার আগে বাংলাদেশ—দেশ ও জনগণের কল্যাণকে সর্বোচ্চ অগ্রাধিকার দিয়ে একটি ন্যায়ভিত্তিক ও সমৃদ্ধ বাংলাদেশের প্রত্যয়।
                 </motion.p>
               </div>
             ))}

@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
-import heroBg from "../../assets/thumbnails/bgimage.jpg";
+import heroBg from "../../assets/thumbnails/netabg-3.jpg";
 import { ArrowRight } from "lucide-react";
 
 const containerVariants = {

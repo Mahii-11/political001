@@ -32,14 +32,14 @@ export function Navbar() {
       transition={{ duration: 0.5 }}
       className="bg-white shadow-sm sticky top-0 z-50"
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-1 lg:px-4">
         <div className="flex items-center justify-between h-20">
           <Link
             to="/"
             data-testid="link-home-logo"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <div className="flex items-center gap-2 md:gap-4 mr-4 md:mr-8">
+            <div className="flex items-center gap-3 md:gap-4 mr-4 md:mr-8">
               <img
                 src="/images/image42.png"
                 alt="Campaign Logo"
@@ -47,19 +47,17 @@ export function Navbar() {
                  object-cover object-top
                  hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
               />
-
               <div className="flex flex-col justify-center mt-4">
                 <div className="text-green-700 font-extrabold md:text-3xl text-2xl tracking-wider leading-tight font-bangla">
                   হামিদুর <span className="text-political-red">রহমান</span>
                 </div>
+                <p className="text-xs hidden md:block font-bangla text-gray-600"> ঢাকা-৭ আসনে বিএনপি মনোনীত প্রার্থী</p>
               </div>
-
-              {/* Secondary logo */}
               <img
-                src="/images/logo-1.jpg"
+                src="/images/bnplogo.png"
                 alt="Campaign Logo"
-                className="h-14 w-14 md:h-20 md:w-20 object-contain hover:scale-105
-                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
+                className="h-20 w-20 md:h-24 md:w-24 object-contain hover:scale-105
+                 hover:drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)] -ml-6"
               />
             </div>
           </Link>

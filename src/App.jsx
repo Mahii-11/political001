@@ -1,10 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "./components/ui/toaster";
 import { TooltipProvider } from "./components/ui/tooltip";
-
 import Home from "./pages/Home";
 import Biography from "./pages/Biography";
 import Gallery from "./pages/Gallery";
@@ -20,6 +18,14 @@ import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import VoterSlip from "./pages/VoterSlip";
+import ContributionPage from "./components/ContributionPage ";
+import ContributionPageTwo from "./components/ContributionPageTwo";
+import ContributionPageThree from "./components/ContributionPageThree";
+import ContributionPageFour from "./components/ContributionPageFour";
+import ContributionPageSix from "./components/ContributionPageSix";
+import ContributionPageFive from "./components/ContributionPageFive";
+
 
 const router = createBrowserRouter([
   {
@@ -43,6 +49,14 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      { path: "/voter-slip", element: <VoterSlip/>},
+      { path: "/biography/contribution-1", element: <ContributionPage /> },
+      { path: "/biography/contribution-2", element: <ContributionPageTwo /> },
+      { path: "/biography/contribution-3", element: <ContributionPageThree /> },
+      { path: "/biography/contribution-4", element: <ContributionPageFour /> },
+      { path: "/biography/contribution-5", element: <ContributionPageFive /> },
+      { path: "/biography/contribution-6", element: <ContributionPageSix /> },
+      
     ],
   },
 ]);

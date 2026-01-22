@@ -4,7 +4,7 @@ import { FaFilePdf, FaSms } from "react-icons/fa";
 import html2pdf from "html2pdf.js";
 import { getWards, getVoters } from "../services/voterapi";
 import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { Footer } from "@/components/layout/Footer"; 
 import VoterSlip from "./VoterSlip";
 
 const enToBn = {0:"০",1:"১",2:"২",3:"৩",4:"৪",5:"৫",6:"৬",7:"৭",8:"৮",9:"৯"};

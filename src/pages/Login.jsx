@@ -52,7 +52,7 @@ export default function Login() {
         password,
       });
 
-      localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("accessToken", response.token);
       localStorage.setItem("user", JSON.stringify(response.user));
 
       navigate("/dashboard");
@@ -67,7 +67,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar /> 
 
       <div className="flex-grow flex items-center justify-center bg-gradient-to-b from-slate-50 via-white to-slate-100 px-4">
         {/* Background Blur */}

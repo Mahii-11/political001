@@ -18,7 +18,7 @@ export function Navbar() {
   { label: "আমাদের সম্পর্কে", href: "/about" },
   { label: "জীবনী", href: "/biography" },
   { label: "গ্যালারি", href: "/gallery" },
-  { label: "স্বেচ্ছাসেবক হোন", href: "/volunteer/new" },
+  { label: "সমাজসেবক হোন", href: "/volunteer/new" },
   { label: "যোগাযোগ", href: "/contact" },
   { label: "অভিযোগ", href: "/complaint" },
   !isLoggedIn && { label: "লগইন", href: "/login" },

@@ -1,137 +1,40 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
+import { Home, Building2, CreditCard } from "lucide-react";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import IDCard from "./IdCard";
+import UserProfile from "./UserProfile";
+import Survey from "./Survey";
+import { ChevronDown, User, Lock, LogOut } from "lucide-react";
 
-export const IDCard = forwardRef(({ user }, ref) => {
-  const cardRef = useRef(null);
-
-  const downloadPDF = async () => {
-    const canvas = await html2canvas(cardRef.current, {
-      scale: 2,
-      useCORS: true,
-    });
-
-    const imgData = canvas.toDataURL("image/jpeg");
-
-    const pdf = new jsPDF({
-      unit: "mm",
-      format: [80, 100], // ID card size
-    });
-
-    pdf.addImage(imgData, "JPEG", 0, 0, 80, 100);
-    pdf.save("voter-id-card.pdf");
-  };
-
-  // 👇 expose method to parent
-  useImperativeHandle(ref, () => ({
-    downloadPDF,
-  }));
-
-  return (
-    <div
-  ref={cardRef}
-  className="w-[320px] border rounded-xl p-4 bg-white shadow"
->
-  {/* TOP IMAGE */}
-  <div className="flex justify-center mb-3">
-    <img
-      src={user.profile_photo_url || "/avatar.png"}
-      alt="Profile"
-      className="w-20 h-20 rounded-full object-cover border-2 border-red-200"
-    />
-  </div>
-
-  {/* SERIAL */}
-  <div className="flex items-center gap-2 mb-3 justify-center">
-    <span className="font-semibold text-sm">
-      ক্রমিক নং: {user.id || "—"}
-    </span>
-  </div>
-
-  {/* DETAILS */}
-  <table className="w-full text-sm border border-black border-collapse">
-  <tbody>
-    <tr>
-      <td className="border border-black px-2 py-1 font-semibold w-32">
-        নাম
-      </td>
-      <td className="border border-black px-2 py-1">
-        {user.name}
-      </td>
-    </tr>
-
-    <tr>
-      <td className="border border-black px-2 py-1 font-semibold">
-        ভোটার নং
-      </td>
-      <td className="border border-black px-2 py-1">
-        {user.nid_no}
-      </td>
-    </tr>
-
-    <tr>
-      <td className="border border-black px-2 py-1 font-semibold">
-        পিতা/স্বামী
-      </td>
-      <td className="border border-black px-2 py-1">
-        {user.guardian || "—"}
-      </td>
-    </tr>
-
-    <tr>
-      <td className="border border-black px-2 py-1 font-semibold">
-        জন্ম তারিখ
-      </td>
-      <td className="border border-black px-2 py-1">
-        {user.created_at?.split("T")[0]}
-      </td>
-    </tr>
-
-    <tr>
-      <td className="border border-black px-2 py-1 font-semibold">
-        ঠিকানা
-      </td>
-      <td className="border border-black px-2 py-1">
-        {user.present_address}
-      </td>
-    </tr>
-
-    <tr>
-      <td className="border border-black px-2 py-1 font-semibold">
-        ভোট কেন্দ্র
-      </td>
-      <td className="border border-black px-2 py-1">
-        {user.center || "—"}
-      </td>
-    </tr>
-
-    <tr>
-      <td className="border border-black px-2 py-1 font-semibold">
-        কক্ষ নং
-      </td>
-      <td className="border border-black px-2 py-1">
-        {user.room || "—"}
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-  );
-});
+const sidebarItems = [
+  { key: "dashboard", label: "Dashboard", icon: Home },
+  { key: "idcard", label: "ID Card", icon: CreditCard },
+  {
+    key: "survey",
+    label: "Survey",
+    icon: Building2,
+    children: [
+      { key: "survey-pending", label: "Pending Survey", status: "pending" },
+      { key: "survey-completed", label: "Completed Survey", status: "completed" },
+    ],
+  },
+];
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
   const idCardRef = useRef();
-  const [isLoggedIn, setIsLoggedIn] = useState(
-  !!localStorage.getItem("accessToken")
-  );
+  const [openSurveyMenu, setOpenSurveyMenu] = useState(false);
+  const [user, setUser] = useState(null);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef(null);
+  const [activeSection, setActiveSection] = useState("dashboard");
+  const [totalAssigned, setTotalAssigned] = useState(0);
+  const [title, setTitle] = useState("Dashboard");
 
+  /* ------------------ AUTH ------------------ */
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (!storedUser) {
@@ -142,43 +45,214 @@ export default function Dashboard() {
     }
   }, [navigate]);
 
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   if (!user) return <p className="text-center">লোড হচ্ছে...</p>;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="max-w-5xl mx-auto px-4 py-10">
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-red-700">ড্যাশবোর্ড</h1>
-          <button
-            onClick={() => {
-              setIsLoggedIn(false);
-              localStorage.clear();
-              navigate("/login");
-            }}
-            className="bg-red-600 text-white px-6 py-3 rounded-lg"
-          >
-            লগআউট
-          </button>
-        </div>
+      <div className="flex flex-1 bg-slate-50">
 
-        {/* ID Card */}
-        <div className="mt-8">
-          <IDCard ref={idCardRef} user={user} />
-        </div>
+        {/* Sidebar */}
+        <aside className="w-64 bg-gray-800 text-white p-5 space-y-3">
+          {/* <h2 className="text-xl font-bold mb-4">
+            <span className="text-green-600">সবার আগে</span>{" "}
+            <span className="text-red-600">বাংলাদেশ</span>
+          </h2> */}
 
-        {/* Download Button */}
-        <button
-          onClick={() => idCardRef.current.downloadPDF()}
-          className="mt-6 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
-        >
-          ID Card ডাউনলোড করুন
-        </button>
-      </main>
+          {sidebarItems.map((item) => (
+            <div key={item.key}>
+              {/* Parent Button */}
+              <button
+                onClick={() => {
+                  if (item.children) {
+                    setActiveSection(item.key);
+                    setOpenSurveyMenu(!openSurveyMenu);
+                    setTitle(item.label);
+                  } else {
+                    setActiveSection(item.key);
+                    setTitle(item.label);
+                  }
+                }}
+                className={`flex items-center justify-between gap-3 w-full px-4 py-3 rounded-lg
+        ${activeSection === item.key
+                    ? "bg-white text-blue-600"
+                    : "hover:bg-gray-700"
+                  }`}
+              >
+                <div className="flex items-center gap-3">
+                  <item.icon size={18} />
+                  {item.label}
+                </div>
+
+                {item.children && (
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform ${openSurveyMenu ? "rotate-180" : ""
+                      }`}
+                  />
+                )}
+              </button>
+
+              {/* Submenu */}
+              {item.children && openSurveyMenu && (
+                <div className="ml-8 mt-1 space-y-1">
+                  {item.children.map((child) => (
+                    <button
+                      key={child.key}
+                      onClick={() => setActiveSection(child.key)}
+                      className={`block w-full text-left px-4 py-2 rounded-md text-sm
+              ${activeSection === child.key
+                          ? "bg-blue-600 text-white"
+                          : "text-gray-300 hover:bg-gray-700"
+                        }`}
+                    >
+                      {child.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+
+          {/* Header */}
+          <div className="relative flex items-center mb-6">
+            <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">{title}</h1>
+
+            {/* Profile Menu */}
+            <div ref={profileRef} className="ml-auto relative">
+              <button
+                onClick={() => setProfileOpen(!profileOpen)}
+                className="flex items-center gap-2 bg-white px-3 py-2 rounded-full shadow hover:bg-slate-100"
+              >
+                <img
+                  src={
+                    user.image
+                      ? `https://election-backend.dotzpos.com/public/volunteer/${user.image}`
+                      : "/avatar.png"
+                  }
+                  alt="Profile"
+                  className="w-9 h-9 rounded-full object-cover border"
+                />
+                <ChevronDown size={16} />
+              </button>
+
+              {/* Dropdown */}
+              {profileOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
+                  <button
+                    onClick={() => {
+                      setProfileOpen(false);
+                      setActiveSection("profile");
+                      setTitle("User Profile")
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full"
+                  >
+                    <User size={16} explain />
+                    Profile
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setProfileOpen(false);
+                      navigate("/change-password");
+                      setTitle("Change Password")
+                    }}
+                    className="flex items-center gap-2 w-full px-4 py-3 text-sm hover:bg-slate-100"
+                  >
+                    <Lock size={16} /> Change Password
+                  </button>
+
+                  <hr />
+
+                  <button
+                    onClick={() => {
+                      localStorage.clear();
+                      navigate("/login");
+                    }}
+                    className="flex items-center gap-2 w-full px-4 py-3 text-sm text-red-600 hover:bg-red-50"
+                  >
+                    <LogOut size={16} /> Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ---------------- DASHBOARD ---------------- */}
+          {activeSection === "dashboard" && (
+            <>
+              <div className="bg-yellow-100 rounded-xl p-6 mb-8">
+                <h2 className="text-xl font-bold text-gray-800">
+                  স্বাগতম, {user.name}!
+                </h2>
+                <p className="text-gray-600 mt-1">
+                  আপনার অংশগ্রহণ আমাদের টিমকে আরও শক্তিশালী করে তুলছে।
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <StatCard title="Total Voter Assigned" value={totalAssigned} />
+                <StatCard title="Pending Survey" value="4" />
+                <StatCard title="Completed Survey" value="25" />
+                <StatCard title="Imcomplete Survey" value="25" />
+              </div>
+            </>
+          )}
+
+          {/* ---------------- ID CARD ---------------- */}
+          {activeSection === "idcard" && (
+            <div>
+              <IDCard ref={idCardRef} user={user} />
+
+              <button
+                onClick={() => idCardRef.current?.downloadPDF()}
+                className="mt-6 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
+              >
+                ID Card ডাউনলোড করুন
+              </button>
+            </div>
+          )}
+
+          {/* PROFILE SECTION */}
+          {activeSection === "profile" && (
+            <UserProfile user={user} />
+          )}
+          {/* ---------------- SURVEY ---------------- */}
+          {activeSection === "survey" && (
+            <Survey user={user} />
+          )}
+
+
+        </main>
+      </div>
 
       <Footer />
+    </div>
+  );
+}
+
+/* Stat Card */
+function StatCard({ title, value }) {
+  return (
+    <div className="bg-slate-100 text-slate-800 rounded-xl p-6 shadow-md">
+      <h3 className="text-sm opacity-90">{title}</h3>
+      <p className="text-3xl font-bold mt-2">{value}</p>
     </div>
   );
 }

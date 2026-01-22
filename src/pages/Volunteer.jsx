@@ -64,7 +64,7 @@ export default function Volunteer() {
               transition={{ duration: 0.6 }}
               className="inline-block mb-6 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700"
             >
-              স্বেচ্ছাসেবক হোন
+              সমাজসেবক হোন
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ export default function Volunteer() {
               className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
               data-testid="text-biography-title"
             >
-              স্বেচ্ছাসেবক হোন এবং সমাজে পরিবর্তনের অংশ হয়ে উঠুন
+              সমাজসেবক হোন এবং সমাজে পরিবর্তনের অংশ হয়ে উঠুন
             </motion.h1>
 
             <motion.p
@@ -98,10 +98,10 @@ export default function Volunteer() {
             >
               <h2 className="text-3xl md:text-4xl font-bold text-red-700 mb-4">
                 আমাদের সঙ্গে{" "}
-                <span className="text-gray-900">স্বেচ্ছাসেবক হবেন কেন?</span>
+                <span className="text-gray-900">সমাজসেবক হবেন কেন?</span>
               </h2>
               <p className="text-political-dark/70 max-w-2xl mx-auto">
-                হাজারো নিবেদিত স্বেচ্ছাসেবকের সঙ্গে যুক্ত হন, যারা নিজ নিজ
+                হাজারো নিবেদিত সমাজসেবকের সঙ্গে যুক্ত হন, যারা নিজ নিজ
                 কমিউনিটিতে বাস্তব পরিবর্তন এনে দিচ্ছেন।
               </p>
             </motion.div>
@@ -156,7 +156,7 @@ export default function Volunteer() {
                   </span>
                 </h2>
                 <p className="text-political-dark/70 mb-8">
-                  স্বেচ্ছাসেবক হিসেবে নিবন্ধনের জন্য নিচের ফর্মটি পূরণ করুন।
+                  সমাজসেবক হিসেবে নিবন্ধনের জন্য নিচের ফর্মটি পূরণ করুন।
                   আমরা সব ধরনের পটভূমি ও দক্ষতার মানুষকে স্বাগত জানাই। একসাথে
                   কাজ করে আমরা সমাজে বাস্তব পরিবর্তন আনতে পারি।
                 </p>
@@ -227,8 +227,8 @@ export function VolunteerForm() {
       /^01[3-9]\d{8}$/.test(v.replace(/\D/g, ""))
         ? ""
         : "সঠিক বাংলাদেশি ফোন নম্বর লিখুন",
-    nid_no: (v) =>
-      /^(\d{10}|\d{17})$/.test(v) ? "" : "১০ বা ১৭ সংখ্যার সঠিক NID দিন",
+    // nid_no: (v) =>
+    //   /^(\d{10}|\d{17})$/.test(v) ? "" : "১০ বা ১৭ সংখ্যার সঠিক NID দিন",
     ward_no: (v) => (v ? "" : "ওয়ার্ড নির্বাচন করুন"),
     skill: (v) => (v ? "" : "একটি অপশন নির্বাচন করুন"),
   };
@@ -246,18 +246,19 @@ export function VolunteerForm() {
     });
   };
 
-  const validatePassword = (value) => {
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-    if (!regex.test(value)) {
-      return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে এবং একটি বড় হাতের অক্ষর, একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে।";
-    }
-    return "";
-  };
+  // const validatePassword = (value) => {
+  //   const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+  //   if (!regex.test(value)) {
+  //     return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে এবং একটি বড় হাতের অক্ষর, একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে।";
+  //   }
+  //   return "";
+  // };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setPasswordError(validatePassword(value));
+    //setPasswordError(validatePassword(value));
+    setPasswordError("");
   };
 
   const isValid =
@@ -273,7 +274,7 @@ export function VolunteerForm() {
         method="post"
         className="w-full max-w-4xl bg-gray-50 rounded-xl shadow-md p-8"
         onSubmit={handleSubmit}
-        //encType="multipart/form-data"
+      //encType="multipart/form-data"
       >
         {actionData?.error && (
           <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
@@ -282,7 +283,7 @@ export function VolunteerForm() {
         )}
 
         <h2 className="text-3xl font-bold text-red-700 mb-8">
-          স্বেচ্ছাসেবক <span className="text-gray-900">নিবন্ধন</span>
+          সমাজসেবক <span className="text-gray-900">নিবন্ধন</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -373,6 +374,42 @@ export function VolunteerForm() {
               className="w-full border rounded-lg p-2"
             />
           </div>
+
+          {/* Date of Birth */}
+          <div>
+            <label className="block font-medium mb-2">জন্ম তারিখ</label>
+            <input
+              type="date"
+              name="date_of_birth"
+              max={new Date(
+                new Date().setFullYear(new Date().getFullYear() - 18)
+              )
+                .toISOString()
+                .split("T")[0]}
+              className="w-full rounded-lg border px-4 py-3"
+            />
+          </div>
+
+          {/* Blood Group */}
+          <div>
+            <label className="block font-medium mb-2">রক্তের গ্রুপ</label>
+            <select
+              name="blood_group"
+              className="w-full rounded-lg border px-4 py-3"
+            >
+              <option value="">নির্বাচন করুন</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
+          </div>
+
+
           {/* Ward */}
           <div>
             <label className="block text-gray-800 font-medium mb-2">
@@ -455,11 +492,10 @@ export function VolunteerForm() {
         <button
           type="submit"
           disabled={!isValid || loading}
-          className={`mt-8 w-full text-white font-semibold py-4 rounded-lg transition ${
-            !isValid || loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-red-600 hover:bg-red-700"
-          }`}
+          className={`mt-8 w-full text-white font-semibold py-4 rounded-lg transition ${!isValid || loading
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-red-600 hover:bg-red-700"
+            }`}
         >
           {loading ? "দয়া করে অপেক্ষা করুন..." : "আবেদন জমা দিন"}
         </button>
@@ -485,19 +521,22 @@ export function VolunteerForm() {
     const formData = new FormData(event.target);
 
     try {
-      console.log("Submitting volunteer data:", formData);
+      console.log("Submitting volunteer data:");
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
       const response = await createVolunteer(formData);
 
       if (!response || !response.data.id) {
         setLoading(false);
         return {
           error: true,
-          message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।",
+          message: "সমাজসেবক নিবন্ধন ব্যর্থ হয়েছে।",
         };
       }
 
       console.log("Volunteer created:", response);
-      alert("স্বেচ্ছাসেবক নিবন্ধন সফল হয়েছে!");
+      alert("সমাজসেবক নিবন্ধন সফল হয়েছে!");
       navigate("/login", { replace: true });
 
       setLoading(false);
@@ -513,7 +552,7 @@ export function VolunteerForm() {
           message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
         };
       }
-      return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+      return { error: true, message: "সমাজসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
     }
   }
 }
@@ -527,7 +566,7 @@ export async function action({ request }) {
   // try {
   //   const response = await createVolunteer(data);
   //   if (!response || !response.id) {
-  //     return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+  //     return { error: true, message: "সমাজসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
   //   }
   //   return {
   //     success: true,
@@ -540,6 +579,6 @@ export async function action({ request }) {
   //       message: "আপনি সম্ভবত একই ফোন বা ইমেইল দিয়ে ইতিমধ্যে আবেদন করেছেন।",
   //     };
   //   }
-  //   return { error: true, message: "স্বেচ্ছাসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
+  //   return { error: true, message: "সমাজসেবক নিবন্ধন ব্যর্থ হয়েছে।" };
   // }
 }

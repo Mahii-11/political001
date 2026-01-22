@@ -148,6 +148,58 @@ export async function getVoteCenter(params) {
   }
 }
 
+export async function getImage(imgName) {
+  try {
+    console.log("API call params:", { imgName });
+    const res = await fetch(`${API_BASE_URL}/public/volunteer/${imgName}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch Image: ${res.status}`);
+    } const data = await res.json();
+    // ✅ Extract wardList from response 
+    console.log("Vote Center API response data:", data);
+    return data ?? [];
+  } catch (error) {
+    console.error("getUserImg error:", error);
+    return [];
+  }
+}
+
+
+export async function getVolunteerAssignList() {
+  try {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      throw new Error("No access token found");
+    }
+
+    console.log("Using token:", token);
+    const res = await fetch(
+      `${API_BASE_URL}/volunteer-assign-list`,
+      {
+        method: "GET",
+        headers: {
+          //"Authorization": `Bearer ${token}`,
+          "Authorization": `Bearer 102|q61fs6tSAIJTBCehaSyr8Cm0Hjt8Fu6G0bHRYpDWdbd991e5`,
+          "Accept": "application/json",
+        },
+      }
+    );
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(errorText || "Failed to fetch volunteer assign list");
+    }
+
+    const data = await res.json();
+    console.log("getVolunteerAssignList response data:", data);
+    return data;
+  } catch (error) {
+    console.error("getVolunteerAssignList error:", error);
+    throw error;
+  }
+}
+
 // ---------------- POST / PATCH ----------------
 export async function createVolunteer(formData) {
   try {
@@ -214,6 +266,7 @@ export async function loginUser(credentials) {
     }
 
     const json = await res.json();
+    console.log("loginUser response:", json);
     return json;
   } catch (error) {
     console.error("loginUser error:", error);

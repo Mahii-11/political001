@@ -27,10 +27,10 @@ export default function Login() {
         "ইমেইল অথবা 017 দিয়ে শুরু হওয়া ১১ সংখ্যার মোবাইল নম্বর দিন";
     }
 
-    if (!passwordRegex.test(password)) {
-      newErrors.password =
-        "পাসওয়ার্ড কমপক্ষে ৮ অক্ষর এবং একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে";
-    }
+    // if (!passwordRegex.test(password)) {
+    //   newErrors.password =
+    //     "পাসওয়ার্ড কমপক্ষে ৮ অক্ষর এবং একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে";
+    // }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -52,7 +52,7 @@ export default function Login() {
         password,
       });
 
-      localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("accessToken", response.token);
       localStorage.setItem("user", JSON.stringify(response.user));
 
       navigate("/dashboard");
@@ -67,7 +67,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar /> 
 
       <div className="flex-grow flex items-center justify-center bg-gradient-to-b from-slate-50 via-white to-slate-100 px-4">
         {/* Background Blur */}

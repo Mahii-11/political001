@@ -34,12 +34,12 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "ঠিকানা",
-    content: "১২৩ প্রচারণা এভিনিউ, ঢাকা ১০০০, বাংলাদেশ",
+    content: "১৯/১, ২০/১, বি.সি.সি রোড, ওয়ারী, ঢাকা -১২০৩",
   },
   {
     icon: Phone,
     title: "ফোন",
-    content: "+৮৮ ০১৭১ ২৩৪ ৫৬৭৮",
+    content: "+৮৮০১৬০৩৪৪৩২৭৮",
   },
   {
     icon: Mail,

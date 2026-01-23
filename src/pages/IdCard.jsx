@@ -9,16 +9,18 @@ const IDCard = forwardRef(({ user }, ref) => {
     const canvas = await html2canvas(cardRef.current, {
       scale: 2,
       useCORS: true,
+      backgroundColor: null,
     });
 
-    const imgData = canvas.toDataURL("image/jpeg");
+    const imgData = canvas.toDataURL("image/jpeg", 1.0);
 
     const pdf = new jsPDF({
+      orientation: "portrait",
       unit: "mm",
-      format: [80, 100],
+      format: [60, 100],
     });
 
-    pdf.addImage(imgData, "JPEG", 0, 0, 80, 100);
+    pdf.addImage(imgData, "JPEG", 0, 0, 60, 100);
     pdf.save("voter-id-card.pdf");
   };
 
@@ -27,81 +29,133 @@ const IDCard = forwardRef(({ user }, ref) => {
   return (
     <div
       ref={cardRef}
-      className="w-[320px] rounded-2xl overflow-hidden shadow-2xl relative border border-gray-300"
-      style={{
-        backgroundImage: "url('/bd-flag.png')",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "200px",
-      }}
+      className="w-[320px] rounded-2xl overflow-hidden shadow-2xl relative border border-gray-300 bg-white"
     >
-      {/* watermark overlay */}
-      <div className="absolute inset-0 bg-white/90" />
-
-      <div className="relative z-10">
-
-        {/* HEADER BAR */}
-        <div className="bg-gradient-to-r from-green-700 via-green-600 to-green-700 text-white text-center py-3">
-          <h2 className="text-sm font-bold tracking-wide">
-            গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
-          </h2>
-          <p className="text-xs tracking-wider">
-            ভোটার পরিচয়পত্র
-          </p>
-        </div>
-
-        {/* PROFILE SECTION */}
-        <div className="flex flex-col items-center mt-3 px-4">
-          <div className="bg-white p-1 rounded-full shadow-lg">
+      {/* ================= HEADER ================= */}
+      <div>
+        <div className="bg-gradient-to-r from-green-700 via-green-600 to-green-700 text-white py-3 px-4 flex items-center justify-between">
+          {/* Left Logo */}
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-md">
             <img
-              src={`https://election-backend.dotzpos.com/public/volunteer/${user.image}`}
-              alt="Profile"
-              className="w-24 h-24 rounded-full object-cover border-4 border-red-500"
+              src="/images/logo.jpeg"
+              alt="Logo"
+              className="w-full h-full object-cover"
             />
           </div>
 
-          <h3 className="mt-2 font-bold text-base text-gray-800">
-            {user.name}
-          </h3>
+          {/* Text */}
+          <div className="text-center flex-1 mx-2">
+            <h2 className="text-[13px] font-bold tracking-wide">
+              হামিদুর রহমান হামিদ ভাইকে
+            </h2>
+            <h2 className="text-[13px] font-bold tracking-wide">
+              ধানের শীষে ভোট দিন
+            </h2>
+          </div>
 
-          <span className="text-xs text-gray-600 mt-1">
-            ক্রমিক নং: {user.id}
-          </span>
-        </div>
-
-        {/* INFO TABLE */}
-        <div className="px-4 mt-4">
-          <div className="border rounded-xl overflow-hidden">
-            {[
-              ["ভোটার নং", user.nid_no],
-              ["পিতা/স্বামী", user.guardian || "—"],
-              ["জন্ম তারিখ", user.created_at?.split("T")[0]],
-              ["ঠিকানা", user.present_address],
-              ["ভোট কেন্দ্র", user.center || "—"],
-              ["কক্ষ নং", user.room || "—"],
-            ].map(([label, value], index) => (
-              <div
-                key={label}
-                className={`grid grid-cols-3 text-xs
-                  ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}
-                  border-b last:border-none`}
-              >
-                <div className="px-2 py-2 font-semibold text-gray-700">
-                  {label}
-                </div>
-                <div className="col-span-2 px-2 py-2 text-gray-800">
-                  {value}
-                </div>
-              </div>
-            ))}
+          {/* Right Logo */}
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-md">
+            <img
+              src="/images/logo.jpeg"
+              alt="Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
-        {/* FOOTER */}
-        <div className="text-center text-[10px] text-gray-600 mt-3 mb-3 px-4">
-          এই কার্ডটি সরকার কর্তৃক প্রদত্ত এবং হস্তান্তরযোগ্য নয়
+        {/* Subtitle Strip */}
+        <div className="text-center py-2">
+          <p className="inline-block bg-[#E3F2E1] text-[#6A1B1A] font-semibold text-xs tracking-wider px-3 py-1 rounded-md">
+            সমাজসেবক পরিচয় পত্র
+          </p>
         </div>
       </div>
+
+      {/* ================= PROFILE IMAGE ================= */}
+      <div className="flex justify-center mt-4">
+        <div className="bg-white p-1 rounded-full shadow-lg">
+          <img
+            src={`https://election-backend.dotzpos.com/public/volunteer/${user?.image}`}
+            alt="Profile"
+            className="w-24 h-24 rounded-full object-cover border-4 border-red-600"
+          />
+        </div>
+      </div>
+
+      {/* ================= INFO TABLE WITH WATERMARK ================= */}
+      <div className="px-4 mt-4">
+        <div
+          className="relative border rounded-xl overflow-hidden"
+          style={{
+            backgroundImage: "url('/images/logo.jpeg')",
+            backgroundRepeat: "repeat",
+            backgroundPosition: "center",
+            backgroundSize: "160px",
+          }}
+        >
+          {/* Watermark opacity layer */}
+          <div className="absolute inset-0 bg-white/85"></div>
+
+          {/* Table Content */}
+          <div className="relative px-4 py-4">
+            {/* Watermark */}
+            <div
+              className="absolute inset-0 opacity-10 flex items-center justify-center"
+              style={{
+                backgroundImage: "url('/images/logo.jpeg')",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "120px",
+              }}
+            ></div>
+
+            {/* Info Content */}
+            <div className="relative z-10 flex flex-col gap-2">
+              {/* Name */}
+              <h1 className="text-center text-lg font-bold text-gray-800">
+                {user?.name}
+              </h1>
+
+              {/* Divider */}
+              <div className="border-t border-gray-300 my-1"></div>
+
+              {/* Details */}
+              <div className="flex justify-between text-sm text-gray-700">
+                <span className="font-semibold">এনআইডি:</span>
+                <span>{user?.nid_no || "—"}</span>
+              </div>
+
+              <div className="flex justify-between text-sm text-gray-700">
+                <span className="font-semibold">ফোন:</span>
+                <span>{user?.phone || "—"}</span>
+              </div>
+
+              <div className="flex justify-between text-sm text-gray-700">
+                <span className="font-semibold">রক্তের গ্রুপ:</span>
+                <span>{user?.blood_group || "—"}</span>
+              </div>
+
+              <div className="flex justify-between text-sm text-gray-700">
+                <span className="font-semibold">ঠিকানা:</span>
+                <span>{user?.present_address || "—"}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ================= FOOTER ================= */}
+      <div className="flex justify-center mt-4">
+        <div className="w-20 h-20 overflow-hidden border-2 border-white shadow-md">
+          <img
+            src="/images/qrcode.png"
+            alt="QR Code"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
     </div>
   );
 });

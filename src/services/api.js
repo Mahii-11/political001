@@ -181,8 +181,8 @@ export async function getVolunteerAssignList() {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
-          //"Authorization": `Bearer 102|q61fs6tSAIJTBCehaSyr8Cm0Hjt8Fu6G0bHRYpDWdbd991e5`,
-          "Accept": "application/json",
+          "Authorization": `Bearer 102|q61fs6tSAIJTBCehaSyr8Cm0Hjt8Fu6G0bHRYpDWdbd991e5`,
+          //"Accept": "application/json",
         },
       }
     );

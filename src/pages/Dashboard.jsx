@@ -8,6 +8,7 @@ import IDCard from "./IdCard";
 import UserProfile from "./UserProfile";
 import Survey from "./Survey";
 import { ChevronDown, User, Lock, LogOut } from "lucide-react";
+import ChangePassword from "./ChangePassword";
 
 const sidebarItems = [
   { key: "dashboard", label: "Dashboard", icon: Home },
@@ -170,7 +171,7 @@ export default function Dashboard() {
                   <button
                     onClick={() => {
                       setProfileOpen(false);
-                      navigate("/change-password");
+                      setActiveSection("changePassword");
                       setTitle("Change Password")
                     }}
                     className="flex items-center gap-2 w-full px-4 py-3 text-sm hover:bg-slate-100"
@@ -207,10 +208,10 @@ export default function Dashboard() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <StatCard title="Total Voter Assigned" value={totalAssigned} />
-                <StatCard title="Pending Survey" value="4" />
-                <StatCard title="Completed Survey" value="25" />
-                <StatCard title="Imcomplete Survey" value="25" />
+                <StatCard title="Total Voter Assigned" value={totalAssigned} bg="bg-blue-50" titleColor="text-blue-900" valueColor="text-blue-700" />
+                <StatCard title="Pending Survey" value="4" bg="bg-amber-50" titleColor="text-amber-900" valueColor="text-amber-700" />
+                <StatCard title="Completed Survey" value="25" bg="bg-emerald-50" titleColor="text-emerald-900" valueColor="text-emerald-700" />
+                <StatCard title="Imcomplete Survey" value="25" bg="bg-red-50" titleColor="text-red-900" valueColor="text-red-700" />
               </div>
             </>
           )}
@@ -237,6 +238,12 @@ export default function Dashboard() {
           {activeSection === "survey" && (
             <Survey user={user} />
           )}
+          {/* ---------------- Change Password ---------------- */}
+          {activeSection === "changePassword" && (
+            <div className="flex justify-center">
+              <ChangePassword user={user} />
+            </div>
+          )}
 
 
         </main>
@@ -248,11 +255,19 @@ export default function Dashboard() {
 }
 
 /* Stat Card */
-function StatCard({ title, value }) {
+function StatCard({ title, value, bg, titleColor, valueColor }) {
   return (
-    <div className="bg-slate-100 text-slate-800 rounded-xl p-6 shadow-md">
-      <h3 className="text-sm opacity-90">{title}</h3>
-      <p className="text-3xl font-bold mt-2">{value}</p>
+    <div
+      className={`${bg} rounded-xl p-6 shadow-md transition-transform duration-300 hover:-translate-y-1`}
+    >
+      <h3 className={`text-sm font-medium ${titleColor}`}>
+        {title}
+      </h3>
+
+      <p className={`text-3xl font-bold mt-2 ${valueColor}`}>
+        {value}
+      </p>
     </div>
   );
 }
+

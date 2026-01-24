@@ -27,7 +27,7 @@ function getPaginationPages(currentPage, totalPages) {
 }
 
 export default function Survey() {
-  const ITEMS_PER_PAGE = 1;
+  const ITEMS_PER_PAGE = 10;
 
   const [voters, setVoters] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -10,6 +10,7 @@ import BlueSection from "../components/home/BlueSecion";
 import AnimatedHeader from "../components/home/AnimatedHeader";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import LogoBnp from "@/components/home/LogoBnp";
+import BnpCard from "@/components/home/BnpCard";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
           <CampaignNews />
         </div>
         <MissionSection />
+        <BnpCard/>
         <CampaignSchedule />
         <QuoteSection />
         <GallerySection />

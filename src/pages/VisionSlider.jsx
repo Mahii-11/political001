@@ -221,54 +221,79 @@ export default function HorizontalCarousel() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl" />
+        <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+          <div className="absolute top-24 left-1/2 -translate-x-1/2 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block mb-6 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700"
-          >
-            ৩১ দফা
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 mb-4"
-            data-testid="text-biography-title"
-          >
-            আমাদের ৩১ দফা
-          </motion.h1>
+         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 flex flex-col items-center justify-center">
+  {/* Background Gradient + Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r from-emerald-100 via-white to-rose-100 opacity-40 -z-10"></div>
+  <div className="absolute inset-0 bg-white/20 backdrop-blur-xl -z-10"></div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="mx-auto max-w-2xl text-base md:text-lg text-slate-600 leading-relaxed"
-          >
-            জনগণের কল্যাণে আমাদের রাজনৈতিক প্রতিশ্রুতি ও সংস্কার পরিকল্পনা
-          </motion.p>
+  {/* Main Wrapper */}
+  <div className="relative w-full flex items-center justify-center">
+    
+    {/* Left Image */}
+    <img
+      src="/images/tarique-3.png"
+      alt="নেত্রী"
+      className="hidden md:block absolute left-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 h-64 rounded-xl shadow-2xl  object-cover"
+    />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-10 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-lg p-5 shadow-lg"
-          >
-            <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-rose-300/30 blur-3xl" />
+    {/* Main Content */}
+    <div className="text-center max-w-2xl mx-4 md:mx-0">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="inline-block mb-6 rounded-full border border-emerald-300 bg-emerald-100 px-6 py-2 text-sm font-semibold text-emerald-800 shadow-sm"
+      >
+        ৩১ দফা
+      </motion.div>
 
-            <p className="relative text-sm md:text-base text-slate-700">
-              আমাদের ৩১ দফা হলো জনগণের কল্যাণ, ন্যায়পরায়ণতা এবং সমাজের সার্বিক
-              উন্নয়নের উদ্দেশ্যে প্রণীত স্পষ্ট ও বাস্তবসম্মত কর্মপরিকল্পনা।
-              প্রতিটি দফা জনগণের জীবনমান উন্নয়ন এবং সমতার প্রতিশ্রুতি
-              বাস্তবায়নের দিকে লক্ষ্য রাখে।
-            </p>
-          </motion.div>
-        </div>
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight"
+        data-testid="text-biography-title"
+      >
+         আমাদের ৩১ দফা
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className="mx-auto text-base md:text-lg text-slate-700 leading-relaxed"
+      >
+         জনগণের কল্যাণে আমাদের রাজনৈতিক প্রতিশ্রুতি ও সংস্কার পরিকল্পনা
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="mt-10 mx-auto rounded-3xl border border-slate-200 bg-white/60 backdrop-blur-xl p-6 shadow-xl relative overflow-hidden"
+      >
+        <div className="absolute -inset-x-10 top-0 h-28 rounded-full bg-rose-300/20 blur-3xl" />
+        <p className="relative text-sm md:text-base text-slate-800 leading-relaxed">
+         আমাদের ৩১ দফা হলো জনগণের কল্যাণ, ন্যায়পরায়ণতা এবং সমাজের সার্বিক
+         উন্নয়নের উদ্দেশ্যে প্রণীত স্পষ্ট ও বাস্তবসম্মত কর্মপরিকল্পনা।
+         প্রতিটি দফা জনগণের জীবনমান উন্নয়ন এবং সমতার প্রতিশ্রুতি
+         বাস্তবায়নের দিকে লক্ষ্য রাখে।
+        </p>
+      </motion.div>
+    </div>
+
+   
+    <img
+      src="/images/hamid10.png"
+      alt="জিয়াউর রহমান"
+      className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 w-40 md:w-48 lg:w-56 rounded-xl shadow-2xl  object-cover"
+    />
+      </div>
+      </div> 
       </section>
       <section className="py-24 bg-[#fdf6f6]">
         <div className="max-w-7xl mx-auto px-6">

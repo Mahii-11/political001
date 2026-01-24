@@ -45,8 +45,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* White Card Footer */}
         <div className="bg-white shadow-2xl rounded-2xl p-12">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-9">
-
+            <div>
               <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -71,7 +70,8 @@ export function Footer() {
                 পুরান ঢাকার অলিগলি আর ধুলোবালির সাথেই মিশে আছে আমার শৈশব। এখানকার মানুষের ভালোবাসা আর কোলাহলেই আমি আমার 'নিজস্বতা' খুঁজে পাই। আপনাদের সাথে থাকলেই মনে হয় আমি আমার শেকড়ের কাছে আছি। আমার স্বপ্ন এখন আপনাদের ঘিরেই এই ঐতিহ্যের শহরকে আগলে রাখা আমার প্রাণের দায়িত্ব। জীবনের বাকিটা পথ আপনাদের সাথেই হেসে-খেলে পার করে দিতে চাই।
               </p>
             </motion.div>
-            {/* Contact Info */}
+            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-9">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export function Footer() {
                 <li className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
                   <Mail className="w-5 h-5 text-emerald-700 flex-shrink-0" />
                   <span className="text-gray-800 text-sm">
-                    contact@netacampaign.com
+                    hamidurrahmanhamid67@gmail.com
                   </span>
                 </li>
               </ul>
@@ -267,7 +267,7 @@ export function Footer() {
           {/* Footer Bottom */}
           <div className="border-t border-gray-200/50 mt-10 pt-6">
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-gray-600">
-              <p>© 2025 Hamidur Rahman Hamid</p>
+              <p>© 2026 Hamidur Rahman Hamid</p>
              <div className="flex items-center gap-1 text-gray-700">
                <MdLocationOn className="text-base -mt-[1px]" />
                 <span className="leading-tight">

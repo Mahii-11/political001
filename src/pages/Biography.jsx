@@ -15,6 +15,15 @@ const achievementIconMap = {
   "মানবতার সেবক": Heart,
 };
 
+ const stripHeadingsAndParagraphs = (html) => {
+    if (!html) return "";
+    // 1️⃣ remove H1–H6
+    let cleanHtml = html.replace(/<\/?h[1-6][^>]*>/gi, "");
+    // 2️⃣ remove <p> tags
+    cleanHtml = cleanHtml.replace(/<\/?p[^>]*>/gi, "");
+    return cleanHtml;
+  };
+
 export default function Biography() {
   const [lifeline, setLifeline] = useState([]);
   const [achievements, setAchievements] = useState([]);
@@ -184,7 +193,7 @@ export default function Biography() {
                           {item.sub_title}
                         </h3>
                         <p className="text-political-dark/70 text-sm mt-2">
-                          {item.description}
+                        { stripHeadingsAndParagraphs (item.description) }
                         </p>
                       </CardContent>
                     </Card>
@@ -234,7 +243,7 @@ export default function Biography() {
                           {item.name}
                         </h3>
                         <p className="text-sm text-political-dark/60">
-                          {item.description}
+                          {stripHeadingsAndParagraphs(item.description)}
                         </p>
                       </CardContent>
                     </Card>

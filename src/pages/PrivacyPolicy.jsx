@@ -49,7 +49,7 @@ export default function PrivacyPolicy() {
       title: "Children’s Privacy",
       icon: Users,
       content:
-        "This platform is not intended for children under the age of 13.",
+        "Our app strictly prohibits any form of Child Sexual Abuse and Exploitation (CSAE), including but not limited to: - Sexual content involving minors - Grooming, solicitation, or exploitation of children - Sharing, uploading, or distributing abusive content involving minors We do not allow users to create, upload, share, or engage with content that harms or exploits children in any way.",
     },
     {
       title: "Third Parties",
@@ -86,9 +86,9 @@ export default function PrivacyPolicy() {
               Privacy Policy
             </h1>
             <p className="mt-4 text-gray-900 max-w-2xl mx-auto">
-              Effective Date:{" "}
-              <span className="text-gray-800">[Insert Date]</span> · Last
-              Updated: <span className="text-gray-800">[Insert Date]</span>
+              Effective Date:
+              <span className="text-gray-800"> Jan 1, 2026</span> · Last
+              Updated: <span className="text-gray-800">Jan 25, 2026</span>
             </p>
           </motion.div>
 
@@ -140,10 +140,10 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
             <div className="space-y-3 text-gray-900">
               <p className="flex items-center gap-3">
-                <Mail className="text-indigo-400" /> Email: [Insert Email]
+                <Mail className="text-indigo-400" /> Email: hamidurrahmanhamid67@gmail.com
               </p>
               <p className="flex items-center gap-3">
-                <Phone className="text-cyan-400" /> Phone: [Insert Phone Number]
+                <Phone className="text-cyan-400" /> <span>Phone: +15146605108</span>
               </p>
             </div>
           </motion.div>
@@ -153,3 +153,8 @@ export default function PrivacyPolicy() {
     </>
   );
 }
+
+
+
+//+১ ৫১৪ ৬৬০-৫১০৮
+//+৮৮০ ১৯৯১-৬৪৬২৫৪

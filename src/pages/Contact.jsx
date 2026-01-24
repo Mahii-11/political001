@@ -21,6 +21,7 @@ import {
 import { useToast } from "../hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { storeContact } from "@/services/api";
+import Dhaka7Map from "./Dhaka7Map";
 
 // Schema remains same (JS compatible)
 const contactSchema = z.object({
@@ -311,8 +312,10 @@ export default function Contact() {
             </div>
           </div>
         </section>
+       <Dhaka7Map />
+        
 
-        <section className="h-[400px] w-full">
+     { /*  <section className="h-[400px] w-full">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3105.1535824073767!2d-77.03687908464756!3d38.89767297957029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b7bce1485b19%3A0x9fc7bf09fd5d9daf!2sWhite%20House!5e0!3m2!1sen!2sus!4v1635000000000!5m2!1sen!2sus"
             width="100%"
@@ -323,7 +326,7 @@ export default function Contact() {
             referrerPolicy="no-referrer-when-downgrade"
             title="Campaign Headquarters Location"
           />
-        </section>
+        </section> */ }
       </main>
       <Footer />
     </div>

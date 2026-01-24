@@ -48,7 +48,7 @@ const accordionData = [
 ];
 
 
-
+/*
 const milestones = [
   { year: "২০১৯", event: "প্রচারণার সূচনা" },
   { year: "২০২০", event: "প্রথম বড় র‍্যালি" },
@@ -56,7 +56,7 @@ const milestones = [
   { year: "২০২২", event: "নীতিমালা প্রকাশ" },
   { year: "২০২৩", event: "৫০টি রাজ্যে পৌঁছানো" },
   { year: "২০২৪", event: "নির্বাচন বছরের প্রচারণা" },
-];
+];  */
 
 export default function About() {
   return (
@@ -237,9 +237,8 @@ export default function About() {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
+       {/*   <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            {/* Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -250,8 +249,6 @@ export default function About() {
                 আমাদের <span className="text-gray-900">যাত্রা</span>
               </h2>
             </motion.div>
-
-            {/* Milestones */}
             <div className="flex flex-wrap justify-center gap-10">
               {milestones.map((milestone, index) => (
                 <motion.div
@@ -262,7 +259,7 @@ export default function About() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="text-center group"
                 >
-                  {/* Circle */}
+               
                   <div
                     className="
         w-20 h-20 rounded-full
@@ -281,8 +278,6 @@ group-hover:ring-4 group-hover:ring-green-400/40
                       {milestone.year}
                     </span>
                   </div>
-
-                  {/* Text */}
                   <p className="text-gray-800 text-sm max-w-[140px] mx-auto leading-snug line-clamp-2 min-h-[2.5rem]">
                     {milestone.event}
                   </p>
@@ -290,7 +285,7 @@ group-hover:ring-4 group-hover:ring-green-400/40
               ))}
             </div>
           </div>
-        </section>
+        </section>  */}
       </main>
       <Footer />
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Footer.jsx
 import { motion } from "framer-motion";
 import {
@@ -95,7 +96,7 @@ export  function Footer() {
 
         {/* ===== Bottom Bar ===== */}
         <div className="mt-10 border-t py-6 text-center text-xs text-gray-600">
-          <p>© 2026 Hamidur Rahman Hamid</p>
+          <p>© 2026 Hamidur Rahman</p>
           <div className="flex justify-center items-center gap-1 mt-1">
             <MdLocationOn />
             <span>১৯/১, বি.সি.সি রোড, ওয়ারী, ঢাকা -১২০৩</span>
